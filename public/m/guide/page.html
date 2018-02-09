@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title>HOT-T MOBILE</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="Generator" content="">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+</head>
+
+<style type="text/css">
+body {font-family:dotum; font-size:12px;}
+h1 {text-align:center; background:#333; color:#fff; padding:20px 0;}
+h2 {text-align:right;}
+i {position:relative; display:inline-block; font-style:normal;  background:#303541; padding:5px 10px; color:#fff; border-radius:3px;}   
+i:after {position:absolute; top:50%; right:-8px; display:block; margin-top:-4px; width:0px; height:0px; border:4px solid transparent; border-left:4px solid #303541; content:"";}
+table {border-collapse:collapse; width:100%; }
+table th {border:1px solid #e1e1e1; text-align:left; background:#f3f3f3;  font-weight:normal; padding-left:10px; line-height:30px;}
+table th .icon {line-height:12px; }
+table th .icon i {margin-left:10px;background:#ff4000;}
+table th .icon i:after {left:-8px;border:4px solid transparent; border-right:4px solid #ff4000; content:"";}
+table td {padding:5px; border:1px solid #e1e1e1; font-size:12px; }
+.icon {display:inline-block;}
+.icon span {display:inline-block; width:26px; text-align:center; font-size:14px;vertical-align:middle; }
+@media screen and (max-width:767px) {
+table {}
+table tr,
+table th,
+table td {display:block; border-bottom:none;}
+table td:last-child {border-bottom:1px solid #e1e1e1;}
+table tr {margin-bottom:10px;}
+}
+strong {color:#ff6000;}
+</style>
+
+<body>
+<h1>HOT-T MOBILE</h1>
+<table>
+	<colgroup>
+		<col style="width:370px"><col style="width:200px"><col style="width:300px"><col style="width:auto">
+	</colgroup>
+	<tbody>
+		<tr>
+			<th>공통페이지 (header,footer,lnb) <div class="icon"><i>PSD</i></div></th>
+			<td></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : <br>
+				2016-08-24 footer 입점문의 레이어 팝업 추가<br>
+				2016-08-29 하단고정 퀵메뉴 추가
+			</td>
+		</tr>
+		<tr>
+			<th>메인 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../shop.php" target="_blank">shop.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : <strong>2016-09-13 상품리스트 수정</strong></td>
+		</tr>
+		<tr>
+			<th>상품 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../productlist.php?code=001" target="_blank">productlist.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : <strong>2016-09-13 상품리스트 수정</strong></td>
+		</tr>
+		<tr>
+			<th>상품 상세 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../goods_detail.php" target="_blank">goods_detail.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>상품 상세 > 매장재고조회<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../offline_inventory.php" target="_blank">offline_inventory.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-21 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>상품 상세 > 매장재고조회 상세<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../offline_inventory_view.php" target="_blank">offline_inventory_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-21 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>브랜드 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../brand_detail.php" target="_blank">brand_detail.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>NEW 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../new_product.php" target="_blank">new_product.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : <strong>2016-10-25 추가</strong></td>
+		</tr>
+		<tr>
+			<th>로그인 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../login.php" target="_blank">login.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>아이디/비밀번호찾기 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../findid.php" target="_blank">findid.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 기존에 분리돼있던 비밀번호찾기 페이지 내용이 이곳으로 이동(스크립트는 이동하지 않았음)</td>
+		</tr>
+		<tr>
+			<th>회원가입_메인 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../member_agree.php" target="_blank">member_agree.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>회원가입_간편가입 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../member_simple_join.php" target="_blank">member_simple_join.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>회원가입_약관동의 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../member_certi.php" target="_blank">member_certi.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>회원가입_가입실패 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../member_chkid.php" target="_blank">member_chkid.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-08-26 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>회원가입_정보입력 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../member_join.php" target="_blank">member_join.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>회원가입_가입완료 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../member_joinend.php" target="_blank">member_joinend.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>주문결제 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../order.php" target="_blank">order.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>주문결제완료 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../order_end.php" target="_blank">order_end.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 메인 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage.php" target="_blank">mypage.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : <strong>2016-09-21 최근본상품 마크업 수정. 정상가격 추가(개발필요)</strong></td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 메인_준회원 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_associate.php" target="_blank">mypage_associate.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 쇼핑내역 > 주문배송 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_orderlist.php" target="_blank">mypage_orderlist.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 페이징 여부 확인하기</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 쇼핑내역 > 주문배송 상세 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_orderlist_view.php" target="_blank">mypage_orderlist_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 반품신청, 배송지목록, 환불정책 팝업 디자인 필요</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 쇼핑내역 > 교환신청 <div class="icon"><i>PSD</i></div></th>
+			<td>-</td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 마이페이지 > 쇼핑내역 > 주문배송 상세 페이지에 레이어팝업으로 포함</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 쇼핑내역 > 환불신청 <div class="icon"><i>PSD</i></div></th>
+			<td>-</td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 마이페이지 > 쇼핑내역 > 주문배송 상세 페이지에 레이어팝업으로 포함</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 쇼핑내역 > 취소반품교환 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_cancellist.php" target="_blank">mypage_cancellist.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 신청/완료 탭형식</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 쇼핑내역 > 취소반품교환 상세 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_cancellist_view.php" target="_blank">mypage_cancellist_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 기존에 없던 페이지</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 쇼핑내역 > 증빙서류발급 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_references.php" target="_blank">mypage_references.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 기존에 없던 페이지<br>매출전표 팝업 디자인 필요</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 관심내역 > 최근본상품 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../lately_view.php" target="_blank">lately_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : <strong>2016-09-21 마크업 수정. 정상가격 추가(개발필요)</strong></td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 관심내역 > 장바구니 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../basket.php" target="_blank">basket.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 관심내역 > 좋아요 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_good.php" target="_blank">mypage_good.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 기존에 없던 페이지</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 관심내역 > 좋아요 > 인스타그램 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_good_instagram.php" target="_blank">mypage_good_instagram.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-19 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 나의혜택 > 등급별 혜택 </th>
+			<td><a href="" target="_blank"></a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 나의혜택 > Action 포인트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_act_point.php" target="_blank">mypage_act_point.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-08-24 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 나의혜택 > 쿠폰 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_coupon.php" target="_blank">mypage_coupon.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-08-24 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 활동내역 > 상품리뷰 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_review.php" target="_blank">mypage_review.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 활동내역 > 상품리뷰 쓰기 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_review_write.php" target="_blank">mypage_review_write.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-08-25 별점 삭제</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 활동내역 > 상품문의 목록 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_qna.php" target="_blank">mypage_qna.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 활동내역 > 상품문의 쓰기 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../product_qna_write.php" target="_blank">product_qna_write.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 활동내역 > 1:1문의 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_personal.php" target="_blank">mypage_personal.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 활동내역 > 1:1문의 작성/수정 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../cscenter.php?csMenu=personal" target="_blank">cscenter.php?csMenu=personal</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 회원정보 > 정보수정 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_usermodify.php" target="_blank">mypage_usermodify.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 회원정보 > 배송지 관리 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../address_change.php" target="_blank">address_change.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 기존에 없던 페이지</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 회원정보 > 배송지 관리 - 수정/추가<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../address_change_write.php" target="_blank">address_change_write.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 기존에 없던 페이지</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 회원정보 > 환불계좌 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../refund_account.php" target="_blank">refund_account.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 기존에 없던 페이지</td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 서비스 해지 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_memberout.php" target="_blank">mypage_memberout.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : </td>
+		</tr>
+		<tr>
+			<th>마이페이지 > 서비스 해지 완료 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../mypage_memberout.php" target="_blank">mypage_memberout.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 :2016-08-23 서비스 해지 페이지에 추가</td>
+		</tr>
+		<tr>
+			<th>고객센터 > 공지사항 리스트<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../customer_notice.php" target="_blank">customer_notice.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 :2016-08-24 페이지 추가(기존에 없던 페이지)</td>
+		</tr>
+		<tr>
+			<th>고객센터 > 공지사항 상세<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../customer_notice_view.php" target="_blank">customer_notice_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 :2016-08-24 페이지 추가(기존에 없던 페이지)</td>
+		</tr>
+		<tr>
+			<th>고객센터 > FAQ <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../customer_faq.php" target="_blank">customer_faq.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 :2016-08-24 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>검색결과 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../productsearch.php" target="_blank">productsearch.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 :2016-08-23 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>이벤트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../promotion.php" target="_blank">promotion.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-08-24 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>이벤트 상세<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../promotion_detail.php" target="_blank">promotion_detail.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>
+				메모 : <br>
+				2016-08-25 댓글, 상품리스트, 포토리스트,뷰,팝업 추가<br>
+				<strong>2016-09-13 댓글 리스트 수정(개발 필요)</strong>
+			</td>
+		</tr>
+		<tr>
+			<th>매장위치 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../store.php" target="_blank">store.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-08-24 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>매장위치 상세 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../store_view.php" target="_blank">store_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-08-24 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>인스타그램_리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../instagram_list.php" target="_blank">instagram_list.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>
+				메모 : <br>
+				2016-09-05 페이지 추가<br>
+				<strong>2016-09-21 검색,sorting 추가, 관련상품없음 버튼 추가</strong>
+			</td>
+		</tr>
+		<tr>
+			<th>스토어스토리_리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../store_story.php" target="_blank">store_story.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>
+				메모 : <br>
+				2016-09-05 페이지 추가 (스토어스토리_등록/수정 레이어 팝업)<br>
+				<strong>2016-09-20 검색창, sorting 추가</strong>
+			</td>
+		</tr>
+		<tr>
+			<th>스토어스토리_상세 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../store_story_view.php" target="_blank">store_story_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-05 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>포럼 메인 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../forum_main.php" target="_blank">forum_main.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-12 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>포럼 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../forum_list.php" target="_blank">forum_list.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-12 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>포럼 쓰기 <div class="icon"><i>PSD</i></div></th>
+			<td>-</td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 포럼 리스트에 레이어팝업으로 포함</td>
+		</tr>
+		<tr>
+			<th>포럼 보기 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../forum_view.php" target="_blank">forum_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-12 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>포럼신청 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../forum_apply_list.php" target="_blank">forum_apply_list.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-12 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>포럼신청 쓰기 <div class="icon"><i>PSD</i></div></th>
+			<td>-</td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 포럼신청 리스트에 레이어팝업으로 포함</td>
+		</tr>
+		<tr>
+			<th>포럼신청 보기 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../forum_apply_view.php" target="_blank">forum_apply_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-12 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>매거진 리스트 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../magazine_list.php" target="_blank">magazine_list.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-19 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>매거진 상세 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../magazine_detail.php" target="_blank">magazine_detail.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-19 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>핫딜 <div class="icon"><i>PSD</i></div></th>
+			<td><a href="../hotdeal.php" target="_blank">hotdeal.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>
+				메모 : <br>
+				2016-09-20 페이지 추가<br>
+				<strong>2016-09-21 디데이 날짜 삭제</strong>
+			</td>
+		</tr>
+		<tr>
+			<th>룩북 리스트<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../lookbook.php" target="_blank">lookbook.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-20 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>룩북 상세<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../lookbook_detail.php" target="_blank">lookbook_detail.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-20 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>나의 포럼 리스트<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../myforum.php" target="_blank">myforum.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-21 페이지 추가</td>
+		</tr>
+		<tr>
+			<th>나의 포럼 상세<div class="icon"><i>PSD</i></div></th>
+			<td><a href="../myforum_view.php" target="_blank">myforum_view.php</a></td>
+			<td>
+				<div class="icon"><i>iPhone5</i><span></span></div>
+				<div class="icon"><i>iPhone6+</i><span></span></div>
+				<div class="icon"><i>Android</i><span></span></div>
+			</td>
+			<td>메모 : 2016-09-21 페이지 추가(포럼 보기 페이지와 동일)</td>
+		</tr>
+	</tbody>
+</table>
+</body>
+
+</html>

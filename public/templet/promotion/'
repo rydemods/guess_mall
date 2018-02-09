@@ -1,0 +1,539 @@
+<?php
+    $keyword = trim($_GET['keyword']);              // 검색어
+    $view_mode = trim($_GET['view_mode']) ?: "M";   // M : 이미지 형태, L : 리스트 형태
+    $view_type = trim($_GET['view_type']) ?: "A";   // A : 전체, R : 진행중 이벤트, E : 종료된 이벤트, W : 당첨자 발표
+
+//    $view_type_val = trim($_GET['view_type_val']) ?: "C";   // C : CATEGORY VIEW, B : BRAND VIEW
+    $view_type_val = trim($_GET['view_type_val']);          // 빈값 : 전체, C : CATEGORY VIEW, B : BRAND VIEW
+    $view_type_code = trim($_GET['view_type_code']);        // 카테고리 코드 or 브랜드 코드
+
+    // ==================================================================================
+    // 상단 롤링 배너
+    // ==================================================================================
+    $sql  = "SELECT * FROM tblmainbannerimg ";
+    $sql .= "WHERE banner_no = 102 and banner_hidden='1' ORDER BY banner_sort ";
+    $result = pmysql_query($sql);
+
+    $bannerCount = 0;
+    $bannerHtml = '';
+    while ( $row = pmysql_fetch_array( $result ) ){
+        $bannerLink = "javascript:;";
+        if ( !empty($row['banner_link']) ) {
+            $bannerLink = $row['banner_link'];
+        }
+
+        if ( $isMobile ) {
+            $bannerHtml .= "<li class=\"js-carousel-content\">";
+        } else {
+            $bannerHtml .= '<li>';
+        }
+
+        if ( !empty($row['banner_link']) ) { 
+            if ( $isMobile && strpos($row['banner_link'],'/front/') !== false) { // 경로 재설정을 한다.
+                $row['banner_link'] = str_replace("/front/","/m/", $row['banner_link']);
+            }
+
+            $bannerHtml .= '<a href="' . $row['banner_link'] . '" target="' . $row['banner_target'] . '">';
+        }
+
+        if ( $isMobile ) {
+            $bannerHtml .= '<img src="' .  $p_img= getProductImage($Dir.DataDir.'shopimages/mainbanner/', $row['banner_img_m']) . '" alt="">';
+        } else {
+            $bannerHtml .= '<img src="/data/shopimages/mainbanner/' . $row['banner_img'] . '" alt="">';
+        }
+
+        if ( !empty($row['banner_link']) ) {
+            $bannerHtml .= '</a>';
+        }
+
+        $bannerHtml .= '</li>';
+
+        $bannerCount++;
+    }
+
+    $bannerRollingClass = '';
+    if ( $bannerCount >= 2 ) {
+        $bannerRollingClass = 'with-btn-rolling-big';
+    }
+
+    // ==================================================================================
+    // 중간 배너1
+    // ==================================================================================
+    $sql  = "SELECT * FROM tblmainbannerimg ";
+    $sql .= "WHERE banner_no = 105 and banner_hidden='1' ORDER BY banner_sort limit 1";
+    $result = pmysql_query($sql);
+
+    $banner1_html = '';
+    while ( $row = pmysql_fetch_array( $result ) ){
+        if ( $isMobile ) {
+            $banner1_html = '<li>';
+            if ( !empty($row['banner_link']) ) {
+                if ( strpos($row['banner_link'],'/front/') !== false) { // 경로 재설정을 한다.
+                    $row['banner_link'] = str_replace("/front/","/m/", $row['banner_link']);
+                }
+
+                $banner1_html .= '<a href="' . $row['banner_link'] . '" target="' . $row['banner_target'] . '">';
+            }
+            $banner1_html .= '<img src="/data/shopimages/mainbanner/' . $row['banner_img_m'] . '" alt="">';
+            if ( !empty($row['banner_link']) ) {
+                $banner1_html .= '</a>';
+            }
+            $banner1_html .= '</li>';
+        } else {
+            if ( !empty($row['banner_link']) ) {
+                $banner1_html = '<a href="' . $row['banner_link'] . '" target="' . $row['banner_target'] . '">';
+            }
+            $banner1_html .= '<img src="/data/shopimages/mainbanner/' . $row['banner_img'] . '" alt="">';
+            if ( !empty($row['banner_link']) ) {
+                $banner1_html .= '</a>';
+            }
+        }
+    }
+
+    // ==================================================================================
+    // 중간 배너2
+    // ==================================================================================
+    $sql  = "SELECT * FROM tblmainbannerimg ";
+    $sql .= "WHERE banner_no = 106 and banner_hidden='1' ORDER BY banner_sort limit 1";
+    $result = pmysql_query($sql);
+
+    $banner2_html = '';
+    while ( $row = pmysql_fetch_array( $result ) ){
+        if ( $isMobile ) {
+            $banner2_html = '<li>';
+            if ( !empty($row['banner_link']) ) {
+                if ( strpos($row['banner_link'],'/front/') !== false) { // 경로 재설정을 한다.
+                    $row['banner_link'] = str_replace("/front/","/m/", $row['banner_link']);
+                }
+
+                $banner2_html .= '<a href="' . $row['banner_link'] . '" target="' . $row['banner_target'] . '">';
+            }
+            $banner2_html .= '<img src="/data/shopimages/mainbanner/' . $row['banner_img_m'] . '" alt="">';
+            if ( !empty($row['banner_link']) ) {
+                $banner2_html .= '</a>';
+            }
+            $banner2_html .= '</li>';
+        } else {
+            if ( !empty($row['banner_link']) ) {
+                $banner2_html = '<a href="' . $row['banner_link'] . '" target="' . $row['banner_target'] . '">';
+            }
+            $banner2_html .= '<img src="/data/shopimages/mainbanner/' . $row['banner_img'] . '" alt="">';
+            if ( !empty($row['banner_link']) ) {
+                $banner2_html .= '</a>';
+            }
+        }
+    }
+
+    // ===========================================================================
+    // 프로모션 리스트
+    // ===========================================================================
+
+    // 한 페이지에 노출한 갯수
+    if ( $view_mode == "M" ) {
+        $listnum = 12;
+        $list_html = '<ul class="promotion-list-thumb">';
+    } else if ( $view_mode == "L" ) {
+        $listnum = 5;
+        $list_html = '
+            <div class="list-style">
+                                <table class="th-top">
+                                    <caption>이벤트 목록</caption>
+                                    <colgroup><col style="width:80px"><col style="width:auto"><col style="width:230px"><col style="width:150px"><col style="width:130px"></colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">NO</th>
+                                            <th scope="col">제목</th>
+                                            <th scope="col">이벤트 기간</th>
+                                            <th scope="col">발표일</th>
+                                            <th scope="col">상태</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>';
+    }
+
+    $event_status = "-";
+    if ( $view_type === "R" ) {
+        $event_status = "진행중";
+    } else if ( $view_type === "E" ) {
+        $event_status = "종료";
+    } else if ( $view_type === "W" ) {
+        $event_status = "종료";
+    }
+
+    $sql = GetPromotionList($view_type, $keyword, $view_type_val, $view_type_code);
+//exdebug($sql);
+
+    $paging = new New_Templet_paging($sql, 10, $listnum, 'GoPage', true);
+    $t_count = $paging->t_count; 
+    $gotopage = $paging->gotopage;
+
+    $sql = $paging->getSql($sql);
+
+    $result = pmysql_query($sql);
+    $num = (($gotopage - 1) * $listnum) + 1;
+
+    $addedQuery = "view_mode={$view_mode}&view_type={$view_type}";
+    
+    while ( $row = pmysql_fetch_array($result) ) {
+        $start_date = str_replace("-", ".", $row['start_date']);
+        $end_date = str_replace("-", ".", $row['end_date']);
+        $publication_date = str_replace("-", ".", $row['publication_date']);
+
+        $promotionBannerImg = getProductImage($Dir.'/data/shopimages/timesale/', $row['thumb_img']);
+
+        if ( $view_mode == "M" ) {
+            $list_html .= '
+                    <li>
+                        <a href="/front/promotion_detail.php?idx=' . $row['idx'] . '&event_type=' . $row['event_type'] . '&' . $addedQuery . '">
+                            <figure>
+                                <img src="' . $promotionBannerImg . '" alt="" width="345" height="117">
+                                <figcaption>' . $row['title'] . '</figcaption>
+                                <span class="date">' . $start_date . '~' . $end_date . '</span>
+                            </figure>
+                        </a>
+                    </li>';
+        } elseif ( $view_mode == "L" ) {
+            $list_html .= '
+                    <tr>
+                        <td>' . $num . '</td>
+                        <td class="subject"><a href="/front/promotion_detail.php?idx=' . $row['idx'] . '&event_type=' . $row['event_type'] . '&' . $addedQuery . '">' . $row['title'] . '</a></td>
+                        <td>' . $start_date . ' ~ ' . $end_date . '</td>
+                        <td>' . $publication_date . '</td>
+                        <td>' . $event_status . '</td>
+                    </tr>
+            ';
+        }
+
+        $num++;
+    }
+
+    if ( $view_mode == "M" ) {
+        $list_html .= '</ul>';
+    } else if ( $view_mode == "L" ) {
+        $list_html .= '
+                </tbody>
+            </table>
+        </div>';
+    }
+
+    // ===========================================================================
+    // 당첨자 발표 (최대 4개)
+    // 처음에는 당첨자발표 내용이 있고 발표일이 오늘과 같거나 지난 경우에만 노출
+    // 기획전 등록시 발표일을 꼭 입력하지 않아도 되니 당첨자발표가 있는 경우로 함.
+    // ===========================================================================
+    $sql  = "SELECT * FROM tblpromo ";
+//    $sql .= "WHERE display_type in ('A', 'P') and winner_list_content <> '' AND current_date >= publication_date ";   // '전시상태'가 모두 or PC인 경우만
+
+    if ( $isMobile ) {
+        $sql .= "WHERE display_type in ('A', 'M') AND hidden='1' AND winner_list_content <> '' ";   // '전시상태'가 모두 or 모바일인 경우만
+    } else {
+        $sql .= "WHERE display_type in ('A', 'P') AND hidden='1' AND winner_list_content <> '' ";   // '전시상태'가 모두 or PC인 경우만
+    }
+    $sql .= "ORDER BY rdate desc LIMIT 4";
+
+    $winner_list_html = '';
+    $result = pmysql_query($sql);
+    while ( $row = pmysql_fetch_array($result) ) {
+        $linkUrl = '/front/promotion_detail.php';
+        if ( $isMobile ) {
+            $linkUrl = '/m/promotion_detail.php';
+        }
+        $linkUrl .= '?idx=' . $row['idx'] . '&event_type=' . $row['event_type'] . '&' . $addedQuery;
+
+        if ( $isMobile ) {
+            $winner_list_html .= '<li><a href="' . $linkUrl . '">' . $row['title'] . '</a></li>';
+        } else {
+            $winner_list_html .= '<dd><a href="' . $linkUrl . '">' . $row['title'] . '</a></dd>';
+        }
+    }
+
+    // ===========================================================================
+    // 카테고리/브랜드 정보로 select box 만들기
+    // ===========================================================================
+
+    if ( $view_type_val == "" ) {
+        $firstItemName = "ALL";
+        $displayDefaultList = "";
+        $displayCategoryList = "none";
+        $displayBrandList = "none";
+    } elseif ( $view_type_val == "C" ) {
+        $firstItemName = "CATEGORY VIEW";
+        $displayDefaultList = "none";
+        $displayCategoryList = "";
+        $displayBrandList = "none";
+    } elseif ( $view_type_val == "B" ) {
+        $firstItemName = "BRAND VIEW";
+        $displayDefaultList = "none";
+        $displayCategoryList = "none";
+        $displayBrandList = "";
+    }
+
+    $left_main_select = '
+                        <div class="select small">
+                            <span class="ctrl"><span class="arrow"></span></span>
+                            <button type="button" class="my_value"><span>' . $firstItemName . '</span></button>
+                            <ul class="a_list">
+                                <li><a href="javascript:;" onClick="javascript:select_toggle(\'all_view\');">ALL</a></li>
+                                <li><a href="javascript:;" onClick="javascript:select_toggle(\'category_view\');">CATEGORY VIEW</a></li>
+                                <li><a href="javascript:;" onClick="javascript:select_toggle(\'brand_view\');">BRAND VIEW</a></li>
+                            </ul>
+                        </div>';
+
+    // 카테고리
+    $sql  = "select * from tblproductcode where code_b = '000' order by cate_sort asc ";
+    $result = pmysql_query($sql);
+
+    $firstItemName = "";
+    $left_category_select_item = "";
+
+    $idx = 0;
+    while( $row = pmysql_fetch_array( $result ) ){
+        if ( empty($firstItemName) && $row['code_a'] === $view_type_code ) {
+            $firstItemName = $row['code_name'];
+        }
+
+        if ( $idx == 0 && !empty($view_type_code) ) {
+            $left_category_select_item .= '<li><a href="javascript:;" onClick="javascript:GoSelect(\'C\', \'\');">ALL</a></li>';
+        }
+
+        $left_category_select_item .= '<li><a href="javascript:;" onClick="javascript:GoSelect(\'C\', \'' . $row['code_a']. '\');">' . $row['code_name'] . '</a></li>';
+        $idx++;
+    }
+
+    if ( empty($firstItemName) ) {
+        $firstItemName = "ALL";
+    }
+    
+    $left_default_select = '<div class="select small" id="default_view" style="display:' . $displayDefaultList . ';">
+                            <span class="ctrl"><span class="arrow"></span></span>
+                            <button type="button" class="my_value"><span>' . $firstItemName . '</span></button>
+                            <ul class="a_list">&nbsp;</ul></div>';
+
+    $left_category_select = '<div class="select small" id="category_view" style="display:' . $displayCategoryList . ';">
+                            <span class="ctrl"><span class="arrow"></span></span>
+                            <button type="button" class="my_value"><span>' . $firstItemName . '</span></button>
+                            <ul class="a_list">';
+    $left_category_select .= $left_category_select_item;
+    $left_category_select .= '</ul>
+                        </div>';
+
+    // 브랜드
+
+    $sql  = "SELECT bridx_list FROM tblpromo ";
+    $sql .= "WHERE bridx_list <> '' AND hidden = '1' AND display_type in ('A', 'P') ";
+    $result = pmysql_query($sql);
+
+    $arrBrandIdxList = array();
+    while ( $row = pmysql_fetch_object($result) ) {
+        $arrBrandIdx = explode(",", $row->bridx_list);
+
+        foreach ( $arrBrandIdx as $key => $val ) {
+            if ( !empty($val) && !in_array($val, $arrBrandIdxList) ) {
+                array_push($arrBrandIdxList, $val);
+            }
+        }
+    }
+    pmysql_free_result($result);
+
+/*
+    $sql = "SELECT distinct a.bridx, b.brandname ";
+    $sql .= "FROM tblpromo a LEFT JOIN tblproductbrand b ON a.bridx = b.bridx ";
+    $sql .= "WHERE a.bridx is not null and b.brandname <> '' AND display_type in ('A', 'P') ";
+    $sql .= "ORDER BY brandname asc ";
+*/
+
+    $sql  = "SELECT bridx, brandname ";
+    $sql .= "FROM tblproductbrand ";
+    $sql .= "WHERE brandname <> '' AND bridx in ( " . implode(",", $arrBrandIdxList) . " ) ";
+    $sql .= "ORDER BY brandname asc ";
+
+    $result = pmysql_query($sql);
+
+    $firstItemName = "";
+    $left_brand_select_item = '';
+
+    $idx = 0;
+    while( $row = pmysql_fetch_array( $result ) ){
+        if ( empty($firstItemName) && $row['bridx'] === $view_type_code ) {
+            $firstItemName = $row['brandname'];
+        }
+
+        if ( $idx == 0 && !empty($view_type_code) ) {
+            $left_brand_select_item .= '<li><a href="javascript:;" onClick="javascript:GoSelect(\'B\', \'\');">ALL</a></li>';
+        }
+
+        $left_brand_select_item .= '<li><a href="javascript:;" onClick="javascript:GoSelect(\'B\', \'' . $row['bridx']. '\');">' . $row['brandname'] . '</a></li>';
+        $idx++;
+    }
+
+    if ( empty($firstItemName) ) {
+        $firstItemName = "ALL";
+    }
+
+    $left_brand_select = '<div class="select small" id="brand_view" style="display:' . $displayBrandList . ';">
+                            <span class="ctrl"><span class="arrow"></span></span>
+                            <button type="button" class="my_value"><span>' . $firstItemName . '</span></button>
+                            <ul class="a_list">';
+    $left_brand_select .= $left_brand_select_item;
+    $left_brand_select .= '</ul>
+                        </div>';
+
+
+    if ( $isMobile ) {
+        include($Dir.TempletDir."promotion/mobile/promotion_TEM001.php");
+    } else {
+?>
+<div id="contents">
+        <div class="containerBody sub-page">
+
+            <div class="promotion-wrap">
+
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="/">HOME</a></li>
+                        <li class="on"><a href="<?=$_SERVER['PHP_SELF']?>">PROMOTION</a></li>
+                    </ul>
+                </div><!-- //.breadcrumb -->
+
+                <div class="banner-rolling <?=$bannerRollingClass?>">
+                    <ul id="rolling-s1130">';
+                        <?=$bannerHtml?>
+                    </ul>
+                </div><!-- //.banner-rolling -->
+
+                <div class="banner-with-notice">
+                    <div class="inner-box"><?=$banner1_html?></div>
+                    <div class="inner-box"><?=$banner2_html?></a></div>
+                    <dl class="win-user">
+                        <dt>당첨자발표<a href="/front/promotion.php?view_mode=L&view_type=W" class="see-more">SEE MORE</a></dt>
+                        <?=$winner_list_html?>
+                    </dl>
+                </div><!-- //.banner-with-notice -->
+
+                <div class="half-align">
+                    <div class="inner">
+                        <?=$left_main_select?>
+                        <?=$left_default_select?>
+                        <?=$left_category_select?>
+                        <?=$left_brand_select?>
+                    </div>
+                    <div class="inner">
+                        
+                        <div class="search-box-def">
+                            <form name=form2 method=get action="<?=$_SERVER['PHP_SELF']?>" onsubmit="return chk_from()">
+                                <input type=hidden name=listnum value="<?=$listnum?>">
+                                <input type=hidden name=block value="<?=$block?>">
+                                <input type=hidden name=gotopage value="<?=$gotopage?>">
+                                <input type=hidden name=view_mode value="<?=$view_mode?>">
+                                <input type=hidden name=view_type value="<?=$view_type?>">
+                                <input type=hidden name=view_type_val value="<?=$view_type_val?>">
+                                <input type=hidden name=view_type_code value="<?=$view_type_code?>">
+
+                                <fieldset>
+                                    <legend>상품검색어 입력</legend>
+                                    <input type="text" name="keyword" id="keyword" value="<?=$keyword?>" title="검색어 입력자리">
+                                    <button type="submit">검색하기</button>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="select small">
+                            <span class="ctrl"><span class="arrow"></span></span>
+
+                            <?php
+                                $firstItemName = "진행중 이벤트";
+                                if ( $view_mode == "L" ) {
+                                    if ( $view_type == "E" ) {
+                                        $firstItemName = "종료된 이벤트";
+                                    } elseif ( $view_type == "W" ) {
+                                        $firstItemName = "당첨자 발표"; 
+                                    }
+                                } 
+
+                            ?>
+
+                            <button type="button" class="my_value"><span><?=$firstItemName?></span></button>
+                            <ul class="a_list">
+                                <li><a href="javascript:;" onClick="javascript:GoList('M', 'R');">진행중 이벤트</a></li>
+                                <li><a href="javascript:;" onClick="javascript:GoList('L', 'E');">종료된 이벤트</a></li>
+                                <li><a href="javascript:;" onClick="javascript:GoList('L', 'W');">당첨자 발표</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div><!-- //.half-align -->
+
+                <?=$list_html?><!-- //.promotion-list-thumb -->
+
+                <?php if($paging->t_count >= 1 ) { ?>
+                <div class="list-paginate-wrap">
+                    <div class="list-paginate">
+                        <?=$a_div_prev_page.$paging->a_prev_page.$paging->print_page.$paging->a_next_page.$a_div_next_page?>
+                    </div>
+                </div>
+                <?php } ?>
+
+            </div><!-- //.promotion-wrap -->
+
+        </div><!-- //.containerBody -->
+    </div><!-- //contents -->
+
+<script type="text/javascript">
+
+function chk_from() {
+    if ( $("#keyword").val().trim() == "" ) {
+        // 검색어가 없는 경우
+        alert("검색어를 입력해 주세요.");
+        $("#search_word").val("").focus();
+        return false;
+    }
+
+    document.form2.block.value = "";
+    document.form2.gotopage.value = "";
+}
+
+function GoPage(block,gotopage) {
+    document.form2.block.value=block;
+    document.form2.gotopage.value=gotopage;
+    document.form2.submit();
+}
+
+function select_toggle(id) {
+    if ( id == "all_view" ) {
+        document.form2.block.value=0;
+        document.form2.gotopage.value=0;
+        document.form2.view_type_code.value = "";
+        document.form2.view_type_val.value = "";
+        document.form2.keyword.value = "";
+        document.form2.submit();
+    } else {
+        var view_list_id = [ 'default_view', 'category_view', 'brand_view' ];
+
+        for ( i = 0; i < view_list_id.length; i++ ) {
+            if ( id == view_list_id[i] ) {
+                $("#" + view_list_id[i]).show();
+            } else {
+                $("#" + view_list_id[i]).hide();
+            }
+        }
+    }
+}
+
+function GoSelect(view_type_val, view_type_code) {
+    document.form2.view_type_val.value = view_type_val;
+    document.form2.view_type_code.value = view_type_code;
+    document.form2.block.value = "";
+    document.form2.gotopage.value = "";
+    document.form2.submit();
+}
+
+function GoList(view_mode, view_type) {
+    document.form2.view_mode.value = view_mode;
+    document.form2.view_type.value = view_type;
+    document.form2.block.value = "";
+    document.form2.gotopage.value = "";
+    document.form2.submit();
+}
+
+</script>    
+
+<?php } ?>

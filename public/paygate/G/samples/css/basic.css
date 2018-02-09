@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 기본 포멧에 대한 css */
+
+*{margin:0px; padding:0px; font-family:"맑은 고딕",Arial, Helvetica, sans-serif; font-size:13px; color:#5a6464; border:0px; line-height:130%}
+
+/* index 가운데로 오게하는 css */
+html {height:100%;}
+body {height:100%; margin:0;  }
+
+/*index */
+a{text-decoration:none;color:#145aa4; font-weight:bold }
+
+/*contents*/
+input{margin-left:10px; border:#999999 solid 1px; padding:3px}
+select{margin-left:10px;  border:#999999 solid 1px; padding:1px; width:160px}

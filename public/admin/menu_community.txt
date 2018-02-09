@@ -1,0 +1,36 @@
+[콘텐츠관리]
+#<매장관리>
+#매장 관리 = store_list.php
+
+#<SNS 관리>
+#인스타그램 리스트 = sns_goods_link.php
+#인스타그램 리스트 = sns_instagram_list.php
+
+<브랜드 게시판>
+#브댄드 게시판 리스트 = community_brandboard.php
+#브랜드 게시판 카테고리 = community_brandboard_pagecate.php
+
+<E-CATALOG 관리>
+E-CATALOG 리스트 = community_ecatalog_list.php
+
+<LOOKBOOK 관리>
+LOOKBOOK 리스트 = community_lookbook_list.php
+
+<MAGAZINE 관리>
+MAGAZINE 리스트 = community_magazine_list.php
+
+<INSTAGRAM 관리>
+INSTAGRAM 리스트 = sns_list.php
+
+<MOVIE 관리>
+MOVIE 리스트 = admin.php?page=community_movie_list
+
+
+#STORE STORY 관리>
+#STORE STORY 리스트 = community_store_story_list.php
+
+#<포럼 관리>
+#포럼 카데고리 등록/수정 = forum_code.php
+#포럼 글 관리 = forum_list.php
+#포럼 글 등록 = forum_write.php
+#포럼 신청 리스트 = forum_list_request.php

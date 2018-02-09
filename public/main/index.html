@@ -1,0 +1,602 @@
+<?php
+	$Dir="../";
+	include_once($Dir."lib/init.php");
+	include_once($Dir."lib/lib.php");
+header("location: ../index.htm");
+	if($_data->group_code){
+		$group_code=$_data->group_code;
+	}else{
+		$group_code="";	
+	}
+
+	$mode	= $_POST['mode'];
+	if ($mode == "insert") {// 회원가입 등록	
+		exdebug($_POST);
+
+		$id					= trim($_POST["id"]);
+		$passwd1			= $_POST["passwd1"];
+		$name				= trim($_POST["name"]);
+		$email				= $id;
+		$mobile				= $_POST['mobile1']."-".$_POST['mobile2']."-".$_POST['mobile3'];
+		$news_sms_yn	= $_POST["news_sms_yn"];
+		$news_mail_yn	= $_POST["news_mail_yn"];
+
+		$onload="";
+
+		$sql = "SELECT email FROM tblmember WHERE email='{$email}' ";
+		$result=pmysql_query($sql,get_db_conn());
+		if($row=pmysql_fetch_object($result)) {
+			echo "<html><head></head><body onload=\"alert('아이디가 중복되었습니다.\\n\\n다른 아이디를 사용하시기 바랍니다.');\"></body></html>";exit;
+		}
+		pmysql_free_result($result);
+
+		//insert					
+
+		if($news_mail_yn=="Y" && $news_sms_yn=="Y") {
+			$news_yn="Y";
+		} else if($news_mail_yn=="Y") {
+			$news_yn="M";
+		} else if($news_sms_yn=="Y") {
+			$news_yn="S";
+		} else {
+			$news_yn="N";
+		}
+
+		$confirm_yn	= "Y";
+		$ip				= $_SERVER['REMOTE_ADDR'];
+		$date				= date("YmdHis");
+
+		 $shadata = "*".strtoupper(SHA1(unhex(SHA1($passwd1))));	
+		
+		BeginTrans();
+		
+		$sql = "INSERT INTO tblmember(id) VALUES('{$id}')";
+		pmysql_query($sql,get_db_conn());
+
+		$sql = "UPDATE tblmember SET ";
+		$sql.= "id			= '{$id}', ";
+		$sql.= "passwd		= '".$shadata."', ";
+		$sql.= "name		= '{$name}', ";
+		$sql.= "email		= '{$email}', ";
+		$sql.= "mobile		= '{$mobile}', ";
+		$sql.= "news_yn		= '{$news_yn}', ";
+		$sql.= "joinip		= '{$ip}', ";
+		$sql.= "ip			= '{$ip}', ";
+		$sql.= "date		= '{$date}', ";
+
+		if(ord($group_code)) {
+			$sql.= "group_code='{$group_code}', ";
+		}
+
+		$sql.= "confirm_yn	= '{$confirm_yn}' WHERE id='{$id}'";
+
+		//echo $sql;
+		//exit;
+		$insert=pmysql_query($sql,get_db_conn());
+
+		if (pmysql_errno()==0) {
+			CommitTrans();
+
+			//---------------------------------------------------- 가입시 로그를 등록한다. ----------------------------------------------------//
+			$memLogSql = "INSERT INTO tblmemberlog (id,type,access_type,date) VALUES ('".$id."','join','web','".date("YmdHis")."')";
+			pmysql_query($memLogSql,get_db_conn());
+			//---------------------------------------------------------------------------------------------------------------------------------//
+
+			echo "<html><head></head><body onload=\"alert('회원가입이 완료되었습니다.\\n\\n감사합니다.');parent.location.reload();\"></body></html>";exit;
+		} else {
+			RollbackTrans();
+			echo "<html><head></head><body onload=\"alert('회원등록 중 오류가 발생하였습니다.\\n\\n관리자에게 문의하시기 바랍니다.');parent.location.reload();\"></body></html>";exit;
+		}
+	}
+?>
+<!doctype html>
+<html lang="ko">
+
+<head>
+   
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"> --><!-- [D] 2016-07-15 업체 요청으로 변경 -->
+	<meta name="viewport" content="width=device-width">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="naver-site-verification" content="c987a802f9de2166805938fea147976a77a089d7">
+	<meta name="description" content="핫티 HOT TREND PLEX STORE - 프리미엄 멀티 플랙스 스토어 " />
+    <meta name="keywords" content="나이키, 아디다스, 뉴발란스, 리복, 푸마, 테바, 라코스테, 케즈, 슈페르가, 크록스, 스케쳐스, 블루마운틴, 컨버스, 버켄스탁, 닥터마틴, 멀티샵, 운동화, 신발, 샌들 " />
+
+    <title>핫티 공식 온라인 스토어</title>
+    
+    <link rel="stylesheet" href="../static_imsi/css/common.css">
+    <link rel="stylesheet" href="../static_imsi/css/component.css">
+    <link rel="stylesheet" href="../static_imsi/css/content.css">
+	<link rel="canonical" href="http://www.hot-t.co.kr/">
+	
+	<script src="../static_imsi/js/jquery-1.12.0.min.js"></script>
+	<script src="../static_imsi/js/ui.js"></script>
+
+	<script type="text/javascript">
+	
+	(function (e) {
+	  e.fn.countdown = function (t, n) {
+	  function i() {
+		eventDate = Date.parse(r.date) / 1e3;
+		currentDate = Math.floor(e.now() / 1e3);
+		if (eventDate <= currentDate) {
+		  n.call(this);
+		  clearInterval(interval)
+		}
+		seconds = eventDate - currentDate;
+		days = Math.floor(seconds / 86400);
+		seconds -= days * 60 * 60 * 24;
+		hours = Math.floor(seconds / 3600);
+		seconds -= hours * 60 * 60;
+		minutes = Math.floor(seconds / 60);
+		seconds -= minutes * 60;
+		days == 1 ? thisEl.find(".timeRefDays").text("Day") : thisEl.find(".timeRefDays").text("Days");
+		hours == 1 ? thisEl.find(".timeRefHours").text("Hour") : thisEl.find(".timeRefHours").text("Hours");
+		minutes == 1 ? thisEl.find(".timeRefMinutes").text("Minute") : thisEl.find(".timeRefMinutes").text("Minutes");
+		seconds == 1 ? thisEl.find(".timeRefSeconds").text("Second") : thisEl.find(".timeRefSeconds").text("Seconds");
+		if (r["format"] == "on") {
+		  days = String(days).length >= 2 ? days : "0" + days;
+		  hours = String(hours).length >= 2 ? hours : "0" + hours;
+		  minutes = String(minutes).length >= 2 ? minutes : "0" + minutes;
+		  seconds = String(seconds).length >= 2 ? seconds : "0" + seconds
+		}
+		if (!isNaN(eventDate)) {
+		  thisEl.find(".days").text(days);
+		  thisEl.find(".hours").text(hours);
+		  thisEl.find(".minutes").text(minutes);
+		  thisEl.find(".seconds").text(seconds)
+		} else {
+		  alert("Invalid date. Example: 30 Tuesday 2013 15:50:00");
+		  clearInterval(interval)
+		}
+	  }
+	  var thisEl = e(this);
+	  var r = {
+		date: null,
+		format: null
+	  };
+	  t && e.extend(r, t);
+	  i();
+	  interval = setInterval(i, 1e3)
+	  }
+	  })(jQuery);
+	  $(document).ready(function () {
+	  function e() {
+		var e = new Date;
+		e.setDate(e.getDate() + 60);
+		dd = e.getDate();
+		mm = e.getMonth() + 1;
+		y = e.getFullYear();
+		futureFormattedDate = mm + "/" + dd + "/" + y;
+		return futureFormattedDate
+	  }
+	  $("#countdown").countdown({
+		date: "1 october 2016 00:00:00", // Change this to your desired date to countdown to
+		format: "on"
+	  });
+	});
+	
+	</script>
+
+	<script>
+	function CheckForm() { // 회원가입 폼 전송
+		
+		form=document.joinForm;			
+
+		var email_id		= form.email_id.value;
+		var email_addr	= form.email_addr.value;
+
+		if(email_id.length==0){
+			alert("이메일 아이디를 입력하세요."); form.email_id.focus(); return;
+		}
+
+		if(email_addr.length==0){
+			alert("이메일 주소를 입력하세요."); form.email_addr.focus(); return;
+		}	
+
+		form.id.value	= email_id+"@"+email_addr;
+		
+		if(form.passwd1.value.length==0) {
+			alert("비밀번호를 입력하세요."); form.passwd1.focus(); return;
+		} else {
+			var pw	= form.passwd1.value;
+			var num	= pw.search(/[0-9]/g);
+			var eng	= pw.search(/[a-z]/ig);
+
+			if(pw.length < 4 || pw.length > 20){
+				alert("4~20자 이내로 입력해주세요.");
+				return;
+			} else {
+				if(pw.search(/\s/ig) != -1){
+					alert("비밀번호는 공백없이 입력해주세요.");
+					return;
+				} else {
+					if( num < 0 || eng < 0 ){
+						alert("영문, 숫자를 혼합하여 입력해주세요.");
+						return;
+					}
+				}
+			}
+		}
+	
+		if(form.passwd2.value.length==0) {
+			alert("비밀번호 확인을 입력하세요."); form.passwd2.focus(); return;
+		}
+
+		if(form.passwd1.value!=form.passwd2.value) {
+			alert("비밀번호가 일치하지 않습니다."); form.passwd2.focus(); return;
+		}
+
+		if(form.name.value.length==0) {
+			alert("이름을 입력하세요."); form.name.focus(); return;
+		}
+
+		if(form.mobile1.value.length==0 ||form.mobile2.value.length==0 || form.mobile3.value.length==0) {
+			alert("휴대폰 번호를 입력하세요."); 
+			if(form.mobile1.value.length==0) form.mobile1.focus();
+			if(form.mobile2.value.length==0) form.mobile2.focus();
+			if(form.mobile3.value.length==0) form.mobile3.focus();
+			return;
+		}
+
+		if(confirm("회원가입을 하겠습니까?")) {
+			form.target	= "HiddenFrame";
+			form.submit();
+		}
+	}
+
+	function ResetForm() { // 회원가입 폼 초기화
+		
+		form=document.joinForm;
+
+		form.id.value							= "";
+		form.email_id.value					= "";
+		form.email_addr.value				= "";
+		form.email_select.value			= "";
+		form.passwd1.value				= "";
+		form.passwd2.value				= "";
+		form.name.value						= "";
+		form.mobile1.value					= "";
+		form.mobile2.value					= "";
+		form.mobile3.value					= "";
+		form.news_sms_yn.checked	= false;
+		form.news_mail_yn.checked	= false;
+	}
+	</script>
+
+</head>
+
+<body>
+
+<!-- <div id="video"></div> -->
+<div class="video-wrap">
+	<iframe id="video" width="1920" height="1080" src="https://www.youtube.com/embed/U2izvP4lWWQ?rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;modestbranding=1&amp;loop=1&playlist=U2izvP4lWWQ"  frameborder="0" allowFullScreen></iframe>
+</div>
+
+<div id="wrap">
+	<div class="comingsoon">
+		<h1 class="title">Online store coming soon</h1>
+		<div class="box">
+			<div class="logo"><img src="../static_imsi/img/common/logo.png" alt="HOT:T"></div>
+			<div id="countdown">
+				<div>
+					<p class="days">00</p>
+					<p class="timeRefDays">Days</p>
+				</div>
+				<div>
+					<p class="hours">00</p>
+					<p class="timeRefHours">Hours</p>
+				</div>
+				<div>
+					<p class="minutes">00</p>
+					<p class="timeRefMinutes">Minutes</p>
+				</div>
+				<div>
+					<p class="seconds">00</p>
+					<p class="timeRefSeconds">Seconds</p>
+				</div>
+			</div>
+			<div class="sns">
+				<a href="http://hottofficial.com" target="_blank"><img src="../static_imsi/img/icon/icon_blog.png" alt="blog"></a>
+				<a href="https://www.facebook.com/HOTTofficial/" target="_blank"><img src="../static_imsi/img/icon/icon_facebook.png" alt="facebook"></a>
+				<a href="http://instagram.com/hott_official" target="_blank"><img src="../static_imsi/img/icon/icon_instagram.png" alt="instagram"></a>
+			</div>
+			<div class="btn-area">
+				<button id="btnAboutHott" class="btn-dib-square" type="button"><img src="../static_imsi/img/btn/btn_about_hott.jpg" alt="뭐지 핫티?"></button>
+				<button onclick="location.href='member_certi.html'" class="btn-dib-square color" type="button"><span>핫티 회원가입</span></button>
+				<button id="btnLocation" class="btn-dib-square line" type="button"><span>핫티 매장 위치 안내</span></button>
+				<button onclick="" class="btn-dib-square line" type="button"><span>커머스랩 테스트 회원가입</span></button>
+			</div>
+			<div class="btn_login double">
+				<a href="#" target="_blank" class="btn-point">로그인</a>
+				<a href="#" target="_blank" class="btn-basic">비밀번호 찾기</a>
+			</div>
+			<div class="event">
+				<img src="../static_imsi/img/icon/icon_question.png" alt="?"> 핫티 멤버 가입 이벤트 오픈일에 공개됩니다.
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 레이어 팝업 - 뭐지핫티? -->
+<div class="layer-dimm-wrap layer-about-hott">
+	<div class="dimm-bg"></div>
+	<div class="layer-inner">
+		<button type="button" class="btn-close">창 닫기 버튼</button>
+		<div class="layer-content">
+			<div class="point-img"><img src="../static_imsi/img/common/about_hott_img.jpg" alt="뭐지 핫티?"></div>
+			<h2 class="about-hott-header"><img src="../static_imsi/img/common/about_hott_tit.jpg" alt=""></h2>
+			<div class="about-hott">
+				<img src="../static_imsi/img/common/about_hott_con.jpg" alt="">
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //레이어 팝업 - 뭐지핫티? -->
+
+<!-- 레이어 팝업 - 회원가입 > 일반가입 -->
+<div id="joinLayer01" class="layer-dimm-wrap layer-join-hott">
+	<div class="dimm-bg"></div>
+	<div class="layer-inner">
+		<button type="button" class="btn-close" onClick="javascript:ResetForm();">창 닫기 버튼</button>
+		<div class="layer-content">
+			<h2 class="join-hott-header"><img src="../static_imsi/img/common/logo.png" alt="HOT:T"> 회원가입</h2>
+			<div class="join-hott-content">
+				<form name="joinForm" action="<?=$_SERVER['PHP_SELF']?>" method="post">
+				<input type="hidden" name="mode" value="insert">
+				<input type="hidden" name="id">
+					<fieldset>
+						<legend>회원가입 - 일반가입</legend>
+
+						<section>
+							<div class="title-box">
+								<h2>정보입력</h2>
+								<p class="ment"><span class="required">*</span> 표시는 필수 항목이므로 반드시 기재하셔야 합니다</p>
+							</div>
+
+							<table class="member-th-left">
+								<caption></caption>
+								<colgroup>
+									<col style="width:160px">
+									<col style="width:auto">
+								</colgroup>
+								<tr>
+									<th><span class="required">아이디</span></th>
+									<td>
+										<input type="text" name="email_id" id="ID_email_id" title="이메일 아이디" style="width:105px;">
+										<span class="dash">&#64;</span>
+										<input type="text" name="email_addr" id="ID_email_addr" title="이메일 도메인" style="width:105px;">
+										<select name="email_select" id="ID_email_select" title="이메일 도메인 선택" onchange="javascript:$('#ID_email_addr').val(this.value);">
+											<option value="" selected>직접입력</option>
+											<option value="naver.com">naver.com</option>
+											<option value="gmail.com">gmail.com</option>
+											<option value="hanmail.net">hanmail.net</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="required">비밀번호 입력</span></th>
+									<td>
+										<input type="password" name="passwd1" id="ID_passwd1" class="fullwidth" title="비밀번호 입력">
+									</td>
+								</tr>
+								<tr>
+									<th><span class="required">비밀번호 확인</span></th>
+									<td>
+										<input type="password" name="passwd2" id="ID_passwd2" class="fullwidth" title="비밀번호 확인">
+										<span class="ment">영문, 숫자 포함 4~20자 이내로 입력해주세요.</span>
+									</td>
+								</tr>
+								<tr>
+									<th><span class="required">이름</span></th>
+									<td><input type="text" name="name" id="ID_name" class="fullwidth" title="이름"></td>
+								</tr>
+								<tr>
+									<th><span class="required">휴대폰 번호</span></th>
+									<td>
+										<input type="text" name="mobile1" id="ID_mobile1" maxlength="3" title="휴대폰 번호 앞자리" style="width:50px;">
+										<span class="dash">-</span>
+										<input type="text" name="mobile2" id="ID_mobile2" maxlength="4" title="휴대폰 번호 가운데자리" style="width:50px;">
+										<span class="dash">-</span>
+										<input type="text" name="mobile3" id="ID_mobile3" maxlength="4" title="휴대폰 번호 뒷자리" style="width:50px;">
+									</td>
+								</tr>
+								<tr>
+									<th>수신동의</th>
+									<td>
+										<span class="input-checkbox-wrap">
+											<input type="checkbox" name="news_sms_yn" id="ID_news_sms_yn" value="Y"><label for="ID_news_sms_yn">SMS</label>
+										</span>
+										<span class="input-checkbox-wrap">
+											<input type="checkbox" name="news_mail_yn" id="ID_news_mail_yn" value="Y"><label for="ID_news_mail_yn">이메일</label>
+										</span>
+									</td>
+								</tr>
+							</table>
+						</section>
+
+						<div class="join-all-agree">
+							<button type="button" class="btn-point" onClick="javascript:CheckForm('<?=$mem_type?>');">가입완료</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //레이어 팝업 - 회원가입 > 일반가입 -->
+
+<!-- 레이어 팝업 - 매장 -->
+<div class="layer-dimm-wrap layer-location">
+	<div class="dimm-bg"></div>
+	<div class="layer-inner">
+		<button type="button" class="btn-close">창 닫기 버튼</button>
+		<div class="layer-content">
+			<h2 class="layerpop-title"><img src="../static_imsi/img/common/location_title.gif" alt="HOT:T"></h2>
+			<div class="store-map">
+				<img src="../static_imsi/img/common/location3.gif" alt="">
+				<dl class="store-list num1">
+					<dt><span>1호점</span>명동점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>서울특별시 중구 명동8가길 3 </p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>02) 757-8245</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num2">
+					<dt><span>2호점</span>대전 은행동점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>대전광역시 중구 중앙로 165-2</p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>042) 223-7768</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num3">
+					<dt><span>3호점</span>광주 충장로</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>광주광역시 동구 충장로 81 </p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>062) 225-2809</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num4">
+					<dt><span>4호점</span>대구 동성로점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>대구광역시 중구 동성로1길 29-25 1층</p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>053) 257-2809</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num5">
+					<dt><span>5호점</span>울산 성남점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>울산광역시 중구 젊음의거리 48 </p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>052) 245-2809 </p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num6">
+					<dt><span>6호점</span>여의도점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>서울특별시 영등포구 국제금융로 <br>10 IFC몰 B2F </p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>02) 6137-5808</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num7">
+					<dt><span>7호점</span>부산 대학로점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>부산광역시 금정구 부산대학로 29 <br>네오스퀘어점 1층</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num8">
+					<dt><span>8호점</span>안양점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>경기도 안양시 만안구 안양로292번길 5</p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>031) 469-2809</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num9">
+					<dt><span>9호점</span>인천 구월점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>인천광역시 남동구 인하로 497-8 </p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>032) 427-2809</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num10">
+					<dt><span>10호점</span>홍대점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>서울시 마포구 잔다리로2길 23</p>
+						</dd>
+						<dd>
+							<span>TEL :</span>
+							<p>02) 335-2809</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num11">
+					<dt><span>11호점</span>부산 서면점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>부산광역시 부산진구 중앙대로 692번길 16</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num12">
+					<dt><span>12호점</span>일산웨스턴돔점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>경기도 고양시 일산동구 정발산로 24 웨스턴돔1 A동</p>
+						</dd>
+					</div>
+				</dl>
+				<dl class="store-list num13">
+					<dt><span>13호점</span>강남점</dt>
+					<div class="wrap">
+						<dd>
+							<span>주소 :</span>
+							<p>서울특별시 강남구 강남대로 408 YBM 강남센터 1F</p>
+						</dd>
+					</div>
+				</dl>
+				<div class="store-addr"><img src="../static_imsi/img/common/location3_addr.gif" alt=""></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //레이어 팝업 - 매장 -->
+<IFRAME name="HiddenFrame" width=0 height=0 frameborder=0 scrolling="no" marginheight="0" marginwidth="0"></IFRAME>
+</body>
+
+</html>
+

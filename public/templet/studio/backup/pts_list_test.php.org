@@ -1,0 +1,148 @@
+<?php
+$listnum = 9;
+
+$sql  = "SELECT * FROM tbllookbook ";
+$sql .= "WHERE hidden = 1 ";
+$sql .= "ORDER BY no desc ";
+
+$paging = new New_Templet_paging($sql, 10, $listnum, 'GoPage', true);
+$t_count = $paging->t_count; 
+$gotopage = $paging->gotopage;
+
+$sql = $paging->getSql($sql);
+$result = pmysql_query($sql);
+
+$list_html = '';
+while ($row = pmysql_fetch_array($result)) {
+    $list_html .= '
+            <li>
+                <a href="/front/lookbook_view.php?id=' . $row['no'] . '">
+                    <figure>
+                        <img src="/data/shopimages/lookbook/' . $row['img'] . '" alt="" width="366" height="247">
+                        <figcaption>' . $row['title'] . '</figcaption>
+                    </figure>
+                </a>
+            </li>';
+}
+
+if ( $isMobile ) {
+?>
+
+                            
+            <div class="sub-title">
+                <h2>LOOKBOOK</h2>
+                <a class="btn-prev" href="#"><img src="./static/img/btn/btn_page_prev.png" alt="이전 페이지"></a>
+                <div class="js-sub-menu">
+                    <button class="js-btn-toggle" title="펼쳐보기"><img src="./static/img/btn/btn_arrow_down.png" alt="메뉴"></button>
+                    <div class="js-menu-content">
+                        <ul>
+                            <li><a href="#">LOOKBOOK</a></li>
+                            <li><a href="#">PRESS</a></li>
+                            <li><a href="#">스타가 되고싶니</a></li>
+                            <li><a href="#">PLAY THE STAR</a></li>
+                            <li><a href="#">SNS</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+<!-- 룩북 비주얼 -->
+            <div class="js-studio-lookbook-visual">
+                <h2>THE QUIET CITY</h2>
+                <div class="js-carousel-list">
+                    <ul>
+                        <li class="js-carousel-content"><a href="#"><img src="./static/img/test/@studio_lookbook_visual1.jpg" alt=""></a></li>
+                        <li class="js-carousel-content"><a href="#"><img src="./static/img/test/@studio_lookbook_visual2.jpg" alt=""></a></li>
+                        <li class="js-carousel-content"><a href="#"><img src="./static/img/test/@studio_lookbook_visual3.jpg" alt=""></a></li>
+                    </ul>
+                    <button class="js-carousel-arrow" data-direction="prev" type="button"><img src="./static/img/btn/btn_slider_arrow_prev.png" alt="이전"></button>
+                    <button class="js-carousel-arrow" data-direction="next" type="button"><img src="./static/img/btn/btn_slider_arrow_next.png" alt="다음"></button>
+                </div>
+                <div class="page">
+                    <ul>
+                        <li class="js-carousel-page"><a href="#"><img src="./static/img/test/@studio_lookbook_visual_thumb1.jpg" alt="1"></a></li>
+                        <li class="js-carousel-page"><a href="#"><img src="./static/img/test/@studio_lookbook_visual_thumb2.jpg" alt="2"></a></li>
+                        <li class="js-carousel-page"><a href="#"><img src="./static/img/test/@studio_lookbook_visual_thumb3.jpg" alt="3"></a></li>
+                    </ul>
+                </div>
+                <div class="js-menu-list">
+                    <button class="js-btn-toggle" title="펼쳐보기"><span class="ir-blind">룩북 목록</span></button>
+                    <div class="js-list-content">
+                        <ul>
+                            <li><a href="#">THE QUIET CITY</a></li>
+                            <li><a href="#">PLAY THE STAR</a></li>
+                            <li><a href="#">MERRY CASH HOLIDAY</a></li>
+                            <li><a href="#">THE ONLY CASH</a></li>
+                            <li><a href="#">FIRST 0123</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 룩북 비주얼 -->
+
+            <!-- 상품 리스트 -->
+            <div class="goods-list studio-lookbook-list">
+                <!-- (D) 위시리스트 담기 버튼 선택 시 class="on" title="담겨짐"을 추가합니다. -->
+                <ul class="js-goods-list">
+                    <li>
+                        <a href="#">
+                            <figure>
+                                <div class="img"><img src="./static/img/test/@goods_list1.jpg" alt=""></div>
+                                <figcaption>
+                                    <span class="brand">96NEWYORK</span>
+                                    <span class="sale">[UP TO 15% OFF]</span>
+                                    <span class="name">2WAY DOWN JUMPER</span>
+                                    <span class="price"><del>898,000</del><strong>479,000</strong></span>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <button class="btn-wishlist on" type="button" title="담겨짐"><span class="ir-blind">위시리스트 담기/버리기</span></button>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <figure>
+                                <div class="img"><img src="./static/img/test/@goods_list2.jpg" alt=""></div>
+                                <figcaption>
+                                    <span class="brand">C.A.S.H</span>
+                                    <span class="name">LONG TAILORED VOLUME JACKET</span>
+                                    <span class="price"><del>898,000</del><strong>199,000</strong></span>
+                                    <!-- (D) span.sale 이 없을 경우 높이를 맞춰주기 위해 span.empty를 넣어줍니다. -->
+                                    <span class="empty">&#160;</span>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <button class="btn-wishlist" type="button"><span class="ir-blind">위시리스트 담기/버리기</span></button>
+                    </li>
+                </ul>
+            </div>
+            <!-- // 상품 리스트 -->
+
+<?php 
+} else {
+?>
+
+<div id="contents">
+    <div class="containerBody sub-page">
+        <? include ($Dir.TempletDir."studio/navi_TEM001.php"); ?>
+
+        <div class="board_list_tap">
+			<ul>
+				<li class="on"><a href="#">갤러리형</a></li>
+				<li><a href="#">리스트형</a></li>
+			</ul>
+		</div>
+		<div class="lookbook-wrap">
+            <ul class="lookbook-list pts">
+                <?=$list_html?>
+            </ul><!-- //.lookbook-list -->
+            <div class="list-paginate">
+                <?=$a_div_prev_page.$paging->a_prev_page.$paging->print_page.$paging->a_next_page.$a_div_next_page?>
+            </div>
+        </div><!-- //.lookbook-wrap -->
+
+        
+
+    </div><!-- //공통 container -->
+</div><!-- //contents -->
+
+<?php } ?>

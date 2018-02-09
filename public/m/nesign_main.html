@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- 
+		(D) title은 각 페이지에 맞게 수정되어야 합니다
+		메인 : 사이트이름
+		서브 : 소분류 < 중분류 < 대분류 - 사이트이름
+		상세페이지 : 상품이름 상세페이지 - 사이트이름
+	-->
+	<title>DISCOVERY EXPEDITION</title>
+
+	<link rel="stylesheet" href="css2/common.css">
+	<link rel="stylesheet" href="css2/main.css">
+	<link rel="stylesheet" href="css2/product.css">
+	<link rel="stylesheet" href="css2/order.css">
+	<link rel="stylesheet" href="css2/mypage.css">
+	<link rel="stylesheet" href="css2/cscenter.css">
+	<link rel="stylesheet" href="css2/other.css">
+	
+	<script src="js2/libs/jquery-2.1.3.min.js"></script>
+	<script src="js2/libs/hammer-2.0.4.min.js"></script>
+	<script src="js2/libs/TweenMax-1.15.0.min.js"></script>
+	<script src="js2/common.js"></script>
+
+</head>
+
+<body>
+
+	<div class="btn_skip"><a href="#content" onclick="focus_anchor($(this).attr('href'));return false;">본문 바로가기</a></div>
+	
+	<!-- 헤더 고정 -->
+	<header id="header">
+		<!-- 글로벌 상단 -->
+		<div class="topwrap">
+			<h1><a href="mainToday.html"><img src="images/header_logo.png" alt="DISCOVERY EXPEDITION"></a></h1>
+			<nav class="gnb">
+				<!-- (D) 선택된 li 에 class="on" title="선택됨" 을 추가합니다. -->
+				<ul>
+					<li><a href="productListThumb.html">MEN</a></li>
+					<li><a href="productListThumb.html">WOMEN</a></li>
+					<li><a href="productListThumb.html">KIDS</a></li>
+					<li><a href="productListThumb.html">ACC</a></li>
+				</ul>
+			</nav>
+			<div class="catewrap">
+				<a class="btn_open" href="#category" title="레이어 열림"><img src="images/header_category_btn_open.png" alt="카테고리"></a>
+				<!-- 카테고리 메뉴 -->
+				<div id="category">
+					<div class="cover"></div>
+					<div class="catebox">
+						<div class="logbox">
+							<p>로그인을 해주세요</p><a href="login.html">로그인</a>
+							<!-- <p>홍길동님 반갑습니다</p><a href="#">로그아웃</a> -->
+						</div>
+						<nav class="quick">
+							<ul>
+								<li><a href="#"><img src="images/header_category_quick_ico_search.png" alt=""><span>상품검색</span></a></li>
+								<li><a href="myOrderList.html"><img src="images/header_category_quick_ico_order.png" alt=""><span>주문/배송</span></a></li>
+								<li><a href="csNoticeList.html"><img src="images/header_category_quick_ico_cart.png" alt=""><span>장바구니(<span class="ea">00</span>)</span></a></li>
+								<li><a href="eventListOn.html"><img src="images/header_category_quick_ico_event.png" alt=""><span>이벤트</span></a></li>
+							</ul>
+						</nav>
+						<nav class="menu">
+							<!--
+								(D) 선택된 1뎁스 li 에 class="on" 을 추가하고, a 에 title="하위 메뉴 숨기기" 로 변경합니다.
+								하위메뉴가 없는 1뎁스 li 에 class="link" 를 추가하고, a 의 title 속성을 제거합니다.
+							-->
+							<ul>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">MEN<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">PERFORMANCE</a></li>
+										<li><a href="#">ACTIVE</a></li>
+										<li><a href="#">LIFE STYLE</a></li>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">다운</a></li>
+										<li><a href="#">자켓</a></li>
+										<li><a href="#">베스트</a></li>
+										<li><a href="#">티셔츠/셔츠</a></li>
+										<li><a href="#">팬츠</a></li>
+										<li><a href="#">트레이닝웨어</a></li>
+										<li><a href="#">세일</a></li>
+										<li><a href="#">2014 S/S상품</a></li>
+										<li><a href="#">2013 F/W상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">WOMEN<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">PERFORMANCE</a></li>
+										<li><a href="#">ACTIVE</a></li>
+										<li><a href="#">LIFE STYLE</a></li>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">다운</a></li>
+										<li><a href="#">자켓</a></li>
+										<li><a href="#">베스트</a></li>
+										<li><a href="#">티셔츠/셔츠</a></li>
+										<li><a href="#">팬츠</a></li>
+										<li><a href="#">트레이닝웨어</a></li>
+										<li><a href="#">세일</a></li>
+										<li><a href="#">2014 S/S상품</a></li>
+										<li><a href="#">2013 F/W상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">KIDS<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">다운</a></li>
+										<li><a href="#">자켓</a></li>
+										<li><a href="#">티셔츠/셔츠</a></li>
+										<li><a href="#">팬츠</a></li>
+										<li><a href="#">액세서리</a></li>
+										<li><a href="#">세일</a></li>
+										<li><a href="#">2014 S/S상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">ACCESSORY<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">PERFORMANCE</a></li>
+										<li><a href="#">ACTIVE</a></li>
+										<li><a href="#">LIFE STYLE</a></li>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">신발</a></li>
+										<li><a href="#">배낭/가방</a></li>
+										<li><a href="#">모자</a></li>
+										<li><a href="#">용품</a></li>
+										<li><a href="#">텐트</a></li>
+										<li><a href="#">2013 F/W상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">STYLE<div class="arrow"></div></a>
+									<ul>
+										<li><a href="styleThumb.html">STYLE BOOK</a></li>
+										<li><a href="#">CELEB STYLE</a></li>
+										<li><a href="#">SBS 미녀의 탄생</a></li>
+										<li><a href="#">SBS 내겐 너무 사랑스러운 그녀</a></li>
+										<li><a href="#">SBS 기분 좋은 날</a></li>
+										<li><a href="#">MBC 아빠 어디가</a></li>
+										<li><a href="#">SBS 일단 띄워</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">DISCOVERER<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">ADBENTURE</a></li>
+										<li><a href="#">DISCOVERY CREW</a></li>
+										<li><a href="#">GO EXPEDITION</a></li>
+										<li><a href="#">EXPLORE NEW SPOT</a></li>
+										<li><a href="#">I AM A DISCOVERER</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">BRAND STORY<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">DISCOVERY EXPEDITION</a></li>
+										<li><a href="#">DISCOVERY TECHNOLOGY</a></li>
+										<li><a href="#">AD GALLERY</a></li>
+										<li><a href="#">STORE LOCATION</a></li>
+									</ul>
+								</li>
+								
+							</ul>
+						</nav>
+						<div class="logobox"><img src="images/header_logo.png" alt="DISCOVERY EXPEDITION"></div>
+						<a class="btn_close" href="#"><img src="images/header_category_btn_close.png" alt="카테고리 닫기"></a>
+					</div>
+				</div>
+				<!-- // 카테고리 메뉴 -->
+			</div>
+		</div>
+		<!-- // 글로벌 상단 -->
+
+		<!-- 메인 상단 -->
+		<nav class="maintop">
+			<!--
+				(D) 선택된 li 에 class="on" title="선택됨" 을 추가합니다.
+				a 의 href 는 "#link_content + 숫자" 조합으로 차례로 넣어줍니다.
+				각각의 별도 페이지로 구성할 때에는 a 의 href 에 페이지 경로를 넣어주고, 별도로 코딩되어 있는 페이지를 사용하시면 됩니다.
+			-->
+			<ul>
+				<li class="on" title="선택됨"><a href="#link_content1"><span>오늘의 추천</span></a></li>
+				<li><a href="#link_content2"><span>이벤트/기획전</span></a></li>
+				<li><a href="#link_content3"><span>HOT세일</span></a></li>
+				<li><a href="#link_content4"><span>협찬상품</span></a></li>
+			</ul>
+		</nav>
+		<!-- // 메인 상단 -->
+	</header>
+	<!-- // 헤더 고정 -->
+
+	<!-- 내용 -->
+	<main id="content" class="mainpage">
+		<div class="container">
+			<!--
+				(D) data-url 경로의 파일을 순차적으로 로드하여 해당 li 안에 붙여넣습니다.
+				li 에 href 와 연결되도록 id 를 차례로 넣어줍니다.
+			-->
+			<ul>
+				<li id="link_content1" data-url="nesign_mainToday.html"></li>
+				<li id="link_content2" data-url="nesign_mainEvent.html"></li>
+				<li id="link_content3" data-url="nesign_mainHot.html"></li>
+				<li id="link_content4" data-url="nesign_mainSponsor.html"></li>
+			</ul>
+			<script src="js/main.js"></script>
+		</div>
+	</main>
+	<!-- // 내용 -->
+
+	<!-- 푸터 -->
+	<footer id="footer">
+		<nav class="util">
+			<ul>
+				<li><a href="etcAgree.html">이용약관</a></li>
+				<li><a href="etcPrivacy.html">개인정보 취급방침</a></li>
+				<li><a href="csNoticeList.html">고객센터</a></li>
+				<li><a href="#">PC버전</a></li>
+			</ul>
+		</nav>
+		<nav class="social">
+			<ul>
+				<li><a href="#"><img src="images/footer_social_facebook.png" alt="페이스북"></a></li>
+				<li><a href="#"><img src="images/footer_social_blog.png" alt="블로그"></a></li>
+				<li><a href="#"><img src="images/footer_social_youtube.png" alt="유투브"></a></li>
+			</ul>
+		</nav>
+		<address>
+			고객센터 주소 : 서울시 강남구 역삼동 662-9 F&#38;F 대표 김창수<br />
+			사업자 등록번호 : 214-86-09977<br />
+			통신판매업 신고번호 : 서울강남 00086호<br />
+			고객센터 : <a href="tel:080-820-8802">080-820-8802</a> <span class="as">AS : <a href="tel:02-3488-8914">02-3488-8914</a></span>
+		</address>
+		<p>
+			교환/반품 반송처 주소 : (467-813) 경기도 이천시 마장면<br />
+			프리미엄 아울렛로 113-37 F&#38;F물류센터 디스커버리 물류부
+		</p>
+		<p>Copyright F&#38;F CO.,LTD. All rights reserved.</p>
+	</footer>
+	<!-- // 푸터 -->
+
+	<!-- 하단 고정 -->
+	<a class="btn_top" href="#header" onclick="focus_anchor($(this).attr('href'), 0);return false;"><img src="images/bottom_btn_top.png" alt="페이지 처음으로 돌아가기"></a>
+	<div id="bottom">
+		<nav class="quick">
+			<!-- (D) 선택된 li 에 class="on" 과 title="현재페이지" 을 추가합니다. -->
+			<ul>
+				<li>
+					<a href="mainToday.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_home.png" alt=""></div>
+						<span>홈</span>
+					</a>
+				</li>
+				<li>
+					<a href="storeList.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_shop.png" alt=""></div>
+						<span>매장</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="icobox"><img src="images/bottom_nav_ico_search.png" alt=""></div>
+						<span>검색</span>
+					</a>
+				</li>
+				<li>
+					<a href="orderCart.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_cart.png" alt=""></div>
+						<span>장바구니</span>
+						<div class="numbox"><span>담은 상품 수</span><strong><span>23</span></strong></div>
+					</a>
+				</li>
+				<li class="on" title="현재페이지">
+					<a href="mypage.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_myshopping.png" alt=""></div>
+						<span>마이쇼핑</span>
+					</a>
+				</li>
+				<li>
+					<a href="eventListOn.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_event.png" alt=""></div>
+						<span>이벤트</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<!-- 하단 고정 -->
+
+</body>
+
+</html>

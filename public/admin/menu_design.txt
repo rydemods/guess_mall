@@ -1,0 +1,27 @@
+[디자인 관리]
+<메인관리>
+#최상단 배너 = main_banner_mng.php?no=119
+GNB 배너 = main_banner_mng.php?no=113
+상단 롤링 배너 = main_banner_mng.php?no=77
+중단 배너 = main_banner_mng.php?no=85
+중단 띠배너 = main_banner_mng.php?no=120
+하단 배너 = main_banner_mng.php?no=118
+NEW ARRIVALS 관리 = main_banner_mng.php?no=78
+BEST SELLER 관리 = main_banner_mng.php?no=87
+RANKING 관리 = main_banner_mng.php?no=88
+
+<아울렛 관리>
+상단 롤링 배너 = main_banner_mng.php?no=121
+상단 우측 배너 = main_banner_mng.php?no=122
+MD'S CHOISE =  main_banner_mng.php?no=123
+중단 배너 = main_banner_mng.php?no=124
+BEST SELLER 관리 = main_banner_mng.php?no=125
+하단 배너 = main_banner_mng.php?no=126
+
+<브랜드 관리>
+브랜드별 메인관리 = brand_main.php
+
+<이벤트&기획전 배너관리>
+이벤트 메인 배너 = main_banner_mng.php?no=127
+기획전 메인 배너 = main_banner_mng.php?no=128
+

@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+.brand_wrap {overflow:hidden;}
+.qna-wrap{float:left;width:100%;height:auto;padding-top:20px;}
+.qna-wrap .qna-desc{float:left;width:95%;padding:20px 2.5%;font-size:15px;line-height:20px;}
+.qna-wrap .qna-desc .qna-desc-strong{font-weight:bold;text-decoration: underline;}
+.qna-wrap #qna-frame{float:left;width:100%;height:800px;}

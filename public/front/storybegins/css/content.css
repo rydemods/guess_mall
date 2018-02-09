@@ -1,0 +1,196 @@
+@charset "utf-8";
+
+.ir-blind{position:absolute;top:0;left:0;overflow:hidden;width:0;height:0;font-size:0;line-height:0}
+.ir-indent{overflow:hidden;text-indent:-9999px;font-size:0}
+.ir-wa{position:relative;z-index:-1}
+
+html,body{min-width:1024px;width:100%;height:100%;background:#323641}
+body{color:#000;font:400 12px/1 "NanumGothicW"}
+
+.wrap{position:absolute;top:0;left:0;min-width:1024px;min-height:750px;width:100%;height:100%;overflow:hidden}
+
+h1{position:absolute;z-index:100;top:30px;left:40px}
+
+p.loading{position:absolute;z-index:90;top:0;left:0;width:100%;height:100%;background:#323641}
+p.loading span{position:absolute;top:50%;left:50%;color:#fff;font-family:"UniversLTCnW";-webkit-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
+
+/* 하단 네비 */
+nav.control{position:absolute;z-index:100;bottom:-70px;left:0;width:100%;height:70px;background:#323641}
+nav.control .box{overflow:hidden;margin-right:450px;height:100%;-webkit-perspective:2000px;perspective:2000px}
+nav.control .box > div{position:absolute;top:0;left:0;width:100%;height:100%;background:#393939;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}
+nav.control .box > div > button{position:absolute;top:0;left:0;width:110px;height:100%;border-top:1px solid #cf320c;border-right:1px solid #cf320c;background:#e8380d}
+nav.control .box .content{overflow:hidden;margin-left:110px;height:100%;border-left:1px solid #484848}
+nav.control .box .content p{position:Relative;top:50%;float:left;padding:6px 0 0 38px;color:#fff;font-size:20px;font-family:"UniversLTCnW";-webkit-transform:translateY(-50%);transform:translateY(-50%)}
+nav.control .box .content p span{display:inline-block;color:#fff;font-weight:700;font-size:14px;font-family:"NanumGothicW";opacity:0.6}
+nav.control .box .main{}
+nav.control .box .main .btn_close{padding-bottom:2px}
+nav.control .box .main ol.episode{float:left;padding:14px 0 14px 5px}
+nav.control .box .main ol.episode li{float:left}
+nav.control .box .main ol.episode li a{margin-left:20px;width:44px;height:42px;background:url("../img/common/control_episode_bg.png") no-repeat}
+nav.control .box .main ol.episode li a span{display:block;color:#fff;text-align:center;font-weight:800;font-size:18px;line-height:42px;opacity:0.2}
+nav.control .box .main ol.episode li a:hover,
+nav.control .box .main ol.episode li a:focus,
+nav.control .box .main ol.episode li.on a{background-position:0 100%}
+nav.control .box .main ol.episode li a:hover span,
+nav.control .box .main ol.episode li a:focus span,
+nav.control .box .main ol.episode li.on a span{opacity:1}
+nav.control .box .sub{visibility:hidden}
+nav.control .box .sub p strong.episode{display:block;padding-bottom:8px;color:#fff;font-weight:normal;font-size:13px;font-family:"UniversLTCnW"}
+nav.control .box .sub .btn_episode{padding-top:2px}
+nav.control .box .sub .btn_episode span{display:block;padding-top:11px;color:#fff;font:11px/1 "UniversLTCnW";opacity:0.6}
+nav.control .box .sub .btn_menu{position:absolute;top:0;right:0}
+nav.control .box .sub ol.page{float:left;padding:20px 0 20px 28px}
+nav.control .box .sub ol.page li{float:left}
+nav.control .box .sub ol.page li .line{display:inline-block;margin-top:14px;width:40px;height:2px;background:#4e4f51}
+nav.control .box .sub ol.page li:last-child .line{display:none}
+nav.control .box .sub ol.page li a{overflow:hidden;width:34px;height:30px;background:url("../img/common/control_page_bg.png") no-repeat;text-indent:-999px;font-size:0}
+nav.control .box .sub ol.page li.on a{background-position:0 100%}
+nav.control .box .sub ol.page li.on .line{background:#e8380d}
+
+@media all and (max-width:1220px) {
+	nav.control .box .main .content p span{display:block;padding:5px 0 4px}
+}
+
+nav.control ul.menu{position:absolute;top:0;right:0;background:#393939}
+nav.control ul.menu li{float:left}
+nav.control .btn_menu{position:relative;padding:25px 0 25px 1px;width:73px;border-left:1px solid #333}
+nav.control button.btn_menu{box-sizing:content-box}
+nav.control .btn_menu:before{display:block;position:absolute;top:0;left:0;height:100%;border-left:1px solid #444;content:""}
+nav.control .btn_menu span{display:block;overflow:hidden;height:20px;text-align:center}
+nav.control .btn_menu.on img,
+nav.control a.btn_menu:hover img,
+nav.control a.btn_menu:focus img{margin-top:-20px}
+
+/* 인트로 */
+article.intro{position:absolute;z-index:10;top:0;right:0;bottom:70px;left:0;overflow:hidden}
+article.intro div.bg{position:relative;height:100%;background:#fff no-repeat 50% 50%;background-size:cover}
+article.intro .content{position:absolute;margin-top:-3.6%;top:50%;left:50%;text-align:center;white-space:nowrap;-webkit-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
+article.intro .content h2{color:#e8380d;font-size:55px;font-family:"UniversLTXBlackW"}
+article.intro .content h2 span{display:block;padding-top:13px;font-weight:800;font-size:30px;font-family:"NanumGothicW"}
+article.intro .content .eng{margin:75px 0 50px;font-family:"UniversLTCnW"}
+article.intro .content .eng h3{color:#000;font-size:28px}
+article.intro .content .eng p{margin-top:11px;color:#525252;font-size:18px;line-height:1.33}
+article.intro .content .border div{border-top:1px solid #393939;opacity:0.2}
+article.intro .content .kor{margin-top:50px}
+article.intro .content .kor h3{color:#000;font-weight:800;font-size:20px}
+article.intro .content .kor p{margin-top:15px;color:#525252;font-size:14px;line-height:1.43}
+article.intro a.btn_skip{position:absolute;left:50%;bottom:60px;overflow:hidden;width:170px;height:48px;-webkit-transform:translateX(-50%);transform:translateX(-50%)}
+article.intro a.btn_skip:hover img,
+article.intro a.btn_skip:focus img{margin-top:-48px}
+
+/* 메인 */
+article.main{visibility:hidden;position:absolute;z-index:20;top:0;right:0;bottom:70px;left:0;opacity:0}
+article.main li{position:absolute;top:0;left:0;width:520px;height:100%;background:#3e3e3e no-repeat 50% 50%;background-size:cover}
+article.main li .dim{visibility:hidden;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:0}
+article.main li a{display:block;position:relative;z-index:1;height:100%}
+article.main li p{position:absolute;top:50%;left:50%;margin-top:-35px;width:260px;height:260px;border-radius:50%;background:rgba(0, 0, 0, 0.5);color:#fff;text-align:center;-webkit-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
+article.main li p span.episode{display:inline-block;position:relative;padding-top:47px;width:80px;text-align:center;font-size:18px;font-family:"UniversLTCnW";opacity:0.8}
+article.main li p span.episode:after{display:block;padding-top:4px;width:100%;border-bottom:1px solid #fff;content:"";opacity:0.4}
+article.main li p strong{display:block;padding-top:31px;white-space:nowrap;font-size:32px;font-family:"UniversLTCnW"}
+article.main li p span.kor{display:block;padding-top:13px;letter-spacing:-1px;font-weight:700;font-size:17px}
+article.main li p span.prepare{display:block;padding-top:22px;color:#ffde00;font-size:15px;font-family:"UniversLTCnW"}
+article.main li p span.border{visibility:hidden;display:block;position:absolute;top:0;left:0;box-sizing:border-box;width:100%;height:100%;border:2px solid #fff;border-radius:50%;content:"";opacity:0}
+
+/* 에피소드 */
+article.episode{visibility:hidden;position:absolute;top:0;right:0;bottom:70px;left:0;overflow:hidden;-webkit-perspective:2000px;perspective:2000px}
+article.episode button.btn_scroll{position:absolute;bottom:50px;left:50%;-webkit-transform:translateX(-50%);transform:translateX(-50%)}
+
+article.episode section{visibility:hidden;position:absolute;top:0;left:0;width:100%;height:100%;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}
+article.episode section div.bg{position:relative;height:100%;background:#fff no-repeat 50% 50%;background-size:cover}
+article.episode section .content{position:absolute;top:50%;left:50%;text-align:center;white-space:nowrap;-webkit-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
+article.episode section .content .border div{border-top:1px solid #393939;opacity:0.2}
+article.episode section .content h2{color:#000;font-size:28px;font-family:"UniversLTXBlackW"}
+article.episode section .content .eng{margin-bottom:52px}
+article.episode section .content .eng h3{margin-bottom:27px;color:#000;font-size:40px;font-family:"UniversLTXBlackW"}
+article.episode section .content .eng p{color:#525252;font-size:18px;font-family:"UniversLTCnW";line-height:1.33}
+article.episode section .content .kor{margin-top:59px;color:#525252}
+article.episode section .content .kor h3{margin-bottom:15px;font-weight:700;font-size:22px}
+article.episode section .content .kor p{font-size:14px;line-height:1.43}
+
+article.episode section.first .content .eng{margin-top:19px}
+
+/*article.episode section.sub div.bg{background-position:0 50%}*/
+article.episode section.sub .content{left:auto;right:120px;text-align:left;-webkit-transform:translate(0, -50%);transform:translate(0, -50%)}
+article.episode section.sub .content .eng{margin-bottom:42px}
+article.episode section.sub .content .kor{margin-top:49px}
+
+article.episode section.next .content h2{color:#e8380d}
+article.episode section.next .content .eng{margin-top:92px}
+article.episode section.next .content .eng h3{font-size:33px}
+article.episode section.next .content .button{display:inline-block;margin-top:127px}
+article.episode section.next .content .button > *{margin-left:25px}
+article.episode section.next .content .button > *:first-child{margin-left:0}
+article.episode section.next .content .button button{float:left}
+article.episode section.next .content .button button span{display:block;overflow:hidden;width:220px;height:48px}
+article.episode section.next .content .button button:hover img,
+article.episode section.next .content .button button:focus img{margin-top:-48px}
+article.episode section.next .content .button a.btn_event{float:left;overflow:hidden;width:220px;height:48px}
+article.episode section.next .content .button a.btn_event:hover img,
+article.episode section.next .content .button a.btn_event:focus img{margin-top:-48px}
+
+article.episode section.event h2{box-sizing:border-box;padding-top:77px;height:115px;background:url("../img/common/event_heading_bg.png") no-repeat 50% 0;color:#000;text-align:center;font-weight:800;font-size:40px}
+article.episode section.event .box{box-sizing:border-box;width:772px;height:573px;border-radius:10px;background:#fff url("../img/episode/episode01_event_visual.png") no-repeat 50% 41px;text-align:center}
+article.episode section.event .box h3{padding-top:231px;color:#e8380d;letter-spacing:-2px;font-weight:400;font-size:22px}
+article.episode section.event .box h3 strong{display:block;padding-top:8px;font-weight:700;font-size:28px}
+article.episode section.event .box p{margin-top:30px;color:#525252;letter-spacing:-0.5px;font-size:14px;line-height:18px}
+article.episode section.event .box p span.period{display:block;margin-top:32px;color:#000;font-weight:800;font-size:22px}
+article.episode section.event .box .button{display:inline-block;margin-top:61px}
+article.episode section.event .box .button a.btn_comment{float:left;overflow:hidden;margin-right:24px;width:220px;height:48px}
+article.episode section.event .box .button a.btn_comment:hover img,
+article.episode section.event .box .button a.btn_comment:focus img{margin-top:-48px}
+
+/* 에피소드 1 */
+article.episode1 section.first .content{margin-top:-6.4%}
+article.episode1 section.sub1 .content{margin-top:4.9%}
+article.episode1 section.sub2 .content{margin-top:0.5%}
+article.episode1 section.sub3 .content{margin-top:0.3%}
+article.episode1 section.sub4 .content{margin-top:1.9%}
+article.episode1 section.sub5 .content{margin-top:-0.2%}
+article.episode1 section.next .content{margin-top:-0.2%}
+article.episode1 section.event .content{margin-top:-0.7%}
+
+/* 공유하기 (에피소드) */
+.snswrap{position:absolute;top:41px;right:42px}
+.snswrap button{position:relative;z-index:1;margin-right:-4px}
+.snswrap nav{visibility:hidden;position:absolute;top:0;right:0;overflow:hidden;width:44px;height:44px;border:2px solid #393939;border-radius:24px;background:#fff;-webkit-box-shadow:2px 2px 2px rgba(0, 0, 0, 0.11);box-shadow:2px 2px 2px rgba(0, 0, 0, 0.11);opacity:0}
+.snswrap nav ul{padding:0 58px 0 20px}
+.snswrap nav li{float:left}
+.snswrap nav li a{padding:13px 15px}
+.snswrap nav li a span{display:block;overflow:hidden;height:18px;text-align:center}
+.snswrap nav li a:hover img,
+.snswrap nav li a:focus img{margin-top:-18px}
+
+/* 공유하기 (바형) */
+.sharebox{position:relative;float:left;width:220px;height:48px}
+.sharebox nav{visibility:hidden;position:absolute;top:2px;left:2px;overflow:hidden;width:216px;height:44px;border-radius:22px;opacity:0}
+.sharebox nav ul{position:absolute;top:-2px;left:-166px;box-sizing:border-box;width:220px;height:48px;padding-left:22px;background:url("../img/common/share_over_bg.png") no-repeat 100% 0}
+.sharebox nav li{float:left}
+.sharebox nav li a{padding:15px}
+.sharebox nav li a span{display:block;overflow:hidden;height:18px;text-align:center}
+.sharebox nav li a:hover img,
+.sharebox nav li a:focus img{margin-top:-18px}
+
+/* 댓글 레이어 */
+article.comment{display:none;position:absolute;z-index:300;top:0;left:0;width:100%;height:100%}
+article.comment .dim{height:100%;background:#000;opacity:0.7}
+article.comment .box{position:absolute;left:50%;top:50%;overflow:hidden;box-sizing:border-box;width:960px;height:85%;border:1px solid rgba(0, 0, 0, 0.14);border-radius:20px;background:#f4f4f4;-webkit-transform:translate(-50%, -50%);transform:translate(-50%, -50%)}
+article.comment .box ul{position:absolute;top:40px;right:18px;bottom:246px;left:40px;overflow-y:auto}
+article.comment .box li{box-sizing:border-box;padding:23px 0 21px;width:847px;border-top:1px solid #e4e4e4}
+article.comment .box li:first-child{padding-top:8px;border-top:0}
+article.comment .box li span.name{color:#828282;font-size:11px}
+article.comment .box li span.name strong{display:inline-block;margin-right:5px;color:#444;font-size:12px}
+article.comment .box li p{padding:11px 100px 0 0;color:#444;line-height:18px}
+article.comment .box li textarea{overflow-y:scroll;display:block;box-sizing:border-box;margin:9px 0 -2px;padding:11px 20px 12px;width:100%;height:64px;border:1px solid #d4d4d4;border-radius:2px;color:#444;line-height:18px}
+article.comment .box li .button{margin-top:12px}
+article.comment .box li .button:after{display:block;clear:both;content:""}
+article.comment .box li .button button{float:left;margin-right:7px}
+article.comment .box li .button button span{display:block;overflow:hidden;width:54px;height:22px}
+article.comment .box li .button button:hover img,
+article.comment .box li .button button:focus img{margin-top:-22px}
+article.comment .box .write{position:absolute;bottom:0;left:0;box-sizing:border-box;padding:30px 40px 50px;width:100%;height:226px;background:#fff;text-align:center}
+article.comment .box .write textarea{overflow-y:scroll;box-sizing:border-box;padding:10px 16px;width:100%;height:76px;border:1px solid #d4d4d4;border-radius:2px;color:#939393;text-align:left;font-size:12px;line-height:18px}
+article.comment .box .write .button{display:inline-block;margin-top:20px}
+article.comment .box .write .button button{float:left;margin:0 20px}
+article.comment .box .write .button button span{display:block;overflow:hidden;width:201px;height:50px}
+article.comment .box .write .button button:hover img,
+article.comment .box .write .button button:focus img{margin-top:-50px}

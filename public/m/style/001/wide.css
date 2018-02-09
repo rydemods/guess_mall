@@ -1,0 +1,25 @@
+/* product list Quantity */
+#bodyWrap.index .prod-list li {
+	width: 25%;
+	max-width: 120px;
+}
+	/* horizontal last-child hide */
+	#bodyWrap.index .prod-list li:last-child {
+		display: block;
+	}
+	
+/*
+========================================================================
+Detail - Detail View
+========================================================================
+*/
+/* simple-info thumb img size */
+#bodyWrap.detail-view .simple-info {
+	position: relative;
+	padding-left: 140px;
+	min-height: 180px;
+}
+#bodyWrap.detail-view .simple-info dd.primg {
+	width: 130px;
+	height: 175px;
+}

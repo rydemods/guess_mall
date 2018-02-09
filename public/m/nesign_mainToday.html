@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<!-- 
+		(D) title은 각 페이지에 맞게 수정되어야 합니다
+		메인 : 사이트이름
+		서브 : 소분류 < 중분류 < 대분류 - 사이트이름
+		상세페이지 : 상품이름 상세페이지 - 사이트이름
+	-->
+	<title>오늘의 추천 - DISCOVERY EXPEDITION</title>
+
+	<link rel="stylesheet" href="css2/common.css">
+	<link rel="stylesheet" href="css2/main.css">
+	<link rel="stylesheet" href="css2/product.css">
+	<link rel="stylesheet" href="css2/order.css">
+	<link rel="stylesheet" href="css2/mypage.css">
+	<link rel="stylesheet" href="css2/cscenter.css">
+	<link rel="stylesheet" href="css2/other.css">
+	
+	<script src="js2/libs/jquery-2.1.3.min.js"></script>
+	<script src="js2/libs/hammer-2.0.4.min.js"></script>
+	<script src="js2/libs/TweenMax-1.15.0.min.js"></script>
+	<script src="js2/common.js"></script>
+
+</head>
+
+<body>
+
+	<div class="btn_skip"><a href="#content" onclick="focus_anchor($(this).attr('href'));return false;">본문 바로가기</a></div>
+	
+	<!-- 헤더 고정 -->
+	<header id="header">
+		<!-- 글로벌 상단 -->
+		<div class="topwrap">
+			<h1><a href="mainToday.html"><img src="images/header_logo.png" alt="DISCOVERY EXPEDITION"></a></h1>
+			<nav class="gnb">
+				<!-- (D) 선택된 li 에 class="on" title="선택됨" 을 추가합니다. -->
+				<ul>
+					<li><a href="productListThumb.html">MEN</a></li>
+					<li><a href="productListThumb.html">WOMEN</a></li>
+					<li><a href="productListThumb.html">KIDS</a></li>
+					<li><a href="productListThumb.html">ACC</a></li>
+				</ul>
+			</nav>
+			<div class="catewrap">
+				<a class="btn_open" href="#category" title="레이어 열림"><img src="images/header_category_btn_open.png" alt="카테고리"></a>
+				<!-- 카테고리 메뉴 -->
+				<div id="category">
+					<div class="cover"></div>
+					<div class="catebox">
+						<div class="logbox">
+							<p>로그인을 해주세요</p><a href="login.html">로그인</a>
+							<!-- <p>홍길동님 반갑습니다</p><a href="#">로그아웃</a> -->
+						</div>
+						<nav class="quick">
+							<ul>
+								<li><a href="#"><img src="images/header_category_quick_ico_search.png" alt=""><span>상품검색</span></a></li>
+								<li><a href="myOrderList.html"><img src="images/header_category_quick_ico_order.png" alt=""><span>주문/배송</span></a></li>
+								<li><a href="csNoticeList.html"><img src="images/header_category_quick_ico_cs.png" alt=""><span>고객센터</span></a></li>
+								<li><a href="eventListOn.html"><img src="images/header_category_quick_ico_event.png" alt=""><span>이벤트</span></a></li>
+							</ul>
+						</nav>
+						<nav class="menu">
+							<!--
+								(D) 선택된 1뎁스 li 에 class="on" 을 추가하고, a 에 title="하위 메뉴 숨기기" 로 변경합니다.
+								하위메뉴가 없는 1뎁스 li 에 class="link" 를 추가하고, a 의 title 속성을 제거합니다.
+							-->
+							<ul>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">MEN<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">PERFORMANCE</a></li>
+										<li><a href="#">ACTIVE</a></li>
+										<li><a href="#">LIFE STYLE</a></li>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">다운</a></li>
+										<li><a href="#">자켓</a></li>
+										<li><a href="#">베스트</a></li>
+										<li><a href="#">티셔츠/셔츠</a></li>
+										<li><a href="#">팬츠</a></li>
+										<li><a href="#">트레이닝웨어</a></li>
+										<li><a href="#">세일</a></li>
+										<li><a href="#">2014 S/S상품</a></li>
+										<li><a href="#">2013 F/W상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">WOMEN<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">PERFORMANCE</a></li>
+										<li><a href="#">ACTIVE</a></li>
+										<li><a href="#">LIFE STYLE</a></li>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">다운</a></li>
+										<li><a href="#">자켓</a></li>
+										<li><a href="#">베스트</a></li>
+										<li><a href="#">티셔츠/셔츠</a></li>
+										<li><a href="#">팬츠</a></li>
+										<li><a href="#">트레이닝웨어</a></li>
+										<li><a href="#">세일</a></li>
+										<li><a href="#">2014 S/S상품</a></li>
+										<li><a href="#">2013 F/W상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">KIDS<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">다운</a></li>
+										<li><a href="#">자켓</a></li>
+										<li><a href="#">티셔츠/셔츠</a></li>
+										<li><a href="#">팬츠</a></li>
+										<li><a href="#">액세서리</a></li>
+										<li><a href="#">세일</a></li>
+										<li><a href="#">2014 S/S상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">ACCESSORY<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">PERFORMANCE</a></li>
+										<li><a href="#">ACTIVE</a></li>
+										<li><a href="#">LIFE STYLE</a></li>
+										<li><a href="#">신상품</a></li>
+										<li><a href="#">신발</a></li>
+										<li><a href="#">배낭/가방</a></li>
+										<li><a href="#">모자</a></li>
+										<li><a href="#">용품</a></li>
+										<li><a href="#">텐트</a></li>
+										<li><a href="#">2013 F/W상품</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">STYLE<div class="arrow"></div></a>
+									<ul>
+										<li><a href="styleThumb.html">STYLE BOOK</a></li>
+										<li><a href="#">CELEB STYLE</a></li>
+										<li><a href="#">SBS 미녀의 탄생</a></li>
+										<li><a href="#">SBS 내겐 너무 사랑스러운 그녀</a></li>
+										<li><a href="#">SBS 기분 좋은 날</a></li>
+										<li><a href="#">MBC 아빠 어디가</a></li>
+										<li><a href="#">SBS 일단 띄워</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">DISCOVERER<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">ADBENTURE</a></li>
+										<li><a href="#">DISCOVERY CREW</a></li>
+										<li><a href="#">GO EXPEDITION</a></li>
+										<li><a href="#">EXPLORE NEW SPOT</a></li>
+										<li><a href="#">I AM A DISCOVERER</a></li>
+									</ul>
+								</li>
+								<li><a href="#" title="하위 메뉴 펼쳐보기">BRAND STORY<div class="arrow"></div></a>
+									<ul>
+										<li><a href="#">DISCOVERY EXPEDITION</a></li>
+										<li><a href="#">DISCOVERY TECHNOLOGY</a></li>
+										<li><a href="#">AD GALLERY</a></li>
+										<li><a href="#">STORE LOCATION</a></li>
+									</ul>
+								</li>
+								
+							</ul>
+						</nav>
+						<div class="logobox"><img src="images/header_logo.png" alt="DISCOVERY EXPEDITION"></div>
+						<a class="btn_close" href="#"><img src="images/header_category_btn_close.png" alt="카테고리 닫기"></a>
+					</div>
+				</div>
+				<!-- // 카테고리 메뉴 -->
+			</div>
+		</div>
+		<!-- // 글로벌 상단 -->
+
+		<!-- 메인 상단 -->
+		<nav class="maintop">
+			<!--
+				(D) 선택된 li 에 class="on" title="선택됨" 을 추가합니다.
+				a 의 href 는 "#link_banner + 숫자" 조합으로 차례로 넣어줍니다.
+				각각의 별도 페이지로 구성할 때에는 a 의 href 에 페이지 경로를 넣어주고, 별도로 코딩되어 있는 페이지를 사용하시면 됩니다.
+			-->
+			<ul>
+				<li class="on" title="선택됨"><a href="#"><span>오늘의 추천</span></a></li>
+				<li><a href="nesign_mainEvent.html"><span>이벤트/기획전</span></a></li>
+				<li><a href="nesign_mainHot.html"><span>HOT세일</span></a></li>
+				<li><a href="nesign_mainSponsor.html"><span>협찬상품</span></a></li>
+			</ul>
+		</nav>
+		<!-- // 메인 상단 -->
+	</header>
+	<!-- // 헤더 고정 -->
+
+	<!-- 내용 -->
+	<main id="content" class="mainpage">
+		
+		<div class="loadwrap todaywrap">
+			<h2 class="blind">오늘의 추천</h2>
+
+			<!-- 배너 롤링 -->
+			<div class="rollingwrap">
+				<a class="arrow prev" href="eventView.html"><img src="images/main_today_rolling_arrow_prev.png" alt="이전 배너 보기"></a>
+				<a class="arrow next" href="eventView.html"><img src="images/main_today_rolling_arrow_next.png" alt="다음 배너 보기"></a>
+				<nav>
+					<!--
+						(D) 선택된 li 에 class="on" title="선택됨" 을 추가합니다.
+						a 의 href 는 "#link_banner + 숫자" 조합으로 차례로 넣어줍니다.
+					-->
+					<ul>
+						<li class="on" title="선택됨"><a href="#link_banner1">1</a></li>
+						<li><a href="#link_banner2">2</a></li>
+						<li><a href="#link_banner3">3</a></li>
+						<li><a href="#link_banner4">4</a></li>
+					</ul>
+				</nav>
+				<div class="container">
+					<!-- (D) li 에 href 와 연결되도록 id 를 차례로 넣어줍니다. -->
+					<ul>
+						<li id="link_banner1"><a href="#"><img src="images/sample/main_today_banner1.jpg" alt="SEPCIAL EVENT 2014FW 구매금액별 즉시할인 이벤트 기획전 보기"></a></li>
+						<li id="link_banner2"><a href="#"><img src="images/sample/main_today_banner1.jpg" alt="SEPCIAL EVENT 2014FW 구매금액별 즉시할인 이벤트 기획전 보기"></a></li>
+						<li id="link_banner3"><a href="#"><img src="images/sample/main_today_banner1.jpg" alt="SEPCIAL EVENT 2014FW 구매금액별 즉시할인 이벤트 기획전 보기"></a></li>
+						<li id="link_banner4"><a href="#"><img src="images/sample/main_today_banner1.jpg" alt="SEPCIAL EVENT 2014FW 구매금액별 즉시할인 이벤트 기획전 보기"></a></li>
+					</ul>
+				</div>
+				<script src="js/mainToday.js"></script>
+			</div>
+			<!-- // 배너 롤링 -->
+
+			<!-- 배너 리스트 -->
+			<div class="bannerwrap">
+				<ul>
+					<li><a href="eventView.html"><img src="images/sample/main_today_banner1.jpg" alt="TV CF 2014 디스커버리가 있어 세상은 즐거움으로 가득하다. CF 영상 보러 가기"></a></li>
+					<li><a href="eventView.html"><img src="images/sample/main_today_banner2.jpg" alt="2014 WINTER DOWN COLLECTION TAKEETNA 멜란 헤비 다운 자켓 420,000원 상품 자세히보기"></a></li>
+					<li><a href="eventView.html"><img src="images/sample/main_today_banner3.jpg" alt="배너배너배너 내용"></a></li>
+					<li><a href="eventView.html"><img src="images/sample/main_today_banner4.jpg" alt="배너 내용"></a></li>
+				</ul>
+			</div>
+			<!-- // 배너 리스트 -->
+
+			<!-- 상품 리스트 -->
+			<div class="productwrap thumb">
+				<!--
+					(D) productwrap 에 thumb 클래스를 추가하면 썸네일 형으로 변경됩니다.
+					상품명에 색상이 추가될 경우 span.name 안에 strong 으로 감싸고 strong 요소에 style 로 color 를 직접 넣어줍니다.
+				-->
+				<ul>
+					<li>
+						<a href="productDetail.html">
+							<img class="item" src="images/sample/product_list1.jpg" alt="">
+							<div class="infobox">
+								<div class="tagbox"><img src="images/tag_sponsor.png" alt="협찬상품"></div>
+								<span class="name">STANLEY 남성 고어텍스 방수 구스다운 자켓</span>
+								<span class="code">DMDJ7E461-BL</span>
+								<div class="pricebox"><strong>950,000</strong></div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="productDetail.html">
+							<img class="item" src="images/sample/product_list2.jpg" alt="">
+							<div class="infobox">
+								<div class="tagbox"></div>
+								<span class="name">2레이어 방투습 나일론 소재의 헤비다운 자켓</span>
+								<span class="code">DMDJ71461-BR</span>
+								<div class="pricebox"><del>420,000</del><strong>294,000</strong></div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="productDetail.html">
+							<img class="item" src="images/sample/product_list3.jpg" alt="">
+							<div class="infobox">
+								<div class="tagbox"></div>
+								<span class="name">남성배색 경량다운</span>
+								<span class="code">DMDJ71461-BR</span>
+								<div class="pricebox"><strong>250,000</strong></div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="productDetail.html">
+							<img class="item" src="images/sample/product_list4.jpg" alt="">
+							<div class="infobox">
+								<div class="tagbox"><img src="images/tag_sponsor.png" alt="협찬상품"></div>
+								<span class="name"><strong style="color:#006db4">[미녀의탄생] 정겨운 협찬</strong> 밀포드 2014 다운자켓</span>
+								<span class="code">DMDJ71461-BR</span>
+								<div class="pricebox"><del>320,000</del><strong>250,000</strong></div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="productDetail.html">
+							<img class="item" src="images/sample/product_list1.jpg" alt="">
+							<div class="infobox">
+								<div class="tagbox"><img src="images/tag_her.png" alt="내그녀"></div>
+								<span class="name"><strong style="color:#3f31f6">[내그녀] 김혜은 협찬상품</strong> 디스커버리 플리스 자켓</span>
+								<span class="code">DWSS56461-WH</span>
+								<div class="pricebox"><strong>279,000</strong></div>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="productDetail.html">
+							<img class="item" src="images/sample/product_list2.jpg" alt="">
+							<div class="infobox">
+								<div class="tagbox"></div>
+								<span class="name">2레이어 방투습 나일론 소재의 헤비다운 자켓</span>
+								<span class="code">DMDJ71461-BR</span>
+								<div class="pricebox"><del>420,000</del><strong>294,000</strong></div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- // 상품 리스트 -->
+
+			<!-- 유투브 -->
+			<div class="youtubewrap">
+				<iframe src="http://www.youtube.com/embed/Qu9IZNvUYJY" title="디스커버리 익스페디션 아웃도어 CF"></iframe>
+			</div>
+			<!-- // 유투브 -->
+		</div>
+
+	</main>
+	<!-- // 내용 -->
+
+	<!-- 푸터 -->
+	<footer id="footer">
+		<nav class="util">
+			<ul>
+				<li><a href="etcAgree.html">이용약관</a></li>
+				<li><a href="etcPrivacy.html">개인정보 취급방침</a></li>
+				<li><a href="csNoticeList.html">고객센터</a></li>
+				<li><a href="#">PC버전</a></li>
+			</ul>
+		</nav>
+		<nav class="social">
+			<ul>
+				<li><a href="#"><img src="images/footer_social_facebook.png" alt="페이스북"></a></li>
+				<li><a href="#"><img src="images/footer_social_blog.png" alt="블로그"></a></li>
+				<li><a href="#"><img src="images/footer_social_youtube.png" alt="유투브"></a></li>
+			</ul>
+		</nav>
+		<address>
+			고객센터 주소 : 서울시 강남구 역삼동 662-9 F&#38;F 대표 김창수<br />
+			사업자 등록번호 : 214-86-09977<br />
+			통신판매업 신고번호 : 서울강남 00086호<br />
+			고객센터 : <a href="tel:080-820-8802">080-820-8802</a> <span class="as">AS : <a href="tel:02-3488-8914">02-3488-8914</a></span>
+		</address>
+		<p>
+			교환/반품 반송처 주소 : (467-813) 경기도 이천시 마장면<br />
+			프리미엄 아울렛로 113-37 F&#38;F물류센터 디스커버리 물류부
+		</p>
+		<p>Copyright F&#38;F CO.,LTD. All rights reserved.</p>
+	</footer>
+	<!-- // 푸터 -->
+
+	<!-- 하단 고정 -->
+	<a class="btn_top" href="#header" onclick="focus_anchor($(this).attr('href'), 0);return false;"><img src="images/bottom_btn_top.png" alt="페이지 처음으로 돌아가기"></a>
+	<div id="bottom">
+		<nav class="quick">
+			<!-- (D) 선택된 li 에 class="on" 과 title="현재페이지" 을 추가합니다. -->
+			<ul>
+				<li>
+					<a href="mainToday.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_home.png" alt=""></div>
+						<span>홈</span>
+					</a>
+				</li>
+				<li>
+					<a href="storeList.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_shop.png" alt=""></div>
+						<span>매장</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<div class="icobox"><img src="images/bottom_nav_ico_search.png" alt=""></div>
+						<span>검색</span>
+					</a>
+				</li>
+				<li>
+					<a href="orderCart.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_cart.png" alt=""></div>
+						<span>장바구니</span>
+						<div class="numbox"><span>담은 상품 수</span><strong><span>23</span></strong></div>
+					</a>
+				</li>
+				<li class="on" title="현재페이지">
+					<a href="mypage.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_myshopping.png" alt=""></div>
+						<span>마이쇼핑</span>
+					</a>
+				</li>
+				<li>
+					<a href="eventListOn.html">
+						<div class="icobox"><img src="images/bottom_nav_ico_event.png" alt=""></div>
+						<span>이벤트</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<!-- 하단 고정 -->
+
+</body>
+
+</html>

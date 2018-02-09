@@ -1,0 +1,50 @@
+
+/* 상품 이미지+상품명+가격 */
+div.goods_A a {display:block}
+div.goods_A a p.img130 {width:130px; margin:auto; margin-top:20px;}
+div.goods_A a p.img190 {width:190px; margin:auto; margin-top:20px;}
+div.goods_A a p.img280 {width:280px; margin:auto; margin-top:20px;}
+div.goods_A a p.img5n {width:180px;}
+div.goods_A a p.img5n img {width:178px; border:1px solid #ececec;}
+div.goods_A a p.img6n {width:150px;}
+div.goods_A a p.img6n img {width:148px; border:1px solid #ececec;}
+
+div.goods_A a span {display:block; text-align:center}
+div.goods_A a span.subject {font:12px dotum; color:#595959; margin-top:13px;text-overflow:ellipsis; overflow:hidden; white-space:nowrap;background:#FFFFFF;}
+div.goods_A a del {/*font:dotum 12px;*/ color:#999; margin-top:13px; font-size: 13px; font-weight: normal; }
+div.goods_A a span.price {font:14px dotum; font-weight:bold; margin-top:7px; color:#000;background:#FFFFFF; }
+div.goods_A.w140 {width: 140px; margin:auto}
+div.goods_A.w130 {width:130px; margin:auto}
+div.goods_A.w190 {width:190px; margin:auto}
+div.goods_A.w280 {width:280px; margin:auto}
+
+/* 상품  5개씩 나열 */
+ul.goods5n {}
+ul.goods5n:after {content:""; display:block; clear:both}
+ul.goods5n li {float:left; width:180px; margin-left:25px; margin-bottom:40px}
+ul.goods5n li:nth-child(5n+1) {margin-left:0px}
+
+/* 상품  6개씩 나열 */
+ul.goods6n {}
+ul.goods6n:after {content:""; display:block; clear:both}
+ul.goods6n li {float:left; width:150px; margin-left:20px; margin:20px 0 20px 20px;}
+ul.goods6n li:nth-child(6n+1) {margin-left:0px}
+ul.goods6n li span.price {font-size:12px;}
+
+
+/* 리스트 상품레이어 */
+div.list_layer_info span {display:block}
+div.list_layer_info span.subject {font:bold 12px dotum; color:#fff; margin-top:19px; ;white-space: nowrap; text-overflow:ellipsis;overflow:hidden}
+div.list_layer_info span.price {font:bold 14px dotum; color:#ffa93a; margin-top:10px}
+div.list_layer_info span.price em {font:12px dotum; color:#999; text-decoration:line-through;padding-right:10px}
+div.list_layer_info p.btn {margin-top:20px}
+
+
+/* 메인 추천상품 템플릿 */
+div.recommend_tplA {}
+div.recommend_tplA ul.tplA {}
+div.recommend_tplA ul.tplA:after {display:block; clear:both; content:"";}
+div.recommend_tplA ul.tplA li {float:left; width:180px; margin-left:25px; margin-bottom:40px;}
+div.recommend_tplA ul.tplA li:first-child {width:382px; height:530px; margin-left:0px;}
+div.recommend_tplA ul.tplA li:first-child a span.subject{ font:bold 14px dotum; margin-top:30px;}
+div.recommend_tplA ul.tplA li:first-child a span.opt {margin:10px 0 30px 0; font:12px dotum; color:#585858;}

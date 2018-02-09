@@ -1,0 +1,121 @@
+<?
+$Dir="../";
+include_once($Dir."lib/init.php");
+include_once($Dir."lib/lib.php");
+include_once("lib.inc.php");
+include_once("shopdata.inc.php");
+
+$subTitle = "주문하기";
+include ("header.inc.php");
+include ("sub_header.inc.php");
+include_once($Dir."lib/product.class.php");
+$product = new PRODUCT();
+
+?>
+
+<article class="order_wrap">
+
+<section class="order_end">
+	<img src="../common/img/order_end_title.png" class="w100per" alt="결제가 완료 되었습니다." />
+</section>
+
+
+<section class="cart_list">
+	<table>
+		<caption class="hide">주문상품 리스트 목록</caption>
+		<colgroup><col width="25%" /><col width="75%" /></colgroup>
+		
+		<tr>
+			<td class="thumb"><a href="../goods/view.php?goodsno={.goodsno}">{=goodsimgMobile(.img,100)}</a></td>
+			<td class="left">
+				<span class="name">{.goodsnm}</span>
+				{ ? .strOpt }<span>{.strOpt}</span>{ / }
+				<div class="order_price"><span class="quantity">수량 : {.ea}개</span> <span  class="price">금액 : <em>{=number_format(.price + .addprice)}</em></span></div>
+			</td>
+		</tr>
+		
+	</table>
+</section>
+
+
+<article class="order_end_tap" id="1">
+	<section>
+		<ul>
+			<li><a href="#1" class="on">결제금액 확인</a></li>
+			<li><a href="#2">배송지 정보 확인</a></li>
+		</ul>
+	</section>
+</article>
+
+<section class="cart_list">
+	<ul class="goods_price">
+	<li><span class="title">상품금액합계</span> <span class="price">{=number_format(goodsprice)}<em>원</em></span></li>
+	<li><span class="title">회원 할인</span> <span class="price no2">{=number_format(memberdc)}<em>원</em></span></li>
+	<li><span class="title">쿠폰 적용</span> <span class="price no2">{=number_format(coupon)}<em>원</em></span></li>
+	<li class="bd_none"><span class="title">	적립금 사용</span> <span class="price no2">{=number_format(emoney)}<em>원</em></span></li>
+	<li class="point_info"><span>※총 예상 적립금 <em>{=number_format(reserve)}원</em>원이 적립될 예정입니다.</span></li>
+	<li class="payment_total">
+		<span class="title">총 결제 금액(배송비:<em class="deliy_type"></em>)</span> <span class="price_total">{=number_format(settleprice)}</span>원
+	</li>
+   </ul>
+</section>
+
+
+<article class="order_end_tap" id="2">
+	<section>
+		<ul>
+			<li><a href="#1">결제금액 확인</a></li>
+			<li><a href="#2" class="on">배송지 정보 확인</a></li>
+		</ul>
+	</section>
+</article>
+
+<section>
+<div  class="delivery">
+<div  class="member_info">
+ <table>
+  <caption class="hide">배송정보 확인 테이블</caption>
+<colgroup>
+<col width="100" />
+<col width="*" />
+</colgroup>
+	<tr>
+		<th scope="row">주문자</th>
+		<td>{nameOrder}</td>
+	</tr>
+	<tr>
+		<th scope="row">받는 사람</th>
+		<td>{nameReceiver}</td>
+	</tr>
+	<tr>
+		<th scope="row">주소</th>
+		<td>{address}</td>
+	</tr>
+	<tr>
+		<th scope="row">전화번호</th>
+		<td>{phoneReceiver}</td>
+	</tr>
+	<tr>
+		<th scope="row">핸드폰 번호</th>
+		<td>{mobileReceiver}</td>
+	</tr>
+	<tr>
+		<th scope="row">요청사항</th>
+		<td>{?memo}{memo}{:}-{/}</td>
+	</tr>
+	
+</table>
+</div>
+	</div>
+   </section>
+
+<div class="btn_center">
+	<a href="/m/" class="btn_main">메인으로</a>
+</div>
+
+
+</article>
+
+</div>
+
+{ # footer }

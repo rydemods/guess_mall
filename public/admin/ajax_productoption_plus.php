@@ -1,0 +1,204 @@
+<?php
+
+$Dir="../";
+include_once($Dir."lib/init.php");
+include_once($Dir."lib/lib.php");
+
+$ps_run = false;
+
+if($it['it_id']) {
+    $sql = " SELECT * FROM tblproduct_option WHERE option_type = '1' AND productcode = '{$it['it_id']}' order by option_num asc ";
+    $result = pmysql_query( $sql, get_db_conn() );
+    if(pmysql_num_rows($result))
+        $ps_run = true;
+} else if(!empty($_POST)) {
+    $subject_count = count($_POST['subject']);
+    $supply_count = count($_POST['supply']);
+	$necessary_tf = $_POST['necessary_tf'];
+
+    if(!$subject_count || !$supply_count) {
+        echo '추가옵션명과 추가옵션항목을 입력해 주십시오.';
+        exit;
+    }
+
+    $ps_run = true;
+}
+
+if($ps_run) {
+?>
+<div class="sit_option_frm_wrapper">
+    <table>
+    <caption>추가옵션 목록</caption>
+    <thead>
+    <tr>
+        <th scope="col">
+            <label for="spl_chk_all" class="sound_only">전체 추가옵션</label>
+            <input type="checkbox" name="spl_chk_all" value="1">
+        </th>
+        <th scope="col">옵션명</th>
+        <th scope="col">옵션항목</th>
+        <th scope="col">상품금액</th>
+        <th scope="col" style='display:none;' >재고수량</th>
+        <th scope="col" style='display:none;' >통보수량</th>
+        <th scope="col" style='display:none;' >사용여부</th>
+        <th scope="col">자체품목코드</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    if($it['it_id']) {
+        for($i=0; $row=pmysql_fetch_array($result); $i++) {
+            $spl_num = $row['option_num'];
+            $spl_id = $row['option_code'];
+            $spl_val = explode(chr(30), $spl_id);
+            $spl_subject = $spl_val[0];
+            $spl = $spl_val[1];
+            $spl_price = $row['option_price'];
+            $spl_stock_qty = $row['option_quantity'];
+            $spl_noti_qty = $row['option_quantity_noti'];
+            $spl_use = $row['option_use'];
+			$spl_tf = $row['option_tf'];
+            $spl_goods_code = $row['self_goods_code'];
+    ?>
+    <tr>
+        <td class="td_chk">
+            <input type="hidden" name="spl_num[]" value="<?php echo $spl_num; ?>">
+            <input type="hidden" name="spl_id[]" value="<?php echo $spl_id; ?>">
+			<input type="hidden" name="spl_tf[]" value="<?php echo $spl_tf; ?>">
+            <label for="spl_chk_<?php echo $i; ?>" class="sound_only"><?php /*echo $spl_subject.' '.$spl;*/ ?></label>
+            <input type="checkbox" name="spl_chk[]" id="spl_chk_<?php echo $i; ?>" value="1">
+        </td>
+        <td class="spl-subject-cell"><?php echo $spl_subject; ?></td>
+        <td class="spl-cell"><?php echo $spl; ?></td>
+        <td class="td_numsmall">
+            <label for="spl_price_<?php echo $i; ?>" class="sound_only">상품금액</label>
+            <input type="text" name="spl_price[]" value="<?php echo $spl_price; ?>" id="spl_price_<?php echo $i; ?>" class="frm_input" size="5">
+        </td>
+        <td class="td_num" style='display:none;' >
+            <label for="spl_stock_qty_<?php echo $i; ?>" class="sound_only">재고수량</label>
+            <input type="text" name="spl_stock_qty[]" value="<?php echo $spl_stock_qty; ?>" id="spl_stock_qty_<?php echo $i; ?>" class="frm_input" size="5">
+        </td>
+        <td class="td_num" style='display:none;' >
+            <label for="spl_noti_qty_<?php echo $i; ?>" class="sound_only">통보수량</label>
+            <input type="text" name="spl_noti_qty[]" value="<?php echo $spl_noti_qty; ?>" id="spl_noti_qty_<?php echo $i; ?>" class="frm_input" size="5">
+        </td>
+        <td class="td_mng" style='display:none;' >
+            <label for="spl_use_<?php echo $i; ?>" class="sound_only">사용여부</label>
+            <select name="spl_use[]" id="spl_use_<?php echo $i; ?>">
+                <option value="1" <?php echo get_selected('1', $spl_use); ?>>사용함</option>
+                <option value="0" <?php echo get_selected('0', $spl_use); ?>>사용안함</option>
+            </select>
+        </td>
+        <td class="td_num">
+            <label for="spl_goods_code_<?php echo $i; ?>" class="sound_only"></label>
+            <input type="text" name="spl_goods_code[]" value="<?php echo $spl_goods_code; ?>" id="spl_goods_code_<?php echo $i; ?>" class="frm_input" size="50">
+        </td>
+    </tr>
+    <?php
+        } // for
+    } else {
+        for($i=0; $i<$subject_count; $i++) {
+            $spl_subject = preg_replace('/[\'\"]/', '', trim(stripslashes($_POST['subject'][$i])));
+            $spl_val = explode('@#', preg_replace('/[\'\"]/', '', trim(stripslashes($_POST['supply'][$i]))));
+            $spl_count = count($spl_val);
+			$necessary_type = $necessary_tf[$i];
+
+            for($j=0; $j<$spl_count; $j++) {
+                $spl = strip_tags(trim($spl_val[$j]));
+				$spl_num = null;
+                if($spl_subject && strlen($spl)) {
+                    $spl_id = $spl_subject.chr(30).$spl;
+                    $spl_price = 0;
+                    $spl_stock_qty = 9999;
+                    $spl_noti_qty = 100;
+                    $spl_use = 1;
+
+                    // 기존에 설정된 값이 있는지 체크
+                    if($_POST['w'] == 'u') {
+                        $sql = " SELECT option_num, option_price, option_quantity, option_quantity_noti, option_use, option_tf
+                                    FROM tblproduct_option
+                                    WHERE productcode = '{$_POST['it_id']}'
+                                      AND option_code = '$spl_id'
+                                      AND option_type = '1' ";
+                        $row = pmysql_fetch($sql);
+						
+                        if($row) {
+							$spl_num = $row['option_num'];
+                            $spl_price = (int)$row['option_price'];
+                            $spl_stock_qty = (int)$row['option_quantity'];
+                            $spl_noti_qty = (int)$row['option_quantity_noti'];
+                            $spl_use = (int)$row['option_use'];
+							//$necessary_type = $row['option_tf'];
+                        }
+                    }
+    ?>
+    <tr>
+        <td class="td_chk">
+			<input type="hidden" name="spl_num[]" value="<?php echo $spl_num; ?>">
+            <input type="hidden" name="spl_id[]" value="<?php echo $spl_id; ?>">
+            <input type="hidden" name="spl_tf[]" value="<?php echo $necessary_type; ?>">
+            <label for="spl_chk_<?php echo $i; ?>" class="sound_only"><?php /*echo $spl_subject.' '.$spl;*/ ?></label>
+            <input type="checkbox" name="spl_chk[]" id="spl_chk_<?php echo $i; ?>" value="1">
+        </td>
+        <td class="spl-subject-cell"><?php echo $spl_subject; ?></td>
+        <td class="spl-cell"><?php echo $spl; ?></td>
+        <td class="td_numsmall">
+            <label for="spl_price_<?php echo $i; ?>" class="sound_only">상품금액</label>
+            <input type="text" name="spl_price[]" value="<?php echo $spl_price; ?>" id="spl_price_<?php echo $i; ?>" class="frm_input" size="9">
+        </td>
+        <td class="td_num" style='display:none;' >
+            <label for="spl_stock_qty_<?php echo $i; ?>" class="sound_only">재고수량</label>
+            <input type="text" name="spl_stock_qty[]" value="<?php echo $spl_stock_qty; ?>" id="spl_stock_qty_<?php echo $i; ?>" class="frm_input" size="5">
+        </td>
+        <td class="td_num" style='display:none;' >
+            <label for="spl_noti_qty_<?php echo $i; ?>" class="sound_only">통보수량</label>
+            <input type="text" name="spl_noti_qty[]" value="<?php echo $spl_noti_qty; ?>" id="spl_noti_qty_<?php echo $i; ?>" class="frm_input" size="5">
+        </td>
+        <td class="td_mng" style='display:none;' >
+            <label for="spl_use_<?php echo $i; ?>" class="sound_only">사용여부</label>
+            <select name="spl_use[]" id="spl_use_<?php echo $i; ?>">
+                <option value="1" <?php echo get_selected('1', $spl_use); ?>>사용함</option>
+                <option value="0" <?php echo get_selected('0', $spl_use); ?>>사용안함</option>
+            </select>
+        </td>
+        <td class="td_num">
+            <label for="spl_goods_code_<?php echo $i; ?>" class="sound_only"></label>
+            <input type="text" name="spl_goods_code[]" value="<?php echo $spl_goods_code; ?>" id="spl_goods_code_<?php echo $i; ?>" class="frm_input" size="50">
+        </td>
+    </tr>
+    <?php
+                } // if
+            } // for
+        } // for
+    }
+    ?>
+    </tbody>
+    </table>
+</div>
+
+<div class="btn_list01 btn_list">
+    <button type="button" id="sel_supply_delete">선택삭제</button>
+</div>
+
+<fieldset>
+    <?php echo help('전체 추가 옵션의 상품금액, 재고/통보수량 및 사용여부를 일괄 적용할 수 있습니다.  단, 체크된 수정항목만 일괄 적용됩니다.'); ?>
+    <label for="spl_com_price">상품금액</label>
+    <label for="spl_com_price_chk" class="sound_only">상품금액일괄수정</label><input type="checkbox" name="spl_com_price_chk" value="1" id="spl_com_price_chk" class="spl_com_chk">
+    <input type="text" name="spl_com_price" value="0" id="spl_com_price" class="frm_input" size="9">
+    <!-- <label for="spl_com_stock">재고수량</label>
+    <label for="spl_com_stock_chk" class="sound_only">재고수량일괄수정</label><input type="checkbox" name="spl_com_stock_chk" value="1" id="spl_com_stock_chk" class="spl_com_chk">
+    <input type="text" name="spl_com_stock" value="0" id="spl_com_stock" class="frm_input" size="5">
+    <label for="spl_com_noti">통보수량</label>
+    <label for="spl_com_noti_chk" class="sound_only">통보수량일괄수정</label><input type="checkbox" name="spl_com_noti_chk" value="1" id="spl_com_noti_chk" class="spl_com_chk">
+    <input type="text" name="spl_com_noti" value="0" id="spl_com_noti" class="frm_input" size="5">
+    <label for="spl_com_use">사용여부</label>
+    <label for="spl_com_use_chk" class="sound_only">사용여부일괄수정</label><input type="checkbox" name="spl_com_use_chk" value="1" id="spl_com_use_chk" class="spl_com_chk">
+    <select name="spl_com_use" id="spl_com_use">
+        <option value="1">사용함</option>
+        <option value="0">사용안함</option>
+    </select> -->
+    <button type="button" id="spl_value_apply" class="btn_frmline">일괄적용</button>
+</fieldset>
+<?php
+}
+?>

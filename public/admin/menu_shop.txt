@@ -1,0 +1,25 @@
+[환경 설정]
+
+<기본정보설정>
+상점 기본정보 관리	= shop_basicinfo.php
+브라우저 타이틀/키워드	= shop_keyword.php
+쇼핑몰 이용약관		= shop_agreement.php
+쇼핑몰 개인정보취급방침	= shop_privercyinfo.php
+쇼핑몰 기타약관		= shop_etc_agreement.php
+
+
+<운영설정>
+상품검색 설정	= shop_search.php
+포인트 정책설정	= shop_reserve.php
+쿠폰 정책설정	= shop_coupon.php
+주문 정책설정		= shop_order.php
+
+
+<배송관리>
+배송/반품 정책설정	= shop_deli.php
+지역별 배송비 설정	= shop_area_deli.php
+
+<보안 설정>
+그룹 및 권한 설정	= shop_rolelist.php
+운영자/부운영자 설정	= shop_adminlist.php
+

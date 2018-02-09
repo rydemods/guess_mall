@@ -1,0 +1,423 @@
+<?php
+$Dir="./";
+include_once($Dir."lib/init.php");
+include_once($Dir."lib/lib.php");
+
+
+Header("Pragma: cache");
+
+
+$old_shopurl=$_ShopInfo->getShopurl();
+$url=$_SERVER['HTTP_HOST'];
+
+if(strlen(RootPath)>0) {
+	$hostscript=$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
+	$pathnum=@strpos($hostscript,RootPath);
+	$shopurl=substr($hostscript,0,$pathnum).RootPath;
+} else {
+	$shopurl=$_SERVER['HTTP_HOST']."/";
+}
+
+$sql = "SELECT * FROM tblshopinfo ";
+
+$result=pmysql_query($sql,get_db_conn());
+if($row=pmysql_fetch_object($result)) {
+	pmysql_free_result($result);
+	$shopname=$row->shopname;
+	//$shopurl=$row->shopurl;
+	$shoptitle=$row->shoptitle;
+	$shopkeyword=$row->shopkeyword;
+	$shopdescription=$row->shopdescription;
+	$companyname=$row->companyname;
+	$companynum=$row->companynum;
+	$companyowner=$row->companyowner;
+	$info_tel=$row->info_tel;
+	$info_email=$row->info_email;
+
+	$adult_type=$row->adult_type;
+	$frame_type=$row->frame_type;
+	$top_type=$row->top_type;
+	$menu_type=$row->menu_type;
+	$main_type=$row->main_type;
+	$icon_type=$row->icon_type;
+
+	$member_baro=$row->member_baro;
+	$adultauth=$row->adultauth;
+
+	$design_intro=$row->design_intro;
+
+	$ssl_type=$row->ssl_type;
+	$ssl_domain=$row->ssl_domain;
+	$ssl_port=$row->ssl_port;
+	$ssl_page=$row->ssl_page;
+
+	$adultauthid='';
+	$adultauthpw='';
+	if(strlen($adultauth)>0) {
+		$tempadult=explode("=",$adultauth);
+		if($tempadult[0]=="Y") {
+			$adultauthid=$tempadult[1];
+			$adultauthpw=$tempadult[2];
+		}
+	}
+
+	if ($adult_type=="Y") {
+		$http_host = str_replace("www.","",$_SERVER['HTTP_HOST']);
+		$adult_meta = "<META http-equiv=\"PICS-label\" content='(PICS-1.1 \"http://service.icec.or.kr/rating.html\" l gen true for \"http://www.$http_host\" r (y 1))'>\n";
+		$adult_meta = $adult_meta."<META http-equiv=\"PICS-label\" content='(PICS-1.1 \"http://service.icec.or.kr/rating.html\" l gen true for \"http://$http_host\" r (y 1))'>\n";
+		$adult_meta = $adult_meta."<META http-equiv=\"PICS-label\" content='(PICS-1.1 \"http://www.safenet.ne.kr/rating.html\" l gen true for \"http://www.$http_host\" r (n 3 s 3 v 3 l 3 i 0 h 0))'>\n";
+		$adult_meta = $adult_meta."<META http-equiv=\"PICS-label\" content='(PICS-1.1 \"http://www.safenet.ne.kr/rating.html\" l gen true for \"http://$http_host\" r (n 3 s 3 v 3 l 3 i 0 h 0))'>\n";
+	} else {
+		$adult_meta="";
+	}
+
+	if (strlen($old_shopurl)==0) {
+		$sql = "UPDATE tblshopcount SET count = count+1 ";
+		pmysql_query($sql,get_db_conn());
+
+		pmysql_query("SELECT f_inc_tblshopcountday('".date("Ymd")."')",get_db_conn());
+		$_ShopInfo->setMemid("");
+		$_ShopInfo->Save();
+	}
+
+	if (strlen($ref)==0) {
+		$ref = strtolower(str_replace("http://","",$_SERVER['HTTP_REFERER']));
+		if (strpos($ref,"/") != false) $ref = substr($ref,0,strpos($ref,"/"));
+	}
+	if (strlen($ref)>0 && strlen($_ShopInfo->getRefurl())==0) {
+		$sql2 = "SELECT * FROM tblpartner ";
+		$sql2.= "WHERE (id='".$ref."' OR url LIKE '%".$ref."%') ";
+		$result2 = pmysql_query($sql2,get_db_conn());
+		if ($row2=pmysql_fetch_object($result2)) {
+			pmysql_query("UPDATE tblpartner SET hit_cnt = hit_cnt+1 WHERE url = '".$row2->url."'",get_db_conn());
+			$_ShopInfo->setRefurl($row2->id);
+			$_ShopInfo->Save();
+		}
+		pmysql_free_result($result2);
+	}
+
+	#카운터
+	$countpath="<img src=\"".$Dir.FrontDir."counter.php?ref=".urlencode($_SERVER['HTTP_REFERER'])."\" width=0 height=0>";
+
+	$history="-1";
+	$ssllogintype="";
+	$ssladultchecktype="";
+	if($_POST["ssltype"]=="ssl" && strlen($_POST["id"])>0 && strlen($_POST["sessid"])==32) {
+		if($_POST["type"]=="adultlogin" || $_POST["type"]=="btblogin") {
+			$ssllogintype="ssl";
+		}
+		$history="-2";
+	} else if($_POST["type"]=="adultcheck" && $_POST["ssltype"]=="ssl" && strlen($_POST["sessid"])==64) {
+		$ssladultchecktype="ssl";
+		$history="-2";
+	}
+
+	//실명확인
+	if ($adult_type=="Y" && ((strlen($_REQUEST["name"])>0 && strlen($_REQUEST["adult_no1"])>0 && strlen($_REQUEST["adult_no2"])>0 && strstr($_SERVER['HTTP_REFERER']." ",$url)!==FALSE) || $ssladultchecktype=="ssl")) {
+		$errmsg='';
+		if($ssladultchecktype=="ssl") {
+			$secure_data=getSecureKeyData($_POST["sessid"]);
+			if(!is_array($secure_data)) {
+				alert_go('성인실명인증 정보가 잘못되었습니다.',(int)$history);
+			}
+			foreach($secure_data as $key=>$val) {
+				${$key}=$val;
+			}
+		} else {
+			$name=$_REQUEST["name"];
+			$adult_no1=$_REQUEST["adult_no1"];
+			$adult_no2=$_REQUEST["adult_no2"];
+		}
+		$resno=$adult_no1.$adult_no2;
+		if(strlen($resno)!=13) {
+			$errmsg="주민등록번호 입력이 잘못되었습니다.";
+		} else if(!chkResNo($resno)) {
+			$errmsg="잘못된 주민등록번호 입니다.\\n\\n확인 후 다시 입력하시기 바랍니다.";
+		} else if(getAgeResno($resno)<19) {
+			$errmsg="본 쇼핑몰은 성인만 이용가능합니다.";
+		} else {
+			if(strlen($adultauthid)>0) {
+				include($Dir."lib/name_check.php");
+				name_check($name, $adult_no1, $adult_no2, $adultauthid, $adultauthpw);
+			}
+		}
+		if(strlen($errmsg)>0) {
+			alert_go($errmsg,-1);
+		} else {
+			$_ShopInfo->setShopurl($shopurl);
+			$_ShopInfo->Save();
+			echo "<html><head><title></title></head><body onload=\"location.replace('".$Dir."')\"></body></html>";exit;
+		}
+	} else if ($adult_type=="Y" && $old_shopurl!=$shopurl) {
+		if (file_exists($Dir.DataDir."design/intro.htm")) {
+			echo $adult_meta;
+			readfile($Dir.DataDir."design/intro.htm");
+			echo $countpath;
+			exit;
+		}
+		if (strlen($_REQUEST["adult_no1"])==0 || strlen($_REQUEST["adult_no2"])==0 || strlen($_REQUEST["name"])==0) {
+			echo $adult_meta;
+			include($Dir.TempletDir."adult/adult".$design_intro.".php");
+			echo $countpath;
+			exit;
+		}
+	//성인몰이고 회원로그인이 안되었을때
+	} else if ($adult_type=="M" && (strlen($_REQUEST["id"])==0 || strlen($_REQUEST["passwd"])==0) && $ssllogintype!="ssl" && strlen($_ShopInfo->getMemid())==0) {
+		echo $adult_meta;
+		include($Dir.AdultDir."login.php");
+		echo $countpath;
+		exit;
+	} else if ($adult_type=="B" && (strlen($_REQUEST["id"])==0 || strlen($_REQUEST["passwd"])==0) && $ssllogintype!="ssl" && strlen($_ShopInfo->getMemid())==0) {
+		if (file_exists($Dir.DataDir."design/intro.htm")) {
+			readfile($Dir.DataDir."design/intro.htm");
+			echo $countpath;
+			exit;
+		}
+		include($Dir.AdultDir."btblogin.php");
+		echo $countpath;
+		exit;
+	//성인몰이고 회원 Id와 비밀번호 체크
+	} else if (($adult_type=="M" || $adult_type=="B") && (strlen($_REQUEST["id"])>0 && strlen($_REQUEST["passwd"])>0) || $ssllogintype=="ssl") {
+		if($ssllogintype!="ssl") {
+			$passwd_type='';
+			$sql = "SELECT passwd FROM tblmember WHERE id='".$_REQUEST["id"]."' ";
+			$result=pmysql_query($sql,get_db_conn());
+			if($row=pmysql_fetch_object($result)) {
+				if(substr($row->passwd,0,3)=="$1$") {
+					$passwd_type="hash";
+					$hashdata=$row->passwd;
+				} else if(strlen($row->passwd)==16) {
+					$passwd_type="password";
+					$chksql = "SELECT PASSWORD('1') AS passwordlen ";
+					$chkresult=pmysql_query($chksql,get_db_conn());
+					if($chkrow=pmysql_fetch_object($chkresult)) {
+						if(strlen($chkrow->passwordlen)==41 && $chkrow->passwordlen[0]=="*") {
+							$passwd_type="old_password";
+						}
+					}
+					pmysql_free_result($chkresult);
+				} else {
+					$passwd_type="md5";
+				}
+			} else {
+				if($adult_type=="M")
+					include($Dir.AdultDir."login.php");
+				else if(file_exists($Dir.DataDir."design/intro.htm"))
+					readfile($Dir.DataDir."design/intro.htm");
+				else include($Dir.AdultDir."btblogin.php");
+				echo $countpath;
+				if($ssllogintype!="ssl") {
+					echo "<script>alert('아이디 또는 비밀번호가 틀립니다.');</script>";
+				}
+				exit;
+			}
+			pmysql_free_result($result);
+		}
+
+		$sql = "SELECT * FROM tblmember WHERE id='".$_REQUEST["id"]."' ";
+		if($ssllogintype=="ssl") {
+			$sql.= "AND authidkey='".$sessid."'";
+		} else {
+			if($passwd_type=="hash") {
+				$sql.= "AND passwd='".crypt($_REQUEST["passwd"], $hashdata)."' ";
+			} else if($passwd_type=="password") {
+				$sql.= "AND passwd=password('".$_REQUEST["passwd"]."')";
+			} else if($passwd_type=="old_password") {
+				$sql.= "AND passwd=old_password('".$_REQUEST["passwd"]."')";
+			} else if($passwd_type=="md5") {
+				$sql.= "AND passwd=md5('".$_REQUEST["passwd"]."')";
+			}
+		}
+		$result_login = pmysql_query($sql,get_db_conn());
+		if ($row_login=pmysql_fetch_object($result_login)) { // ID와 비밀번호가 맞으면
+			if ($member_baro=="Y" && $row_login->confirm_yn=="N") { //관리자인증기능여부 및 회원인증 검사
+				alert_go("쇼핑몰 운영자 인증 후 로그인이 가능합니다.\\n\\n전화로 문의바랍니다.\\n\\n".$info_tel,(int)$history);
+			}
+
+			if($row_login->member_out=="Y") {	//탈퇴한 회원
+				if($adult_type=="M")
+					include($Dir.AdultDir."login.php");
+				else if(file_exists($Dir.DataDir."design/intro.htm"))
+					readfile($Dir.DataDir."design/intro.htm");
+				else include($Dir.AdultDir."btblogin.php");
+				echo $countpath;
+				echo "<script>alert('아이디 또는 비밀번호가 틀리거나 탈퇴한 회원입니다.');</script>";
+				exit;
+			}
+
+			$_ShopInfo->setMemid($row_login->id);
+			$_ShopInfo->setMemgroup($row_login->group_code);
+			$_ShopInfo->setMemname($row_login->name);
+			$_ShopInfo->setMememail($row_login->email);
+
+			$authidkey = md5(uniqid(""));
+			$_ShopInfo->setAuthidkey($authidkey);
+
+			$_ShopInfo->setShopurl($shopurl);
+			$_ShopInfo->Save();
+
+			$sql = "UPDATE tblmember SET ";
+			$sql.= "authidkey		= '".$authidkey."', ";
+			if($passwd_type=="hash" || $passwd_type=="password" || $passwd_type=="old_password") {
+				$sql.= "passwd		= '".md5($_REQUEST["passwd"])."', ";
+			}
+			$sql.= "ip				= '".$_SERVER['REMOTE_ADDR']."', ";
+			$sql.= "logindate		= '".date("YmdHis")."', ";
+			$sql.= "logincnt		= logincnt+1 ";
+			$sql.= "WHERE id='".$_ShopInfo->getMemid()."'";
+			pmysql_query($sql,get_db_conn());
+
+			$loginday = date("Ymd");
+			$sql = "SELECT id_list FROM tblshopcountday ";
+			$sql.= "WHERE date='".$loginday."'";
+			$result = pmysql_query($sql,get_db_conn());
+			if($row3 = pmysql_fetch_object($result)){
+				if(!strpos(" ".$row3->id_list,"".$_ShopInfo->getMemid()."")){
+					$id_list=$row3->id_list.$_ShopInfo->getMemid()."";
+					$sql = "UPDATE tblshopcountday SET id_list='".$id_list."',login_cnt=login_cnt+1 ";
+					$sql.= "WHERE date='".$loginday."'";
+					pmysql_query($sql,get_db_conn());
+				}
+			} else {
+				$id_list="".$_ShopInfo->getMemid()."";
+				$sql = "INSERT INTO tblshopcountday (date,login_cnt,id_list) VALUES ('".$loginday."',1,'".$id_list."')";
+				pmysql_query($sql,get_db_conn());
+			}
+			echo "<script>location='".$Dir."'</script>"; exit;
+		} else {	#아이디/비밀번호가 틀리다
+			if($adult_type=="M")
+				include($Dir.AdultDir."login.php");
+			else if(file_exists($Dir.DataDir."design/intro.htm"))
+				readfile($Dir.DataDir."design/intro.htm");
+			else include($Dir.AdultDir."btblogin.php");
+			echo $countpath;
+			if($ssllogintype!="ssl") {
+				echo "<script>alert('비밀번호가 틀립니다.');</script>";
+			}
+			exit;
+		}
+	}
+
+
+	//인트로 검사
+	$url_index = $_SERVER['REQUEST_URI'];
+	if (file_exists($Dir.DataDir."design/intro.htm") && strpos($url_index,"index.php")===false) {
+		readfile($Dir.DataDir."design/intro.htm");
+		echo $countpath;
+		exit;
+	}
+
+	$_ShopInfo->setShopurl($shopurl);
+	$_ShopInfo->Save();
+
+	if ($frame_type=="Y") {	//주소고정
+		$top_height=0;
+		$top_type="top";
+	} else if ($top_type=="topp") {
+		$result2 = pmysql_query("SELECT top_height FROM tbldesign ",get_db_conn());
+		if ($row2=pmysql_fetch_object($result2)) $top_height=$row2->top_height;
+		else $top_height=70;
+		pmysql_free_result($result2);
+	} else if($top_type=="topeasy"){
+		$result2 = pmysql_query("SELECT top_ysize FROM tbldesign ",get_db_conn());
+		if ($row2=pmysql_fetch_object($result2)) $top_height=$row2->top_ysize;
+		pmysql_free_result($result2);
+	} else {
+		$result2 = pmysql_query("SELECT top_height FROM tbltempletinfo WHERE icon_type='".$icon_type."'",get_db_conn());
+		if ($row2=pmysql_fetch_object($result2)) $top_height=$row2->top_height;
+		else $top_height=70;
+		pmysql_free_result($result2);
+	}
+} else {
+	pmysql_free_result($result);
+
+	//쇼핑몰 정보 등록이 안되었으니까 error 페이지 함수 호출
+	error_msg("쇼핑몰 정보 등록이 안되었습니다.<br>쇼핑몰 설정을 먼저 하십시요",DirPath."install.php");
+}
+
+if(strpos($_SERVER['HTTP_REFERER'],$_SERVER['HTTP_HOST'])>0) $ref="";
+
+if (strlen($ref)>0) {
+	$ref1="&ref=".urlencode($_SERVER['HTTP_REFERER']);
+	if (strpos($suburl,"?")>0)  $ref2="&ref=".urlencode($_SERVER['HTTP_REFERER']);
+	else $ref2="?ref=".urlencode($_SERVER['HTTP_REFERER']);
+}
+
+if(strlen($brandcode)>0) {
+	if(strlen($productcode)>0)
+		$mainurl=FrontDir."productdetail.php?brandcode=".$brandcode."&productcode=".$productcode.$ref1;
+	else if(strlen($code)>0)
+		$mainurl=FrontDir."productblist.php?brandcode=".$brandcode."&code=".$code.$ref1;
+	else
+		$mainurl=FrontDir."productblist.php?brandcode=".$brandcode.$ref1;
+} else if (strlen($productcode)>0)
+	$mainurl=FrontDir."productdetail.php?productcode=".$productcode.$ref1;
+else if(strlen($code)>0)
+	$mainurl=FrontDir."productlist.php?code=".$code.$ref1;
+else if($adult_type=="N" && strlen($suburl)>0)
+	$mainurl=urldecode($suburl).$ref2;
+else {
+		$mainurl=MainDir."main.php".$ref2;
+		$mainurl2=MainDir."main.php";
+
+}
+
+
+
+// 리퍼러 체크 저장 (2015.11.02 - 김재수)
+$affiliateType	= $_ShopInfo->getAffiliateType();
+if (!$affiliateType) {
+	if (!$rf_url_type) $rf_url_type  = '1';
+	$_ShopInfo->setReferrerUrl($rf_url_address);
+	$_ShopInfo->setAffiliateType($rf_url_type);
+	$_ShopInfo->setAffiliateName($rf_url_name);
+	$_ShopInfo->setAffiliateImg($rf_url_img);
+	$_ShopInfo->Save();
+}
+
+
+//var_dump($_ShopInfo);
+
+$mobileBrower = '/(iPod|iPhone|Android|BlackBerry|SymbianOS|SCH-M\d+|Opera Mini|Windows CE|Nokia|SonyEricsson|webOS|PalmOS|iPad)/';
+// 모바일인지 pc인지 체크
+if(preg_match($mobileBrower, $_SERVER['HTTP_USER_AGENT']) && !$_GET[pc]) {
+	//if($_SERVER["REMOTE_ADDR"] == '218.234.32.102'){ // 모바일일경우 이동하는 경로 재설정(2015.12.24 - 김재수)
+		
+		$m_referrer_tmp			= parse_url($_SERVER['HTTP_REFERER']);
+		$m_referrer_url			= $m_referrer_tmp['host'];
+
+		if ((strpos($_SERVER["REQUEST_URI"],'/front/') !== true || strpos($_SERVER["REQUEST_URI"],'/board/') !== true) && $m_referrer_url != $_SERVER['HTTP_HOST']) { // 메인으로 올 경우에만 적용하고 아닐경우는 tem_top001.php 에서 경로 재설정을 한다.
+			$mainurl="m".$_SERVER["REQUEST_URI"];
+			//echo $mainurl;
+			Header("Location: ".$mainurl);
+			exit;
+		}
+	//}
+}
+
+
+if ($frame_type=="A") {	#원프레임 타입일 경우
+	if(substr($mainurl2,0,(strlen(MainDir)+4))==MainDir."main"){
+		$urlpath="Y";
+		$ref=$_SERVER['HTTP_REFERER'];
+		include($mainurl2);
+	} else {
+		Header("Location: ".$mainurl);
+	}
+	exit;
+}
+?>
+<HTML>
+<HEAD>
+<TITLE><?=(ord($shoptitle)>0?$shoptitle:$shopname)?></TITLE>
+<?=$adult_meta?>
+<link rel="P3Pv1" href="http://<?=$_ShopInfo->getShopurl()?>w3c/p3p.xml">
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+<meta name="description" content="<?=(strlen($shopdescription)>0?$shopdescription:$shoptitle)?>">
+<meta name="keywords" content="<?=$shopkeyword?>">
+</HEAD>
+<frameset rows="<?=$top_height?>,*" border=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<frame src="<?=MainDir.$top_type?>.php" name=topmenu MARGINWIDTH="0" MARGINHEIGHT="0" scrolling=no noresize>
+<frame src="<?=$mainurl?>" name=main MARGINWIDTH="0" MARGINHEIGHT="0" scrolling=auto>
+</frameset>
+</HTML>

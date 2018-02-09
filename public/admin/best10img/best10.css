@@ -1,0 +1,12 @@
+@charset "utf-8";
+.best10 {
+	font-family: "돋움", "돋움체", "굴림", "굴림체";
+	font-size: 9px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	color: #666666;
+	text-decoration: none;
+}

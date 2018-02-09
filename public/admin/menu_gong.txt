@@ -1,0 +1,14 @@
+[공구/경매]
+
+<공동구매/경매 화면설정>
+공동구매/경매 화면설정 = gong_displayset.php
+
+<쇼핑몰 경매 관리>
+경매상품 등록/수정 = gong_auctionreg.php
+등록 경매 관리 = gong_auctionlist.php
+
+<공동구매 관리>
+가격변동형 공구 등록/수정 = gong_gongchangereg.php
+가격변동형 등록공구 관리 = gong_gongchangelist.php
+가격고정형 공동구매 설정 = gong_gongfixset.php
+가격고정형 공구구매 등록 = gong_gongfixreg.php

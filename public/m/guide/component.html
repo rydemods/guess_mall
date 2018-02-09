@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+   
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+   
+    <title>HOT:T MOBILE</title>
+    
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/component.css">
+    <link rel="stylesheet" href="../static/css/content.css">
+    
+    <style type="text/css">
+		body{padding:20px 0;}
+		hr{margin:30px 0;}
+	</style>
+	
+	<script src="../static/js/jquery-1.12.0.min.js"></script>
+	<script src="../static/js/TweenMax-1.18.2.min.js"></script>
+	<script src="../static/js/deco_m_ui.js"></script>
+	<script src="../static/js/jquery.transit.min.js"></script>
+	<script src="../static/js/ui.js"></script>
+	<script src="../static/js/ui2.js"></script>
+	
+</head>
+
+<body>
+
+<p>버튼</p><br><br>
+
+<a class="btn-def" href="#">기본버튼</a>
+<a class="btn-point" href="#">포인트버튼</a>
+
+<br><br><br><p>버튼 - 가로 100% 맞춤</p><br>
+
+<div class="btnwrap">
+	<ul class="ea3">
+		<li><a href="#" class="btn-def">아이디 찾기</a></li>
+		<li><a href="#" class="btn-def">비밀번호 찾기</a></li>
+		<li><a href="#" class="btn-def">회원가입</a></li>
+	</ul>
+</div>
+
+<hr>
+
+<p>테이블 - 상단 th 타입</p><br><br>
+
+<table class="my-th-top">
+	<thead>
+		<tr>
+			<th>제목</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>내용</td>
+		</tr>
+	</tbody>
+</table>
+
+<br><br><p>테이블 - 왼쪽 th 타입</p><br><br>
+
+<table class="my-th-left">
+	<colgroup>
+		<col style="width:26%;">
+		<col style="width:74%;">
+	</colgroup>
+	<tbody>
+		<tr>
+			<th>제목</th>
+			<td>내용</td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td>내용</td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td>내용</td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td>내용</td>
+		</tr>
+	</tbody>
+</table>
+
+<hr>
+
+<p>탭</p><br><br>
+	
+<ul> 
+	<li class="idx-menu on">메뉴1</li> <!-- 메뉴가 될 부분에 .idx-menu 클래스 추가, 첫번째는 on 클래스도 추가 -->
+	<li class="idx-menu">메뉴2</li>
+</ul>
+
+<div class="idx-content on"> <!-- 메뉴의 내용이 나올 부분에 .idx-content 클래스 추가, 첫번째는 on 클래스도 추가 -->
+	탭메뉴 컨텐츠1
+</div>
+<div class="idx-content">
+	탭메뉴 컨텐츠2
+</div>
+
+<hr>
+
+<p>레이어팝업</p><br><br>
+	
+<div class="layer-dimm-wrap layer-class" style="display:none;"> .layer-class 이부분에 클래스 추가사여 사용합니다.
+	<div class="dimm-bg"></div>
+	<div class="layer-inner">
+		<h3 class="layer-title">타이틀명</h3>
+		<button type="button" class="btn-close">창 닫기 버튼</button>
+		<div class="layer-content">
+			이곳에 내용을 넣습니다.
+		</div>
+	</div>
+</div>
+<button type="button" class="btn-layer-open"><span>레이어 오픈</span></button>
+
+<hr>
+
+<p>별점</p><br><br>
+	
+<span class="star-score">
+	<strong style="width:100%;">5점만점에 5점</strong>
+</span>
+
+<hr>
+
+<div class="btn_list_more more_btn" id="more10">
+	<a href="javascript:;" class="more_view" id="10">더보기</a>
+</div>
+
+<hr>
+
+<div class="list-paginate">
+	<span class="border_wrap">
+		<a href="javascript:;" class="prev-all"></a>
+		<a href="javascript:;" class="prev"></a>
+	</span>
+	<a class="on">1</a>
+	<a href="javascript:;">2</a>
+	<a href="javascript:;">3</a>
+	<a href="javascript:;">4</a>
+	<a href="javascript:;">5</a>
+	<span class="border_wrap">
+		<a href="javascript:;" class="next"></a>
+		<a href="javascript:;" class="next-all"></a>
+	</span>
+</div>
+
+<hr>
+
+<!-- 사진 업로드 작성 -->
+<div class="upload_photo">
+	<h3>사진등록</h3>
+	<ul class="upload_photo_list clear">
+		
+		<li>
+			<label>
+				<input type="hidden" name="v_up_filename[0]" value="" class="vi-image"><input type="file" name="up_filename[0]" class="add-image">
+				<div class="image_preview" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;">
+					<img src="#" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+					<a href="#" class="delete-btn">
+						<button type="button"></button>
+					</a>
+				</div>
+			</label>
+		</li>
+
+		
+		<li>
+			<label>
+				<input type="hidden" name="v_up_filename[1]" value="" class="vi-image"><input type="file" name="up_filename[1]" class="add-image">
+				<div class="image_preview" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;">
+					<img src="#" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+					<a href="#" class="delete-btn">
+						<button type="button"></button>
+					</a>
+				</div>
+			</label>
+		</li>
+
+		
+		<li>
+			<label>
+				<input type="hidden" name="v_up_filename[2]" value="" class="vi-image"><input type="file" name="up_filename[2]" class="add-image">
+				<div class="image_preview" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;">
+					<img src="#" style="position:absolute;top:0;left:0;width:100%;height:100%;">
+					<a href="#" class="delete-btn">
+						<button type="button"></button>
+					</a>
+				</div>
+			</label>
+		</li>
+
+	</ul><!-- //.upload_photo_list -->
+	<ul class="list_notice">
+		<li>파일명: 한글,영문,숫자 / 파일용량: 3M이하 / 파일형식: GIF,JPEG</li>
+	</ul>
+</div>
+
+<!-- <div class="form_photo_write">
+	<section class="write-title">
+		<h3>제목</h3>
+		<input type="text" placeholder="제목을 입력하세요" title="제목">
+	</section>
+	<section class="write-content">
+		<h3>내용</h3>
+		<textarea placeholder="내용을 입력하세요" title="내용"></textarea>
+	</section>
+	<section class="write-upload">
+		<h3>이미지등록 (최대4장)</h3>
+		<ul>
+			<li><label><span>이미지등록</span><input type="file"></label></li>
+			<li><label><span>이미지등록</span><input type="file"></label></li>
+			<li><label><span>이미지등록</span><input type="file"></label></li>
+			<li><label><span>이미지등록</span><input type="file"></label></li>
+		</ul>
+		<p class="note">파일명: 한글,영문,숫자 / 용량: 5M이하 / 파일형식: GIF,JPG</p>
+	</section>
+	<div class="btnwrap">
+		<div class="box">
+			<a class="btn-def" href="#">등록</a>
+			<a class="btn-def" href="#">취소</a>
+		</div>
+	</div>
+</div> -->
+<!-- // 사진 업로드 작성 -->
+
+<hr>
+
+<div class="detail_hashtag">
+	<!-- (D) 선택된 li에 class="on" title="선택됨"을 추가합니다. -->
+	<ul class="clear">
+		<li class="on" title="선택됨"><a href="javascript:void(0);">Nike</a></li>
+		<li><a href="javascript:void(0);">나이키</a></li>
+		<li><a href="javascript:void(0);">러닝화</a></li>
+		<li><a href="javascript:void(0);">Running</a></li>
+		<li><a href="javascript:void(0);">Wolf Grey</a></li>
+		<li><a href="javascript:void(0);">Nike</a></li>
+		<li><a href="javascript:void(0);">나이키</a></li>
+		<li><a href="javascript:void(0);">러닝화</a></li>
+		<li><a href="javascript:void(0);">Wolf Grey</a></li>
+		<li><a href="javascript:void(0);">Nike</a></li>
+		<li><a href="javascript:void(0);">나이키</a></li>
+	</ul>
+</div>
+
+<hr>
+
+<a href="#" class="btn-function">취소</a>
+<button class="btn-function" type="button"><span>뒤로</span></button>
+
+<hr>
+
+<div class="select-def">
+	<select>
+		<option value="1">기본 셀렉트</option>
+	</select>
+</div>
+
+<hr>
+
+<div class="tel-input">
+	<div class="select-def">
+		<select>
+			<option value="1">기본 셀렉트</option>
+		</select>
+	</div>
+	<div><input type="tel" id="join-tel"></div>
+	<div><input type="tel"></div>
+</div>
+
+<hr>
+
+<div class="sub-title">
+	<h2>서브 타이틀</h2>
+	<a class="btn-prev" href="#"><img src="../static/img/btn/btn_page_prev.png" alt="이전 페이지"></a>
+	<div class="js-sub-menu">
+		<button class="js-btn-toggle" title="펼쳐보기"><img src="../static/img/btn/btn_arrow_down.png" alt="메뉴"></button>
+		<div class="js-menu-content">
+			<ul>
+				<li><a href="#">메뉴1</a></li>
+				<li><a href="#">메뉴2</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<!-- 탭 기본형 -->
+<div id="tabs-container">
+	<ul class="tabs-menu">
+		<li class="on"><a href="#tab-1">Tab 1</a></li>
+		<li><a href="#tab-2">Tab 2</a></li>
+	</ul>
+	<div class="tab-content-wrap">
+		<div id="tab-1" class="tab-content">탭내용1</div>
+		<div id="tab-2" class="tab-content">탭내용2</div>
+	</div>
+</div><!-- //탭 기본형 -->
+
+<hr>
+
+<div class="btnwrap">
+	<ul class="ea3">
+		<li><a href="#" class="btn-def">아이디 찾기</a></li>
+		<li><a href="#" class="btn-def">비밀번호 찾기</a></li>
+		<li><a href="#" class="btn-def">회원가입</a></li>
+	</ul>
+</div>
+
+<hr>
+
+<div class="none-ment">
+	<p>멘트 주저리주저리</p>
+</div>
+
+<hr>
+
+<div class="js-tab-component">
+	<div class="content-tab">
+		<div class="js-menu-list">
+			<div class="js-tab-line"></div>
+			<ul>
+				<li class="js-tab-menu on"><a href="#"><span>탭명1</span></a></li>
+				<li class="js-tab-menu"><a href="#"><span>탭명2</span></a></li>
+				<li class="js-tab-menu"><a href="#"><span>탭명3</span></a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="js-tab-content">탭 상세1</div>
+	<div class="js-tab-content">탭 상세2</div>
+	<div class="js-tab-content">탭 상세3</div>
+</div>
+
+<hr>
+
+<table class="th-top">
+	<caption>공지사항 리스트</caption>
+	<colgroup>
+		<col style="width:45px">
+		<col style="width:auto">
+		<col style="width:90px">
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col">NO</th>
+			<th scope="col">1:1상담</th>
+			<th scope="col">FAQ</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>5</td>
+			<td class="subject"><a href="noticeView.php">내부시스템 작업으로 사이트 일시 중단안내</a></td>
+			<td>2016-02-25</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td class="subject"><a href="noticeView.php">내부시스템 작업으로 사이트 일시 중단안내</a></td>
+			<td>2016-02-25</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td class="subject"><a href="noticeView.php">내부시스템 작업으로 사이트 일시 중단안내</a></td>
+			<td>2016-02-25</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td class="subject"><a href="noticeView.php">내부시스템 작업으로 사이트 일시 중단안내</a></td>
+			<td>2016-02-25</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td class="subject"><a href="noticeView.php">내부시스템 작업으로 사이트 일시 중단안내</a></td>
+			<td>2016-02-25</td>
+		</tr>
+	</tbody>
+</table>
+
+<hr>
+
+<div class="board-view">
+	<h3 class="title">내부시스템 작업으로 사이트 일시 중단 안내 <span class="date">2016-02-25</span></h3>
+	<div class="content">
+		내부 시스템 작업으로 인해 사이트가 일시 중단됩니다. <br>
+		기간 2016-02-25 09:00 ~ 10:00
+	</div>
+</div>
+
+	
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+@font-face { 
+	font-family:"UniversLTCnW";
+	font-style:normal;
+	font-weight:normal;
+	src:url("../font/UniversLTStd-Cn.eot");
+	src:local(※), url("../font/UniversLTStd-Cn.woff") format("woff");
+}
+
+@font-face { 
+	font-family:"UniversLTXBlackW";
+	font-style:normal;
+	font-weight:normal;
+	src:url("../font/UniversLTStd-XBlack.eot");
+	src:local(※), url("../font/UniversLTStd-XBlack.woff") format("woff");
+}
+
+@font-face { 
+	font-family:"NanumGothicW";
+	font-style:normal;
+	font-weight:400;
+	src:url("../font/NanumGothic-Regular.eot");
+	src:local(※), url("../font/NanumGothic-Regular.woff") format("woff");
+}
+
+@font-face { 
+	font-family:"NanumGothicW";
+	font-style:normal;
+	font-weight:700;
+	src:url("../font/NanumGothic-Bold.eot");
+	src:local(※), url("../font/NanumGothic-Bold.woff") format("woff");
+}
+
+@font-face { 
+	font-family:"NanumGothicW";
+	font-style:normal;
+	font-weight:800;
+	src:url("../font/NanumGothic-ExtraBold.eot");
+	src:local(※), url("../font/NanumGothic-ExtraBold.woff") format("woff");
+}
+
+*{margin:0;padding:0;border:0;color:inherit;vertical-align:top;font-size:inherit;font-family:inherit;line-height:inherit}
+header,main,footer,aside,nav,section,article,details,summary,figure,figcaption,menu,command{display:block}
+ul,ol,li,menu{list-style:none}
+
+table{width:100%;border-spacing:0;border-collapse:collapse}
+caption{text-align:left}
+th,td{vertical-align:middle;text-align:center}
+
+address{font-style:normal}
+label{display:inline-block}
+a{display:inline-block;text-decoration:none}
+
+input[type="text"],
+textarea{border-radius:0;resize:none}
+input[type="text"]::-ms-clear{display:none}
+button{background:transparent;cursor:pointer}
+button > *{position:relative}
+button::-moz-focus-inner{padding:0;border:0}
+select{border-radius:0}

@@ -1,0 +1,8 @@
+메인 배너관리||main_banner_mng.php
+대카테고리 배너관리||main_banner_mng.php
+BRAND 관리||main_banner_mng.php
+PROMOTION 관리||promotion_gnb_banner_mng.php
+STUDIO 관리||design_studio_gnb.php
+COLLECTION 관리||design_collection1.php
+REVIEW 관리||main_banner_mng.php
+상품상세 배너관리||main_banner_mng.php

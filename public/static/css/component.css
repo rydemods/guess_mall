@@ -1,0 +1,733 @@
+@charset "utf-8";
+
+/*
+css name : component
+use : list,title,btn,table,select,input,page,linemap
+*/
+
+
+/* component.css 는 버튼,테이블,인풋,페이징,타이틀등 요소별로 가져다 쓰기 편하게 모아놓습니다. */
+
+/* ==================================================
+	텝메뉴
+================================================== */
+.tab_menu {border-bottom:2px solid #e9e9e9; height:40px;}
+.tab_menu:after {content:''; display:block; clear:both;}
+.tab_menu a {display:block; float:left; width:133px; height:40px; font-size:1.4rem; text-align:center; line-height:40px; background:#e9e9e9; border-top:2px solid #e9e9e9; border-left:2px solid #e9e9e9; border-right:2px solid #e9e9e9; margin-right:1px;}
+.tab_menu a.on {background:#fff;}
+.tab_contents {padding:25px 0;}
+
+/* ==================================================
+	페이지 네비게이션
+================================================== */
+.top-page-local {max-width:1920px; padding:20px 40px 10px;}
+.top-page-local li a {font-size:12px; color:#9a9a9a;}
+.top-page-local li a:hover {color:#000; text-decoration:underline;}
+.top-page-local li.on {color:#000; font-family:ngb;}
+.top-page-local li {display:inline-block; letter-spacing:0;}
+.top-page-local li:before {display:inline-block; margin-top:1px; content:"/"; font-size:12px; color:#9a9a9a; padding:0 10px 0 10px ; vertical-align:top}
+.top-page-local li:first-child::before {display:none;}
+
+/* ==================================================
+	타이틀 스타일
+================================================== */
+/* 타이틀 보더선 */
+.title_box_border {position:relative;}
+.title_box_border h3 {position:relative; border-bottom:2px solid #555; font-size:2.0rem; color:#000; padding-bottom:18px; font-family:ngb;}
+.title_box_border .ment {position:absolute; top:15px; right:0;}
+
+/* 타이틀 보더선 */
+ h2.tit_border {position:relative; font-size:2.5rem; color:#000; margin-bottom:0px;}
+
+/* 타이틀 텍스트형 */
+.title_type1 h3 {font-size:2.0rem; font-family:ngb; color:#000; margin-bottom:18px;}
+.title_type1 h3 span {font-size:1.2rem; color:#555; font-weight:normal; border-left:1px solid #747474; margin-left:10px; padding-left:10px;} 
+.title_type1 h3 span em {font-family:ngb; color:#000;}
+.title_type1 h3.txt_s {font-size:1.3rem; margin-bottom:10px;}
+
+/* 타이틀 더보기 */
+.title_box {position:relative;}
+.title_box h3 {display:inline-block; font-size:1.9rem; color:#000; margin-bottom:13px; font-weight:bold;}
+.title_box .more {float:right; font-family:ngb; margin-top:10px;} 
+.title_box .more:before {display:inline-block; margin-right:5px; font-size:12px; content:"+"; vertical-align:1px;}
+
+/* 타이틀 왼쪽 텍스트*/
+.required {color:#ef4036;}
+.title_wrap {position:relative;}
+.title_wrap h3 {display:inline-block; font-size:1.7rem; color:#000; font-family:ngb; margin-bottom:12px;}
+.title_wrap .ment {position:absolute; top:0; right:0;}
+
+
+/* ==================================================
+	포인트텍스트 색상지정
+================================================== */
+.type_txt1 {color:#df3b32 !important;}
+.type_txt2 {color:#ef4036 !important;}
+.type_txt3 {color:#000 !important;}
+.type_txt4 {color:#9a9a9a !important;}
+
+/* ==================================================
+	폼 스타일 > 셀렉트박스
+================================================== */
+select::-ms-expand {display: none;}
+.select{ display:inline-block; *display:inline; min-width:140px; position:relative; z-index:200; background:#fff; line-height:normal; vertical-align:middle; *zoom:1 ;}
+.select *{ margin:0; padding:0; font-family:ngb; cursor:pointer}
+.select .my_value{overflow:visible;position:relative;top:0;left:0;z-index:2;border:1px solid #bbb;padding-right:30px;background:transparent;color:#333;text-align:left;line-height:20px;_line-height:normal;}
+.select .my_value.selected{ color:#333; font-family:ngb;}
+.select.open .my_value,
+.select .my_value.outLine{ border:1px solid #999;}
+.select button.my_value{ width:100%; height:22px; *padding-left:5px; text-indent:5px; *text-indent:0}
+.select div.my_value{ height:19px; text-indent:8px}
+.select .ctrl{position:absolute; top:0; right:0; width:20px; height:20px; border:1px solid #bababa; border-left:1px solid #e4e4e4; background:#fbfbfb;}
+.select .arrow{content:''; width:4px; height:4px; display:block; position:absolute; bottom:8px; left:8px; border:1px solid #333; border-right-width:0; border-top-width:0; transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);-ms-transform:rotate(-45deg);}
+.select ul{ overflow:hidden; position:absolute; top:20px; left:0; width:100%; border:0; border-top:1px solid #bababa; border-bottom:1px solid #bababa; background:#fff; list-style:none}
+.select ul.a_list{ display:none; text-align:left;}
+.select.open ul.a_list{ display:block}
+.select ul.i_list{ left:-2000%}
+.select.open ul.i_list{ left:0}
+.select li{ overflow:hidden; position:relative; height:18px; border-left:1px solid #bababa; border-right:1px solid #bababa; white-space:nowrap}
+.select li input.option{ position:absolute; width:100%; height:20px; line-height:20px}
+.select li label{ position:absolute; top:0; left:0; width:100%; height:18px; background:#fff; color:#767676; line-height:18px; text-indent:8px; *text-indent:6px}
+.select li a{ display:block; height:18px; background:#fff; color:#767676; line-height:18px; text-indent:8px; *text-indent:6px; text-decoration:none}
+.select li.hover *{ background:#999; color:#fff}
+.select_go{ overflow:visible; height:21px; width:28px; *margin:-1px 0 -1px 4px; padding:0; border:1px solid #bababa; background:#eee; font:bold 11px; color:#767676; line-height:19px; _line-height:normal; vertical-align:middle; cursor:pointer}
+
+/* sorting 공통 */
+.search-form-wrap {position:relative; overflow:hidden;}
+.search-form-wrap .my-comp-select {display:inline-block; border-color:#ccc; background:url("../img/btn/btn_select_arrow2.gif") no-repeat 100% 50%; z-index:1; height:30px; vertical-align:top;}
+.search-form-wrap .form-wrap {float:right;}
+.search-form-wrap .form-wrap form,
+.search-form-wrap .form-wrap fieldset{position:relative; display:inline-block;}
+.search-form-wrap .set {position:relative; display:inline-block;}
+.search-form-wrap input {border:1px solid #ccc; width:208px; height:28px; line-height:28px; padding:0 5px; background:#f3f3f3;}
+.search-form-wrap button {position:absolute; right:0px; top:0; width:36px; height:28px; background:url('../img/btn/btn_instagram_search.png') no-repeat 0 0; text-indent:-9999px;}
+.search-form-wrap a.btn-type1 {width:75px; height:30px; line-height:28px; font-size:14px; margin-left:7px;}
+
+/* ==================================================
+	폼 스타일 > 체크박스
+================================================== */
+input[type="checkbox"] {margin:-2px 0 0 0; border:0;}
+input[type="checkbox"].checkbox-def {width:20px; height:19px; background:url(../img/icon/icon_checkbox.png) no-repeat 0 2px; /*background-size:cover;*/ appearance:none;-webkit-appearance:none;-moz-appearance:none; vertical-align:middle;}
+input[type="checkbox"].checkbox-def:checked {border:none; background-position:0 -32px;}
+
+
+/* ==================================================
+	폼 스타일 > 파일첨부
+================================================== */
+.th_left td input[type="file"] ,
+.view-bbs-write td input[type="file"] {position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow: hidden; clip:rect(0,0,0,0); border:0;}
+.pop-review-detail .th_left td input[type="file"] {width:100%; height:100%; position:static; cursor:pointer;}
+.th_left td.imageAdd .txt-box,
+.view-bbs-write td.imageAdd .txt-box {position:relative; display:inline-block; border:1px solid #ddd; width:245px; height:24px; padding:0 5px; box-sizing:border-box; line-height:22px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.th_left td.imageAdd label,
+.view-bbs-write td.imageAdd label {display:inline-block; width:40px; height:24px; line-height:24px; text-align:center; vertical-align:top; cursor:pointer; box-sizing:border-box; background:#555; color:#fff; font-size:1.1rem;}
+/*.th_left td.imageAdd span,
+.th_left td.imageAdd .txt-box .del-img ,
+.view-bbs-write td.imageAdd .txt-box .del-img {display:inline-block; margin:-2px 0 0 5px; width:11px; height:11px; vertical-align:middle; background:url(../img/btn/close.png) no-repeat; text-indent:-9999px;}*/
+
+/* ==================================================
+	폼 스타일 > 라디오 체크
+================================================== */
+input[type="text"]::-ms-clear {display: none;}
+input[type="checkbox"],
+input[type="radio"] {vertical-align:middle; padding:0; margin:-2px 4px 0 0;}
+
+input[type="radio"].radio-def {border:0; width:11px; height:11px; background:url(../img/icon/icon_radio.png) no-repeat ; background-size:cover; appearance:none;-webkit-appearance:none;-moz-appearance:none; vertical-align:middle;}
+input[type="radio"].radio-def:checked {background-position:0 -12px}
+
+input[type="radio"]:disabled {vertical-align:middle;}
+
+/* ==================================================
+	폼요소 > 상세 셀렉트 박스
+================================================== */
+.comp-select {box-sizing:border-box; overflow:hidden; position:relative; margin-bottom:3px; width:234px; height:33px; border:1px solid #808080; background:url("../img/btn/btn_arrow_down.png") no-repeat 100% 50%;}
+.comp-select select{box-sizing:border-box; width:200%; height:100%; padding-left:15px; border:0; outline:0; background:transparent; color:#000; font-size:1.3rem; line-height:30px; -webkit-appearance:none;}
+.comp-select select:focus,
+.comp-select select:active{width:100%;}
+
+/* ==================================================
+	폼요소 > 마이페이지 셀렉트 박스
+================================================== */
+.my-comp-select {box-sizing:border-box; overflow:hidden; position:relative; width:290px; border:1px solid #ddd; background:url("../img/btn/btn_select_arrow.gif") no-repeat 100% 50%;}
+.my-comp-select select {box-sizing:border-box; width:100%; height:100%; padding-left:10px; border:0; outline:0; background:transparent; color:#000; font-size:1.3rem; letter-spacing:-1px; line-height:22px; -webkit-appearance:none;  -moz-appearance: none;  appearance: none;}
+.my-comp-select select:focus,
+.my-comp-select select:active{width:100%;}
+
+
+/* ==================================================
+	상품리스트
+================================================== */
+.comp-goods:after{display:block; clear:both; content:"";}
+.comp-goods > li{float:left; position:relative; margin:0 27px 0px 0; width:382px;}
+/*.comp-goods > li:before{display:block; visibility:hidden; position:absolute; top:0; right:0; bottom:0; left:0; border:2px solid #d1d1d1; background:#fff; content:""; opacity:0; -webkit-transition:0.2s; transition:0.2s;}*/
+.comp-goods > li a {display:block;}
+.comp-goods > li a:hover img {background:#fff; opacity:0.6;}
+.comp-goods figure {position:relative; height:325px;}
+.comp-goods figure > a > img {width:382px; max-height:211px;}
+/*.comp-goods figure .tagset {position:absolute; top:0; left:0;}*/
+.comp-goods figure .tagset span {margin-right:5px;}
+.comp-goods figcaption{text-align:center;}
+.comp-goods figcaption a{box-sizing:border-box; padding:9px 0 2px; color:#555; font-size:1.3rem;}
+.comp-goods figcaption strong.brand{color:#000; font-family:ngb; font-size:1.5rem;}
+.comp-goods figcaption p.title{overflow:hidden; padding:5px 0; text-overflow:ellipsis; white-space:nowrap;}
+.comp-goods figcaption span.price {display:block;}
+.comp-goods figcaption span.price strong{font-weight:normal;}
+.comp-goods figcaption span.price del {color:#9a9a9a; font-size:1.2rem;}
+.comp-goods figcaption span.price em {color:#000;}
+.comp-goods figcaption div.star {box-sizing:border-box; text-align:center; /*position:absolute; top:166px; left:0;*/ padding-left:15px; width:100%; height:40px; /*background:-webkit-linear-gradient(transparent,#fdfdfd); background:linear-gradient(transparent,#fdfdfd); color:#a0a0a0;*/ font-size:1.2rem; /*line-height:40px; opacity:0; -webkit-transition:0.2s; transition:0.2s;*/}
+.comp-goods figcaption div.star span.star-score{margin:0px 4px 0 0;}
+.comp-goods figcaption .btn-like {/*position:absolute; top:168px; right:10px;*/ color:#000; /*opacity:0; -webkit-transition:0.2s; transition:0.2s;*/}
+.comp-goods figcaption .btn-like strong{background-position:0 -20px;}
+.comp-goods div.color-thumb{overflow:hidden; visibility:hidden; margin-bottom:-1px; padding:0 22px; height:0; border-bottom:1px solid #dfdfdf; opacity:0; -webkit-transition:0.2s; transition:0.2s;}
+.comp-goods div.color-thumb li{float:left; padding:0 1px;}
+.comp-goods div.color-thumb .bx-controls-direction a{display:block; overflow:hidden; position:absolute; top:50%; margin-top:-6px; width:7px; height:12px; background:url("../img/btn/btn_list_thumb_arrow_prev.png") no-repeat 0 0; font-size:0; text-indent:-9999px;}
+.comp-goods div.color-thumb .bx-controls-direction .bx-prev{left:-22px;}
+.comp-goods div.color-thumb .bx-controls-direction .bx-next{right:-22px; background-image:url("../img/btn/btn_list_thumb_arrow_next.png");}
+
+.comp-goods li figure {z-index:1;}
+
+
+/*.comp-goods li:hover:before {visibility:visible; top:-10px; right:-10px; bottom:-10px; left:-10px; opacity:1;}
+.comp-goods li:hover div.color-thumb {visibility:visible; padding:2px 22px 10px; height:54px; opacity:1;}
+.comp-goods li figcaption div.star {visibility:visible; opacity:1;}
+.comp-goods li figcaption .btn-like {visibility:visible; opacity:1;}
+*/
+
+
+/* ==================================================
+	포스팅리스트
+================================================== */
+.comp-posting{position:relative; margin-left:-27px; height:100%;}
+.comp-posting:after{display:block; clear:both; content:"";}
+.comp-posting > li{float:left; margin-left:25px; padding-top:25px; width:283px;}
+.comp-posting > li a {display:block;}
+.comp-posting figure > a {position:relative; border:1px solid #fafafa;}
+.comp-posting figure > a:before {content:''; position:absolute; bottom:0; left:0; width:100%; height:90px; background:url("../img/common/mask_layer.png") no-repeat;}
+.comp-posting figure > a > img {width:283px;}
+.comp-posting figcaption {position:relative; font-family:ng;}
+.comp-posting figcaption a{padding:20px 0 30px; background:url("../img/common/bg_community_arrow.png") no-repeat 50% 100%; color:#000; font-size:1.3rem; text-align:center;}
+.comp-posting figcaption p.title{overflow:hidden; margin:10px 0 14px; font-family:ngb; font-size:1.5rem; line-height:1.2; text-overflow:ellipsis; white-space:nowrap;}
+.comp-posting figcaption p.desc{overflow:hidden; max-height:5.1rem; color:#555; line-height:1.7rem;}
+.comp-posting figcaption .btn-like{position:absolute; top:-36px; left:50%; -webkit-transform:translateX(-50%); transform:translateX(-50%);}
+
+/* ==================================================
+	비대칭 리스트
+================================================== */
+.asymmetry_main .asymmetry_list .comp-posting {margin-left:-8px;}
+.asymmetry_main .asymmetry_list .comp-posting > li {width:226px; margin-left:15px;}
+
+.asymmetry_main .asymmetry_list .comp-posting figure > a > img {width:226px;}
+.asymmetry_main .asymmetry_list .comp-posting figure > a {width:226px;}
+.asymmetry_main .asymmetry_list .comp-posting figcaption a {background:none;}
+.asymmetry_main .asymmetry_list .comp-posting figcaption p {font-size:13px; color:#000;}
+.asymmetry_main .asymmetry_list .comp-posting figcaption p.cont {margin:10px 0 5px; line-height:17px;}
+.asymmetry_main .asymmetry_list .comp-posting figcaption p.tag {color:#555; line-height:17px;}
+
+/* ==================================================
+	별점
+================================================== */
+.comp-star,
+.comp-star strong{display:inline-block; width:60px; height:10px; background:url("../img/common/star_score.png") no-repeat 0 0; vertical-align:middle;}
+.comp-star strong{display:block; overflow:hidden; width:auto; background-position:0 100%; font-size:0; text-indent:-9999px;}
+
+
+/* ==================================================
+	버튼
+================================================== */
+/* 좋아요 */
+.comp-like{padding:10px; color:#fff; font-family:ngb; font-size:1.4rem;}
+.comp-like span{display:inline-block; line-height:15px;}
+.comp-like strong{display:inline-block; overflow:hidden; margin-right:5px; width:17px; height:15px; background:url("../img/icon/icon_like.png") no-repeat 0 0; vertical-align:top; font-size:0; text-indent:-999px;}
+.comp-like.on strong{background-position:0 -60px !important; width:18px;}
+
+
+/* ==================================================
+	해시태그 공통
+================================================== */
+.hero-info-tag {position:relative; padding:12px 0 12px 48px; border:1px solid #c0c0c0; border-width:1px 0;}
+.hero-info-tag h6 {position:absolute; top:21px; left:0; color:#000; font-size:1.2rem;}
+.hero-info-tag ul:after{display:block; clear:both; content:"";}
+.hero-info-tag li{float:left; margin:4px 4px 4px 0;}
+.hero-info-tag li a{display:block; padding:0 7px; height:20px; border:1px solid #b3b3b3; color:#777; font-size:1.2rem; line-height:20px;}
+.hero-info-tag li.on a{border-color:#808080; color:#555;}
+
+/* ==================================================
+	sns공유 공통
+================================================== */
+.hero-info-share{margin-top:10px;}
+.hero-info-share ul{float:right;}
+.hero-info-share li{float:left; margin-left:14px;}
+.hero-info-share li a{display:block; color:#7d7d7d; font-family:ngb; font-size:1.2rem; line-height:16px;}
+
+/* ==================================================
+	로딩이미지 
+================================================== */
+/* TYPE1 */
+.dimm-loading {display:none; text-align:center; position:fixed; top:0; left:0; bottom:0; right:0; background:rgba(0,0,0,.5); vertical-align:middle;}
+.dimm-loading:before {content:""; display:inline-block; width:0.01%; height:100%; vertical-align:middle;}
+
+#loading {
+	position:relative; z-index:2; vertical-align:middle;
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	border: 4px solid rgba(255,255,255,.3);
+	border-radius: 50%;
+	border-top-color: #fff;
+	animation: spin 1s ease-in-out infinite;
+	-webkit-animation: spin 1s ease-in-out infinite;
+	-moz-animation: spin 1s ease-in-out infinite;
+	-ms-animation: spin 1s ease-in-out infinite;
+
+}
+
+@keyframes spin {
+  to { 
+	-webkit-transform: rotate(360deg); 
+	-ms-transform: rotate(360deg); 
+	}
+}
+@-webkit-keyframes spin {
+  to { 
+	-webkit-transform: rotate(360deg); 
+	-ms-transform: rotate(360deg); 
+	}
+}
+
+/* TYPE2 */
+.page-move {position:absolute;top:50%; left:50%; transform:translate(-50%,-50%); -webkit-transform:translate(-50%,-50%); -ms-transform:translate(-50%,-50%); }
+.page-move h2 {margin:0; font-size:3rem; font-weight:normal;}
+
+.three-bounce{text-align:center;font-size:26px;position:relative;width:80px; margin:auto; margin-bottom:30px;}
+.three-bounce>div{display:inline-block;width:18px;height:18px;border-radius:100%;background-color:#7d7d7d;-webkit-animation:bouncedelay 1.4s infinite ease-in-out both;animation:bouncedelay 1.4s infinite ease-in-out both}
+.three-bounce .one{-webkit-animation-delay:-0.32s;animation-delay:-0.32s}
+.three-bounce .two{-webkit-animation-delay:-0.16s;animation-delay:-0.16s}
+
+@-webkit-keyframes bouncedelay{0%, 80%, 100%{-webkit-transform:scale(0)}40%{-webkit-transform:scale(1)}}
+@keyframes bouncedelay{0%, 80%, 100%{-webkit-transform:scale(0);transform:scale(0)}40%{transform:scale(1);-webkit-transform:scale(1)}}
+
+
+/* ==================================================
+	게시판 댓글 공통
+================================================== */
+/* 상품상세 - 내용공통 */
+section[class^="goods-detail-"] {position:relative; margin:70px 40px 0;}
+section[class^="goods-detail-"] h3{margin:0 auto 30px; width:280px; background:#fff; color:#000; font-family:ngb; font-size:1.8rem; line-height:1; text-align:center;}
+section[class^="goods-detail-"] h3:before{display:block; position:absolute; z-index:-1; top:8px; left:0; width:100%; border-top:2px solid #e7e7e7; content:"";}
+section[class^="goods-detail-"] h3 span.num{display:inline-block; margin-left:5px; vertical-align:top; color:#ef4036; font-family:ng; font-size:1.6rem; line-height:1.8rem;}
+section[class^="goods-detail-"] .tit_board {position:relative; padding:25px 0 15px; color:#555; font-size:1.3rem; text-align:left; visibility:visible; text-indent:inherit; height:auto; margin:0 auto; max-width:1200px; min-width:900px;}
+section[class^="goods-detail-"] .tit_board a {position:absolute; right:0; top:0;}
+section[class^="goods-detail-"] table.board{margin:0px auto;/*margin:25px auto 0;*/ width:100%; min-width:900px; max-width:1200px; border-top:1px solid #ddd; border-collapse:collapse; border-spacing:0; table-layout:fixed;}
+section[class^="goods-detail-"] table.board caption{display:none;/*padding-bottom:15px; color:#555; font-size:1.3rem; text-align:left; visibility:visible; text-indent:inherit; height:auto;*/}
+section[class^="goods-detail-"] table.board tbody{border-bottom:1px solid #ddd; text-align:center;}
+section[class^="goods-detail-"] table.board tbody.on{background:#fdfdfd;}
+section[class^="goods-detail-"] table.board tr.btn-toggle{cursor:pointer;}
+section[class^="goods-detail-"] table.board tr:nth-of-type(n+2){display:none; text-align:left;}
+section[class^="goods-detail-"] table.board tbody.on tr:nth-of-type(n+2){display:table-row;}
+section[class^="goods-detail-"] table.board td.title{padding:12px 0; text-align:left;}
+section[class^="goods-detail-"] table.board td.title a {color:#000; font-size:1.6rem; line-height:1.9rem;}
+section[class^="goods-detail-"] table.board td.name{color:#777; font-size:1.2rem;}
+section[class^="goods-detail-"] table.board td .txt_type {color:#555;}
+section[class^="goods-detail-"] table.board td[colspan]{padding:0 20px;}
+section[class^="goods-detail-"] table.board p {color:#555; font-size:1.3rem; line-height:1.8rem;}
+section[class^="goods-detail-"] table.board p.none{padding:45px 0; color:#999;}
+section[class^="goods-detail-"] table.board div.content {position:relative; padding-bottom:30px; overflow:hidden;}
+section[class^="goods-detail-"] table.board div.content div.buttonset{position:absolute; right:0; bottom:10px;}
+section[class^="goods-detail-"] table.board div.content div.buttonset a{display:block; float:left; margin-left:3px; width:38px; height:21px; border:1px solid #9a9a9a; color:#2e2e2e; font-size:1.1rem; line-height:21px; text-align:center;}
+section[class^="goods-detail-"] table.board div.review_comment_form {padding:10px 20px; /*border-top:1px solid #ddd;*/}
+section[class^="goods-detail-"] table.board div.review_comment_form textarea {width:95%; height:48px;}
+section[class^="goods-detail-"] table.board div.btn_review_write {float:right;}
+section[class^="goods-detail-"] table.board div.btn_review_write a {display:block; width:50px; height:48px; line-height:48px; background:#555; color:#fff; text-align:center;}
+section[class^="goods-detail-"] table.board div.answer {position:relative; padding:17px 20px 27px; border-top:1px solid #e9e9e9;}
+section[class^="goods-detail-"] table.board div.answer span.name {color:#777; font-size:1.3rem; line-height:1.8rem; display:inline-block; margin-bottom:10px;}
+section[class^="goods-detail-"] table.board div.answer span.name i {padding-right:10px;}
+section[class^="goods-detail-"] table.board div.answer .btn_delete {position:absolute; right:0; top:17px;}
+section[class^="goods-detail-"] table.board div.answer .btn_delete a {display:block; width:38px; height:21px; border:1px solid #9a9a9a; color:#2e2e2e; font-size:1.1rem; line-height:21px; text-align:center;}
+
+
+/* ==================================================
+	마이페이지 > 탭 컨텐츠
+================================================== */
+.my-tab-menu {position:relative; overflow:hidden; border:1px solid #000;}
+.my-tab-menu:before {display:block; content:""; position:absolute; bottom:0; width:100%; height:1px; background:#000;}
+.my-tab-menu li {position:relative; float:left; width:50%; text-align:center; line-height:40px; box-sizing:border-box; cursor:pointer; background:#fff;}
+.my-tab-menu li a {display:block; font-size:1.3rem; color:#000; border-left:1px solid #000;}
+.my-tab-menu li:first-child a {border-left:0;}
+.my-tab-menu li.on {background:#2e2e2e; color:#fff; border-right:0; border-left:0;}
+.my-tab-menu li.on:after {display:block; content:""; position:absolute; top:-1px; right:-1px; z-index:50; width:1px; height:42px; background:#000;}
+.my-tab-menu li.on a {font-family:ngb; color:#fff;}
+
+.tab-menu-content {display:none;}
+.tab-menu-content.on {display:block;}
+
+
+/* ==================================================
+ 매거진/룩북 > 탭 컨텐츠
+================================================== */
+.tab-category {margin:40px 0 5px;}
+.tab-category ul {overflow:hidden;}
+.tab-category ul li {float:left; width:103px; margin-right:4px; text-align:center;}
+.tab-category ul li a {display:block; padding-bottom:11px; border-bottom:2px solid #e9e9e9; color:#9a9a9a; font-size:1.4rem;}
+.tab-category ul li a.on {border-color:#000; color:#000;}
+
+
+/* ==================================================
+	Layer pop
+================================================== */
+.layer-dimm-wrap {display:none; position:fixed; z-index:500; width:100%; height:100%; top:0; left:0;}
+.layer-dimm-wrap .dimm-bg {position:absolute; width:100%; height:100%; background:rgba(0,0,0,.5);}
+.layer-dimm-wrap .layer-inner {position:absolute; top:50%; left:50%; padding:20px; border-top:3px solid #ef4036; background:#fff; box-sizing:border-box; transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);}
+.layer-dimm-wrap .layer-inner .layer-title {height:38px; font-size:2.3rem; font-family:ngb; color:#000; text-align:center;}
+.layer-dimm-wrap .layer-inner .btn-close {position:absolute; top:17px; right:25px; width:31px; height:31px; background:url(../img/btn/btn_layer_close.png) no-repeat; text-indent:-9999px; cursor:pointer}
+
+.layer-content {margin-top:20px;}
+
+
+
+/* ==================================================
+	롤링 버튼
+================================================== */
+.with-btn-rolling .bx-prev,
+.with-btn-rolling .bx-next {display:block;position:absolute;top:50%;transform:translateY(-50%);width:18px;height:56px;background:#000;_background:url(../img/btn/rolling_arrow_horiz.png) no-repeat !important;text-indent:-9999px;}
+.with-btn-rolling .bx-prev {left:0; background-position:0 0;}
+.with-btn-rolling .bx-next {right:0; background-position:-18px 0;}
+
+/* ==================================================
+   공통 > 버튼
+================================================== */
+/* 버튼 > 버튼형태 */
+.btn-type1 {display:inline-block; padding:0 5px; min-width:62px; line-height:23px; background:#555; text-align:center; color:#fff !important; box-sizing:border-box;}
+.btn-line {display:inline-block; padding:0 5px; min-width:62px; line-height:23px; border:1px solid #9a9a9a; font-size:1.1rem; color:#2e2e2e; background:#fff; text-align:center; box-sizing:border-box;}
+
+
+/* 버튼 > 버튼색상 */
+.btn-type1.c1 {background:#df3b32;}
+.btn-type1.c2 {background:#5a5a5a;}
+.btn-type1.c3 {background:#9a9a9a;}
+.btn-type1.c4 {background:#000;}
+
+.user_like a:before {content:""; position:absolute; top:6px; left:6px; background:url('../img/icon/icon_heart.png') no-repeat 0 0; width:11px; height:9px;}
+.user_like_none a:before {content:""; position:absolute; top:6px; left:6px; background:url('../img/icon/icon_heart.png') no-repeat 0 -10px; width:11px; height:10px;}
+.user_like a, 
+.user_like_none a {position:relative; display:inline-block; text-align:center; border:1px solid #bdbdbd; width:44px; padding-left:14px; height:21px; line-height:21px; font-size:1.1rem;}
+
+/* 버튼 > 페이징 우측 버튼 */
+.mypage_main .list-paginate {position:relative;}
+.mypage_main .list-paginate .btn_right {position:absolute; right:0; top:0px;}
+.mypage_main .list-paginate .btn_right a {width:85px; height:27px; line-height:27px; font-size:1.1rem;}
+
+
+/* 상세> 버튼 - 호감,비호감 */
+.btn-feeling a {position:relative; margin-right:3px; display:inline-block; padding-left:12px; min-width:48px; line-height:24px !important; background:#ebebeb; height:26px; font-size:1.1rem !important; border:1px solid #ddd; text-align:center; color:#000 !important; box-sizing:border-box;}
+.btn-feeling a.btn-good-feeling:before {content:""; position:absolute; top:4px; left:7px; width:13px; height:13px; background:url('../img/btn/btn_feeling_good_bg.png') no-repeat 0 -14px;}
+.btn-feeling a.btn-bad-feeling:before {content:""; position:absolute; top:6px; left:7px; width:13px; height:13px; background:url('../img/btn/btn_feeling_bad_bg.png') no-repeat 0 -14px;}
+.btn-feeling a.on.btn-good-feeling:before {background:url('../img/btn/btn_feeling_good_bg.png') no-repeat 0px 0px #ebebeb;}
+.btn-feeling a.on.btn-bad-feeling:before {background:url('../img/btn/btn_feeling_bad_bg.png') no-repeat 0px 0px #ebebeb;}
+
+/* 리스트 더보기 */
+.btn_list_more {border:1px solid #b7b7b7; width:296px; height:48px; line-height:48px; margin:0 auto;}
+.btn_list_more a {display:block; text-align:center; font-size:15px;}
+.btn_list_more a:after {content:"+"; font-size:15px; margin-left:5px; color:#9a9a9a;}
+
+/* ==================================================
+	수량 조절
+================================================== */
+.ea-select {display:inline-block;}	
+.ea-select .ea {position:relative;}
+.ea-select .ea input {width:92px; height:23px; border:1px solid #ccc; text-align:center; font-weight:bold; color:#000; box-sizing:border-box;}
+.ea-select .ea button {position:absolute; top:0; width:23px; height:23px; border:1px solid #ccc; background:#fff; text-indent:-9999px;}
+.ea-select .ea .minus {left:0;}
+.ea-select .ea .plus:before,
+.ea-select .ea .minus:before {display:block; content:""; position:absolute; top:10px; left:8px; width:7px; height:1px; background:#919191;}
+.ea-select .ea .plus {right:0;}
+.ea-select .ea .plus:after {display:block; content:""; position:absolute; top:7px; left:11px; width:1px; height:7px; background:#919191;}
+.ea-select .btn-change {/*width:34px; margin-top:7px;*/ padding:0 10px; background:#555; text-align:center; color:#fff; line-height:23px; box-sizing:border-box;}
+
+
+/* ==================================================
+	테이블
+================================================== */
+table caption {visibility:hidden; font-size:0; height:0px; text-indent:-9999px;}
+table.cursor {cursor:pointer;}
+table.border_none {border:0}
+table span.type {font-family:ngb;}
+
+/* 항목 가로 스타일 */
+.th_left {width:100%; border-top:1px solid #000; border-collapse:separate; border-spacing:0;}
+.th_left tr {height:34px;}
+.th_left th,
+.th_left td {border-bottom:1px solid #ccc;}
+.th_left th {padding:0 20px; background-color:#f4f4f4; color:#000; font-weight:normal; text-align:left;}
+.th_left td {padding:5px 7px 5px 7px; color:#000;}
+.th_left td input[type="text"],
+.th_left td input[type="password"]{width:250px; height:24px; padding:0 5px; border:1px solid #ddd; font-size:1.1rem; vertical-align:middle; box-sizing:border-box;}
+.th_left td input[type="text"].short {width:24px;}
+.th_left td select {min-width:67px; height:24px; vertical-align:middle;}
+.th_left .dash {padding:0 3px; vertical-align:middle;}
+
+/* 항목 세로 스타일 */
+.th_top {border-collapse:collapse; width:100%;}
+.th_top thead th {height:32px; border-top:2px solid #555; border-bottom:1px solid #9a9a9a; background:#fff; text-align:center; color:#000; font-family:ngb;}
+/*.th_top tfoot td {border-top:1px solid #000; border-bottom:1px solid #000;}*/
+.th_top tbody td {padding:9px 0 10px 0; border-bottom:1px solid #ddd; text-align:center; color:#000; line-height:17px;}
+.th_left tbody td p.s_txt,
+.th_top tbody td p.s_txt {font-family:ng; font-size:1.0rem; color:#555; font-weight:bold;}
+.th_top tr.over:hover {background:#f1f1f1; cursor:pointer;}
+
+/*테이블 > 상품정보*/
+.th_left .date, 
+.th_top .date {font-weight:normal;}
+
+.th_left .goods_info, 
+.th_top .goods_info {text-align:left;}
+
+.th_left .goods_info a, 
+.th_top .goods_info a {position:relative; display:block; color:#000;}
+
+.th_left .goods_info a > img, 
+.th_top .goods_info a > img {border:1px solid #ddd; width:96px; height:52px; /*max-width:58px;*/}
+
+.th_left .goods_info ul, 
+.th_top .goods_info ul {position:absolute; top:50%; _right:0; left:111px; transform:translateY(-50%); -webkit-transform:translateY(-50%);}
+
+.th_left .goods_info ul li,
+.th_top .goods_info ul li {line-height:19px;}
+
+.th_left .payment,
+.th_top .payment {font-family:ngb; font-size:1.5rem; color:#ef4036;}
+
+.th_left .payment .staff,
+.th_top .payment .staff {display:block;margin-top:5px;font-size:1.3rem;color:#000;}
+
+.th_left .payment2,
+.th_top .payment2 {font-family:ngb; font-size:1.3rem; color:#ef4036;}
+
+/* 테이블 50% */
+.table_col2 {overflow:hidden;}
+.table_col2 th {font-family:ngb;} 
+.table_col2 td {line-height:18px; padding:5px 7px 5px 7px; color:#555;}
+.table_col2 .fl-l {width:49%;}
+.table_col2 .fl-r {width:49%;}
+
+/* 장바구니 최종가격 */
+.total-price-box {position:relative; padding:10px 0 60px;}
+.total-price-box:before {display:block; content:""; position:absolute; top:-2px; right:-1px; left:-1px;  height:2px; background:#555;}
+.total-price-box .button {float:left;}
+.total-price-box .last-price {font-family:ngb; font-size:1.3rem; float:right; margin:3px 10px 0 0; color:#000;}
+.total-price-box .last-price em {font-family:ngb; font-size:1.5rem; color:#ef4036;}
+
+.total_wrap .total_price {border-top:2px solid #555; border-bottom:1px solid #bababa; background:#fdfdfd; padding:19px 0 19px 46px; height:39px; line-height:39px; color:#000;}
+.total_wrap .total_price span {float:left; font-family:ngb; font-size:1.7rem; padding-right:30px; margin-right:97px; border-right:1px solid #bababa; margin-top:12px;}
+.total_wrap .total_price ul {float:right;}
+.total_wrap .total_price ul li {float:left; text-align:center; margin-top:7px; font-family:ngb; font-size:1.3rem;}
+.total_wrap .total_price ul li:nth-child(1) {margin-right:20px;}
+.total_wrap .total_price ul li:nth-child(2) {width:141px;}
+.total_wrap .total_price ul li:nth-child(3) {width:180px;}
+.total_wrap .total_price ul li:nth-child(4) {width:179px; height:28px; background: url('../img/icon/icon_total_sum.png') no-repeat 0 -56px;}
+.total_wrap .total_price ul li em {padding-left:10px; font-family:ngb; font-size:1.5rem; color:#ef4036;}
+.total_wrap .total_price ul li div {display:block; background:url('../img/icon/icon_total_sum.png') no-repeat 0 0; height:28px; line-height:28px; vertical-align:middle; padding-left:28px;}
+.total_wrap .total_price ul li:nth-child(1) div {background:none; padding-left:0;}
+.total_wrap .total_price ul li:nth-child(2) div {background-position:0 0;}
+.total_wrap .total_price ul li:nth-child(3) div {background-position:0 -28px;}
+.total_wrap .total_price ul li:nth-child(4) div {background:none; margin-top: -7px;}
+.total_wrap .total_price ul li:nth-child(4) div em {display:block; margin-top:8px; font-size:2.0rem;}
+.total_wrap .total_price ul li.staff div {margin-top:-17px;}
+.total_wrap .total_price ul li.staff div .staff_price {margin-top:5px;font-family:ngb;font-size:1.3rem;color:#000;}
+
+/* ==================================================
+	마이페이지 > 기간 조회
+================================================== */
+.date-sort {display:inline-block; }
+.date-sort .type {float:left; font-size:0;}
+.date-sort .type .title {display:inline-block; font-size:12px; margin-right:11px; color:#000;}
+.date-sort .month button {margin-left:-1px;width:58px;height:27px;border:1px solid #ccc;background:#fff;color:#777;text-align:center;font-size:12px;box-sizing:border-box;}
+.date-sort .month button.on {background:#575757; border-color:#575757; color:#fff;}
+
+.date-sort .calendar {float:left; }
+.date-sort .calendar .title {margin-left:42px;}
+.date-sort .calendar .box {display:inline-block; position:relative;}
+.date-sort .calendar input[type="text"] {padding:0 10px 0 10px;  width:102px; height:27px; border:1px solid #ccc;  box-sizing:border-box;}
+.date-sort .calendar button {position:absolute; top:50%; right:5px; margin-top:-8px; width:16px; height:15px; background:url(../img/icon/icon_calendar.png) no-repeat; text-indent:-9999px;}
+.date-sort .calendar span {display:inline-block; width:21px; text-align:center; font-size:12px;}
+
+.date-sort .btn-go {float:left; margin-left:5px; width:62px; height:27px; background:#000; color:#fff; text-align:center; font-size:1.2rem;}
+
+/* ==================================================
+	마이페이지 > 하단 안내글
+================================================== */
+.list_text {overflow:hidden; padding:30px; background:#fbfbfb; margin-top:60px;}
+.list_text h3 {float:left; color:#000; font-size:1.2rem; font-weight:bold; margin-top:5px;}
+.list_text ul {margin-left:80px;}
+.list_text ul li {line-height:20px; color:#000;}
+
+/* ==================================================
+	paging
+================================================== */
+.list-paginate {text-align:center;} 
+.list-paginate a {display:inline-block; width:25px; height:25px; margin:0 5px; color:#7b7b7b; line-height:25px; text-align:center; vertical-align:top; box-sizing:border-box;}
+.list-paginate a.on,
+.list-paginate a:hover {color:#ef4036;}
+.list-paginate .border_wrap {display:inline-block; border:1px solid #ccc; overflow:hidden; margin:0 20px;}
+.list-paginate .border_wrap a {display:block; float:left; margin:0;}
+.list-paginate a.prev {background:url(../img/btn/paginate_prev.png) center no-repeat;text-indent:-9999px; border-left:1px solid #ccc;}
+.list-paginate a.prev-all {background:url(../img/btn/paginate_prev_all.png) center no-repeat;text-indent:-9999px;}
+.list-paginate a.next {background:url(../img/btn/paginate_next.png) center no-repeat;text-indent:-9999px; border-right:1px solid #ccc;}
+.list-paginate a.next-all {background:url(../img/btn/paginate_next_all.png) center no-repeat;text-indent:-9999px;}
+
+/* ==================================================
+	댓글입력창
+================================================== */
+.reply-reg-box {padding:0 20px;  border-top:1px solid #e9e9e9; /*border-bottom:1px solid #e9e9e9; padding-bottom:10px;*/}
+.reply-reg-box .text-area p {font-size:12px; color:#777; margin-bottom:4px;}
+.reply-reg-box .box {position:relative; margin-top:10px; padding-right:81px;}
+.reply-reg-box .box textarea {width:100%; height:68px; border:1px solid #ccc; box-sizing:border-box;}
+.reply-reg-box .box .btn-type1 {position:absolute; top:0; right:0 ;width:69px; height:68px; line-height:68px; font-size:14px; border:1px solid #e3e3e3;}
+
+/* ==================================================
+	댓글리스트
+================================================== */
+.reply-sort {padding-bottom:20px; border-bottom:1px solid #d5d5d5;}
+.reply-sort select {padding-left:10px;min-width:130px; height:35px; color:#2d2d2d; font-family:dotum; font-size:12px;  line-height:35px; box-sizing:border-box;}
+
+.reply-list > p {color:#000; font-size:18px; font-family:ngb; margin-bottom:17px;}
+.reply-list > p em {color:#9a9a9a;}
+.reply-list p.name {font-size:13px;}
+.reply-list .reply-inner {background:#fdfdfd;}
+.reply-list > li {padding:20px; border-bottom:1px solid #d5d5d5;}
+.reply-list .comment p {line-height:1.4; font-size:13px;}
+.reply-list .answer-reply {display:inline-block; margin:10px 0; color:#777; cursor:pointer}
+.reply-list .answer-reply:after {display:inline-block;width:6px;height:6px;margin:1px 0 0 10px;border-right:1px solid #777;border-top:1px solid #777;text-indent:-9999px;-webkit-transform:rotate(135deg);-ms-transform:rotate(135deg);transform:rotate(135deg);content:'';vertical-align:top;}
+.reply-list .answer-reply.on:after {margin:5px 0 0 10px;-webkit-transform:rotate(315deg);-ms-transform:rotate(315deg);transform:rotate(315deg);}
+
+.reply-list .reply {position:relative;}
+.reply-list .reply > .comment {padding:5px 0 0;}
+.reply-list .reply .reply-reply p.name {padding-bottom:10px;}
+.reply-list .btn {position:absolute; top:20px; right:20px;}
+.reply-list .btn button {width:40px; height:23px; min-width:40px;}
+
+.reply-list .reply-reply {display:none; position:relative; padding:0 20px; background:#f7f7f7;}
+.reply-list .reply-reply > li {padding:20px 0;border-top:1px dotted #c4c4c4;}
+.reply-list .reply-reply > li:first-child {border-top:none;}
+
+.reply-list .list-paginate {padding-bottom:80px;}
+
+/* ==================================================
+	상품리뷰쓰기 > 만족도
+================================================== */
+.wrap_select_rating {margin:10px 0;}
+.select_rating {margin-bottom:0px;}
+.select_rating > span {display:inline-block; width:74px; height:25px; padding:15px 0 0 9px;color:#555;font-size:1.2rem;letter-spacing:-1px;color:#000; text-align:left;}
+.select_rating ul {position:relative;display:inline-block;width:202px;height:30px;}
+.select_rating ul:before {position:absolute;left:9%;bottom:2px;display:block;width:80%;height:5px;background:#dfdfdf;content:"";}
+.select_rating li {position:absolute; top:0; width:50px;text-align:center;}
+.select_rating li:first-child {left:0;}
+.select_rating li:nth-child(2) {left:25%;margin-left:-12.5px;}
+.select_rating li:nth-child(3) {left:50%;margin-left:-25px;}
+.select_rating li:nth-child(4) {right:25%;margin-right:-12.5px;}
+.select_rating li:last-child {right:0;left:auto;transform:none;-webkit-transform:none;}
+.select_rating li .radiobox {position:relative; display:inline-block; /*overflow:hidden;*/}
+.select_rating li .radiobox input[type="radio"] {width:1px; height:1px; position:absolute; top:-10px; opacity:0;}
+.select_rating li .radiobox input[type="radio"]+label {display:block; }
+.select_rating li .radiobox input[type="radio"]+label:after {position:absolute; content:''; display:block; margin-left:-11px; background: url('../img/common/radio_img.png') no-repeat left -18px; width:19px; height:18px;/* margin: 5px auto 0; */left:50%; bottom:0; /*transform: translateX(-50%);*/}
+.select_rating li .radiobox input[type="radio"]:checked+label:after {background-position:0 0;}
+.select_rating li .radiobox label {position:relative;display:block;margin-bottom:8px;color:#9a9a9a;font-size:1.1rem;height: 34px;letter-spacing:-1px;}
+.select_rating li .radiobox label.none {text-indent:-9999px;}
+/* ==================================================
+	컨텐츠 내용 없을 경우
+================================================== */
+.no-content {height:31px; background:url("../img/icon/bg_no_cont.png") no-repeat center top; padding-top:48px;}
+.no-content p {text-align:center; font-size:1.3rem; color:#9a9a9a;}
+
+/* ==================================================
+	팝업창 공통 스타일 지정
+================================================== */
+.layer-content.scroll {overflow:auto; max-height:600px; padding-right:5px;}
+.layer-dimm-wrap .btn_wrap {margin:20px 0; text-align:center;}
+.layer-dimm-wrap .btn_wrap a {width:140px; height:38px; line-height:38px; font-size:1.6rem;}
+.layer-dimm-wrap .th_left th {padding:0 10px;}
+
+/* ==================================================
+	팝업창 width
+================================================== */
+.layer-inner.w100 {width:100px}
+.layer-inner.w150 {width:150px}
+.layer-inner.w200 {width:200px}
+.layer-inner.w300 {width:300px}
+.layer-inner.w400 {width:400px}
+.layer-inner.w500 {width:500px}
+.layer-inner.w600 {width:600px}
+.layer-inner.w800 {width:800px}
+.layer-inner.w900 {width:900px}
+.layer-inner.w1000 {width:1000px}
+
+/* ==================================================
+	width - 추가 불필요 (개발 편의를 위한 제공)
+================================================== */
+.w50 {width:50px;}
+.w100 {width:100px;}
+.w150 {width:150px;}
+.w200 {width:200px;}
+.w300 {width:300px;}
+.w400 {width:400px;}
+.w500 {width:500px;}
+
+
+/* ==================================================
+	margin, padding - 추가 불필요 (개발 편의를 위한 제공)
+================================================== */
+.mt-5 {margin-top:5px !important;}
+	.mt-10 {margin-top:10px !important;}
+	.mt-20 {margin-top:20px !important;}
+	.mt-30 {margin-top:30px !important;}
+	.mt-40 {margin-top:40px !important;}
+	.mt-50 {margin-top:50px !important;}
+
+.mr-5 {margin-right:5px !important;}
+	.mr-10 {margin-right:10px !important;}
+	.mr-20 {margin-right:20px !important;}
+	.mr-30 {margin-right:30px !important;}
+	.mr-40 {margin-right:40px !important;}
+	.mr-50 {margin-right:50px !important;}
+
+.mb-5 {margin-bottom:5px !important;}
+	.mb-10 {margin-bottom:10px !important;}
+	.mb-20 {margin-bottom:20px !important;}
+	.mb-30 {margin-bottom:30px !important;}
+	.mb-40 {margin-bottom:40px !important;}
+	.mb-50 {margin-bottom:50px !important;}
+
+.ml-5 {margin-left:5px !important;}
+	.ml-10 {margin-left:10px !important;}
+	.ml-20 {margin-left:20px !important;}
+	.ml-30 {margin-left:30px !important;}
+	.ml-40 {margin-left:40px !important;}
+	.ml-50 {margin-left:50px !important;}
+
+.pt-5 {padding-top:5px !important;}
+	.pt-10 {padding-top:10px !important;}
+	.pt-20 {padding-top:20px !important;}
+	.pt-30 {padding-top:30px !important;}
+	.pt-40 {padding-top:40px !important;}
+	.pt-50 {padding-top:50px !important;}
+
+.pr-5 {padding-right:5px !important;}
+	.pr-10 {padding-right:10px !important;}
+	.pr-20 {padding-right:20px !important;}
+	.pr-30 {padding-right:30px !important;}
+	.pr-40 {padding-right:40px !important;}
+	.pr-50 {padding-right:50px !important;}
+
+.pb-5 {padding-bottom:5px !important;}
+	.pb-10 {padding-bottom:10px !important;}
+	.pb-20 {padding-bottom:20px !important;}
+	.pb-30 {padding-bottom:30px !important;}
+	.pb-40 {padding-bottom:40px !important;}
+	.pb-50 {padding-bottom:50px !important;}
+
+.pl-5 {padding-left:5px !important;}
+	.pl-10 {padding-left:10px !important;}
+	.pl-20 {padding-left:20px !important;}
+	.pl-30 {padding-left:30px !important;}
+	.pl-40 {padding-left:40px !important;}
+	.pl-50 {padding-left:50px !important;}
+

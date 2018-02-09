@@ -1,0 +1,5 @@
+[브랜드 관리]
+<브랜드 관리>
+브랜드 정보관리 = vender_management2.php
+브랜드 신규등록 = vender_new2.php
+매장관리 = store_list.php

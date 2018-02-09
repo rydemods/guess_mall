@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<title>룰렛</title>
+
+	<script type="text/javascript" src="js/embedFlash.js"></script>
+	<script type="text/javascript">
+		
+		function goLogin(){
+			alert("로그인 하세요");
+		}
+		
+		function noChange(){
+			alert("참여기회가 없습니다");
+		}
+		
+		function goClose(){
+			alert("팝업 닫기, 페이지 새로고침");
+		}
+	
+		function resultError(_value){
+			// setdata 의 resultNum 값이 1 ~ 7 이 아니면 호출
+			alert("오류가 발생했습니다. 잠시 후 다시 참여해 주세요. errorCode : " + _value);
+		}
+	
+	</script>
+
+</head>
+
+<body>
+	<div>
+		<embed src="roulette.swf"
+			quality="high"
+			bgcolor="#ffffff"
+			width="550"
+			height="400"
+			name="rouletteFlash"
+			id="rouletteFlash"     FlashVars="getUrl=getdata.php&setUrl=setdata.php"
+			align="middle"
+			allowScriptAccess="sameDomain"
+			allowFullScreen="false"
+			type="application/x-shockwave-flash"
+			pluginspage="http://www.adobe.com/go/getflash"
+		/>
+	</div>
+
+</body>
+
+</html>

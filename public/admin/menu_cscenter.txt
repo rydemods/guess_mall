@@ -1,0 +1,23 @@
+[CS 관리]
+<CS 관리>
+CS 통합 리스트 = cscenter_order_list_all_order.php
+취소 = cscenter_order_list_cancel.php
+교환 = cscenter_order_list_rechange.php?redeliverytype=G
+반품 = cscenter_order_list_rechange.php?redeliverytype=Y
+
+<게시판관리>
+CS 게시판 = cscenter_freeboard.php
+CS 공지사항 = cscenter_notice.php
+게시판 리스트 관리 = community_list.php
+#게시판 게시물 관리 = community_article.php
+공지사항 게시판 관리 = community_article.php?board=&reply_status=&s_check=c&search=&board=notice
+상품문의 게시판 관리 = community_article.php?board=notice&reply_status=&s_check=c&search=&board=qna
+입점문의 게시판 관리 = community_article.php?board=qna&reply_status=&s_check=c&search=&board=storeloc
+1:1 고객 게시판 관리 = community_personal.php
+AS 게시판 관리 = community_asinfo.php
+FAQ 카테고리 관리 = faq_category.php
+FAQ 리스트 관리 = faq.php
+FAQ 등록 = faq_register.php
+
+<상품리뷰관리>
+상품 리뷰 관리 = product_review.php

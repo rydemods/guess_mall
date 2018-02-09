@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=1200,user-scalable=yes,target-densitydpi=device-dpi">
+	<meta name="format-detection" content="telephone=no, address=no, email=no">
+	<meta name="Keywords" content="<?=$_data->shopkeyword?>">
+	<meta name="Description" content="<?=(strlen($_data->shopdescription)>0?$_data->shopdescription:$_data->shoptitle)?>">
+
+    <title><?=$_data->shoptitle?></title>
+
+	<!-- 페이스북 쉐어 Start (2016.02.11 유동혁) -->
+	<?=$facebook_share?>
+	<!-- 페이스북 쉐어 End (2016.02.11 유동혁) -->
+	<!-- 트위터 쉐어 Start (2016.02.11 유동혁) -->
+	<?=$twitter_share?>
+	<!-- 페이스북 쉐어 End (2016.02.11 유동혁) -->
+
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/component.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/content.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/jquery.bxslider.css">
+
+	<script type="text/javascript" src="../static/js/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.bxslider.min.js"></script>
+	<script type="text/javascript" src="../static/js/slick.min.js"></script>
+	<script type="text/javascript" src="../static/js/TweenMax.min.js"></script>
+	<script type="text/javascript" src="../static/js/masonry.pkgd.min.js"></script>
+	<script type="text/javascript" src="../static/js/select_type01.js"></script>
+	<script type="text/javascript" src="../static/js/ui.js"></script>
+	<script type="text/javascript" src="../static/js/common_ui.js"></script>
+</head>
+
+<style type="text/css">
+body {color:#000; padding:20px;}
+hr {margin:50px 0px;}
+p {margin-bottom:10px;}
+button {color:#000;}
+/*section.layout_wrap {position:relative; width:100%; height:100%; overflow:hidden;}*/
+
+</style>
+
+<body>
+
+<div class="dimm-loading">
+	<div id="loading"></div>
+</div>
+<button class="loading-show">로딩 레이어 보기 TYPE1</button>
+
+<section class="layout_wrap">
+
+	<!-- contents -->
+	<div class="page-move">
+		<div class="three-bounce">
+		  <div class="one"></div>
+		  <div class="two"></div>
+		  <div class="three"></div>
+		</div>
+		<h2>페이지 이동중 입니다. 잠시만 기다려주세요</h2>
+	</div>
+	<!-- // contents -->
+</section>
+
+<hr>
+
+</body>
+
+</html>

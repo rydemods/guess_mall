@@ -1,0 +1,422 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>SMS 회원가입</title>
+<style>
+td {font-family:Tahoma;color:666666;font-size:9pt;}
+
+tr {font-family:Tahoma;color:666666;font-size:9pt;}
+BODY,TD,SELECT,DIV,form,TEXTAREA,center,option,pre,blockquote {font-family:Tahoma;color:666666;font-size:9pt;}
+
+A:link    {color:333333;text-decoration:none;}
+
+A:visited {color:333333;text-decoration:none;}
+
+A:active  {color:333333;text-decoration:none;}
+
+A:hover  {color:#CC0000;text-decoration:none;}
+.font_orange{color:#FF4C00;font-family:"돋움,굴림";font-size:12px;}
+.input{font-size:12px;BORDER-RIGHT: #DCDCDC 1px solid; BORDER-TOP: #C7C1C1 1px solid; BORDER-LEFT: #C7C1C1 1px solid; BORDER-BOTTOM: #DCDCDC 1px solid; HEIGHT: 18px; BACKGROUND-COLOR: #ffffff;padding-top:2pt; padding-bottom:1pt; height:19px}
+.table_cell{font-family:"돋움,굴림";background-color:#F8F8F8;padding:5pt;padding-left:10pt;line-height:18px;letter-spacing:-0.5pt; font-weight:bold;}
+.td_con1{padding-left:3pt;padding-top:3pt; padding-bottom:3pt; padding-right:2pt;font-family:"굴림,굴림";line-height:18px;BORDER-LEFT:#E3E3E3 1pt solid;}
+.textarea{padding-left:4pt;line-height:17px;border:solid 1;border-color:#BDBDBD;font-family:돋음;font-size:9pt;color:333333;background-color:transparent}
+
+.btn_gray{display:inline-block;border:1px solid #d7d7d7;color:#868686;font-size:11px;padding:0px 0;border-radius:3px;text-align:center;
+background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #f5f5f5 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f5f5f5)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#f5f5f5 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#f5f5f5 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#f5f5f5 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#f5f5f5 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-9 */
+}
+</style>
+<script type="text/javascript" src="/js/jquery-1.10.1.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+
+<script language="JavaScript">
+<!--
+$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
+function openDaumPostcode() {
+	new daum.Postcode({
+		oncomplete: function(data) {
+			console.log(data);
+			// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+			// 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
+			document.getElementById('employ_zipcode1').value = data.postcode1;
+			document.getElementById('employ_zipcode2').value = data.postcode2;
+			document.getElementById('employ_addr1').value = data.address;   
+			//전체 주소에서 연결 번지 및 ()로 묶여 있는 부가정보를 제거하고자 할 경우,
+			//아래와 같은 정규식을 사용해도 된다. 정규식은 개발자의 목적에 맞게 수정해서 사용 가능하다.
+			//var addr = data.address.replace(/(\s|^)\(.+\)$|\S+~\S+/g, '');
+			//document.getElementById('addr').value = addr;
+
+			
+		}
+	}).open();
+}
+function PageResize() {
+	var oWidth = document.all.table_body.clientWidth + 10;
+	var oHeight = document.all.table_body.clientHeight + 60;
+
+	window.resizeTo(oWidth,oHeight);
+}
+
+
+function IsCheckId(data) {
+	var numstr = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_-";
+	var thischar;
+	var count = 0;
+	data = data.toUpperCase( data )
+				
+	for ( var i=0; i < data.length; i++ ) {
+		thischar = data.substring(i, i+1 );
+		if ( numstr.indexOf( thischar ) != -1 )
+			count++;
+	}		
+	if ( count == data.length )
+		return(true);
+	else
+		return( false );
+}
+
+function chkBizNo(obj) {
+	if (obj.length == 10) {
+		var bizID = obj;
+		var checkID = new Array(1, 3, 7, 1, 3, 7, 1, 3, 5, 1);
+		var tmpBizID, i, c2, remander;
+		var chkSum = 0;
+
+		for (i=0; i<=7; i++) chkSum += checkID[i] * bizID.charAt(i);
+
+		c2 = "0" + (checkID[8] * bizID.charAt(8));
+		c2 = c2.substring(c2.length - 2, c2.length);
+
+		chkSum += Math.floor(c2.charAt(0)) + Math.floor(c2.charAt(1));
+
+		remainder = (10 - (chkSum % 10)) % 10 ;
+
+		if (Math.floor(bizID.charAt(9)) != remainder){
+			return false;
+		} else {
+			return true;
+		}
+	} else {
+		return false;
+	}
+}
+
+function f_addr_search(form,post,addr,gbn) {
+	window.open("addr_search.html?form="+form+"&post="+post+"&addr="+addr+"&gbn="+gbn,"f_post","resizable=yes,scrollbars=yes,x=100,y=200,width=370,height=250");		
+}
+
+function iddup() {
+	if ($("#empoly_id").next().html() == "다시입력"){
+		$("#empoly_id").next().html('중복확인');
+		$("#empoly_id").attr("readonly",false);
+		$("#empoly_id_ck").val('0');
+		$("#empoly_id").val('');
+		return;
+	}
+	var emp_id = $("#empoly_id").val();
+	if (emp_id == ""){
+		alert('아이디를 입력 하세요.');
+		$("#empoly_id").focus();
+		return;
+	}
+	if (getByteLen2(emp_id) > 20 ){
+		alert('아이디는 한글10자 영문숫자 20자를 넘길수 없습니다.');
+		$("#empoly_id").val('');
+		$("#empoly_id").focus();
+		return;
+	}
+	$.post("/front/duoSmsProc.php",{mode:'emp_id_chk' ,emp_id:emp_id},function (data){
+		if (data.result == "true"){
+			alert('사용 가능 아이디 입니다.');
+			$("#empoly_id_ck").val('1');
+			$("#empoly_id").attr("readonly","true");
+			$("#empoly_id").next().html('다시입력');
+		} else {
+			alert('중복 아이디 입니다.');
+			$("#empoly_id").focus();
+			return;
+		}
+	});
+}
+function getByteLen2(str){
+	return str.length + (escape(str)+"%u").match(/%u/g).length - 1;
+}
+/*
+SMS 아이디 id="employ_id"
+비밀번호 id="employ_pw"
+상호(회사명)  id="employ_name"
+회사 전화번호 id="employ_tel"
+회사 팩스번호 id="employ_fax"
+담당자명 id="employ_mem_name"
+담당자 핸드폰 id="employ_hp"
+담당자 이메일 id="employ_email"
+사업자등록번호 id="employ_licensee"
+사업자 업태 id="employ_business"
+사업자 종목 id="employ_event"
+대표자 성명 id="employ_owner_name"
+사업장 주소 id="employ_zipcode"  id="employ_addr1"  id="employ_addr2" 
+*/
+function CheckForm() {
+	if ($("empoly_id").val() == ""){
+		alert('아이디를 입력 하세요.');
+		$("#empoly_id").focus();
+		$("#empoly_id_ck").val('0');
+		return false;
+	}
+	if ($("#empoly_id_ck").val() == "0"){
+		alert('아이디 중복 확인을 하세요.');
+		$("#empoly_id").next().focus();
+		return false;
+	}
+	if ($("#employ_pw").val() == ""){
+		alert('패스워드을 입력 하세요.');
+		$("#employ_pw").focus();
+		return false;
+	}
+	if ($("#employ_name").val() == ""){
+		alert('상호(회사명)을 입력 하세요.');
+		$("#employ_name").focus();
+		return false;
+	}
+	if ($("#employ_licensee").val() == ""){
+		alert('사업자등록번호을 입력 하세요.');
+		$("#employ_licensee").focus();
+		return false;
+	}
+	if ($("#employ_business").val() == ""){
+		alert('사업자 업태을 입력 하세요.');
+		$("#employ_business").focus();
+		return false;
+	}
+	if ($("#employ_event").val() == ""){
+		alert('사업자 종목을 입력 하세요.');
+		$("#employ_event").focus();
+		return false;
+	}
+	if ($("#employ_zipcode1").val() == "" || $("#employ_zipcode1").val() == "" || $("#employ_addr1").val() == ""){
+		alert('사업장 주소을 입력 하세요.');
+		$("#employ_addr1").focus();
+		return false;
+	}
+	
+	if ($("#employ_tel").val() == ""){
+		alert('회사전화번호을 입력 하세요.');
+		$("#employ_tel").focus();
+		return false;
+	}
+	if ($("#employ_mem_name").val() == ""){
+		alert('담당자명을 입력 하세요.');
+		$("#employ_mem_name").focus();
+		return false;
+	}
+	if ($("#employ_hp").val() == ""){
+		alert('담당자 핸드폰을 입력 하세요.');
+		$("#employ_hp").focus();
+		return false;
+	}
+	if ($("#employ_email").val() == ""){
+		alert('담당자 이메일을 입력 하세요.');
+		$("#employ_email").focus();
+		return false;
+	}
+	
+	$.post("/front/duoSmsProc.php",$("#form1").serialize(),
+		function (data){
+			if (data.result == "true"){
+				alert('등록 되었습니다.');
+				opener.location.reload();
+				window.close();
+			} else {
+				alert(data.msg);
+				return false;
+			}
+		}
+	);
+	return false;
+}
+
+//-->
+</script>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" oncontextmenu="return false" style="overflow-x:hidden;overflow-y:hidden;" onload="PageResize();">
+<table id="table_body" style="TABLE-LAYOUT: fixed" cellspacing="0" cellpadding="0" width="480" border="0">
+<tbody><tr>
+	<td width="100%" background="images/win_titlebg1.gif" height="31">
+	<table cellspacing="0" cellpadding="0" width="100%">
+	<tbody><tr>
+		<td width="100%" style="padding-left:30px"><font color="#ffffff"><b>SMS 회원가입</b></font></td>
+		<td><img height="31" src="images/win_titlebg1_end.gif" border="0"></td>
+	</tr>
+	</tbody></table>
+	</td>
+</tr>
+<tr>
+	<td height="20"></td>
+</tr>
+<form name="form1" id="form1" method="post" action="" onsubmit="return CheckForm();">
+<input type="hidden" name="employ_orgnzt_domain" value="digiatom.ajashop.co.kr">
+<input type="hidden" name="mode" value="emp_add">
+
+<tr>
+	<td style="padding-right:10px; padding-left:10px;">
+	<table cellspacing="0" cellpadding="0" width="100%" border="0">
+	<colgroup><col width="100">
+	<col width="">
+	</colgroup><tbody><tr>
+		<td height="1" bgcolor="#B9B9B9" colspan="2"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">사용 도메인</td>
+		<td class="td_con1">
+		<b>http://<?=$_SERVER['SERVER_NAME']?></b>
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">SMS 아이디</td>
+		<td class="td_con1">
+		<input type="text" name="empoly_id"  id="empoly_id" value="" size="15" maxlength="20" class="input" style="width:100px"/>
+		<!--<img src="images/memberjoin_skin1_btn1.gif" border="0" align="absmiddle" style="cursor:hand" onclick="iddup()">-->
+		<a href="javascript:iddup();" class="btn_gray" style="width:70px;">중복확인</a>
+		<input type="hidden" name="empoly_id_ck" id="empoly_id_ck" value = "0" />
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">비밀번호</td>
+		<td class="td_con1"><input type="password" name="employ_pw" id="employ_pw" value="" size="15" maxlength="20" class="input" style="width:100px"> <font class="font_orange">* 영문,숫자를 혼용하여 4~12자리</font></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<!--
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">비밀번호 확인</td>
+		<td class="td_con1"><input type="password" name="employ_pw2" value="" size="15" maxlength="20" class="input" style="width:100px"> </td>
+	</tr>
+	-->
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">상호(회사명)</td>
+		<td class="td_con1"><input type="text" name="employ_name" id="employ_name" value="" size="15" maxlength="30" class="input" style="width:100px"> <font class="font_orange">* 세무서에 등록되어 있는 상호 입력</font></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">사업자등록번호</td>
+		<td class="td_con1"><input type="text" name="employ_licensee" id="employ_licensee" numberonly='true' value="" size="15" maxlength="20" class="input" style="width:100px"> <font class="font_orange">"-" 제외한 숫자만 입력</font></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">사업자 업태</td>
+		<td class="td_con1"><input type="text" name="employ_business" id="employ_business" value="" size="15" maxlength="20" class="input" style="width:100px"> <font class="font_orange">* 세금계산서 발행시 필요</font></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">사업자 종목</td>
+		<td class="td_con1"><input type="text" name="employ_event" id="employ_event" value="" size="15" maxlength="20" class="input" style="width:100px"> <font class="font_orange">* 세금계산서 발행시 필요</font></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">대표자 성명</td>
+		<td class="td_con1"><input type="text" name="employ_owner_name" id="employ_owner_name" value="" size="10" maxlength="12" class="input"></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">사업장 주소</td>
+		<td class="td_con1">
+		<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody><tr>
+			<td><input type="text" id="employ_zipcode1" name="employ_zipcode1" value="" size="3" maxlength="3" class="input" readonly=""> - <input type="text" id="employ_zipcode2" name="employ_zipcode2" value="" size="3" maxlength="3" class="input" readonly=""> <img src="images/memberjoin_skin1_btn2.gif" align="absmiddle" style="cursor:hand" onclick="openDaumPostcode();"></td>
+		</tr>
+		<tr>
+			<td><input type="text" id="employ_addr1" name="employ_addr1" value="" size="50" maxlength="150" class="input"></td>
+		</tr>
+		</tbody></table>
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">회사 전화번호</td>
+		<td class="td_con1"><input type="text" name="employ_tel" numberonly='true' id="employ_tel" value="" size="15" maxlength="15" class="input" style="width:100px"></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">회사 팩스번호</td>
+		<td class="td_con1"><input type="text" name="employ_fax" numberonly='true' id="employ_fax" value="" size="15" maxlength="15" class="input" style="width:100px"></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">담당자명</td>
+		<td class="td_con1"><input type="text" name="employ_mem_name" id="employ_mem_name" value="" size="10" maxlength="12" class="input"></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">담당자 핸드폰</td>
+		<td class="td_con1"><input type="text" name="employ_hp" numberonly='true' id="employ_hp" value="" size="15" maxlength="15" class="input" style="width:100px"></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+	<tr>
+		<td class="table_cell"><img src="images/icon_point2.gif" border="0">담당자 이메일</td>
+		<td class="td_con1"><input type="text" name="employ_email" id="employ_email" value="" size="25" maxlength="50" class="input"></td>
+	</tr>
+	<tr>
+		<td height="1" colspan="2" bgcolor="#EDEDED"></td>
+	</tr>
+
+	</tbody></table>
+
+	</td>
+</tr>
+<tr>
+	<td height="10"></td>
+</tr>
+<tr>
+	<td align="center">
+	<input type='image' src="images/btn_confirm03.gif" border="0" />
+	&nbsp;
+	<a href="javascript:window.close()"><img src="images/btn_close03.gif" border="0"></a>
+	</td>
+</tr>
+</form>
+
+
+<tr>
+	<td height="5"></td>
+</tr>
+</tbody></table>
+
+
+
+
+</body></html>

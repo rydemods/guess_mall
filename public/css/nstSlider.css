@@ -1,0 +1,39 @@
+.is_clickable {
+  cursor: hand;
+  cursor: pointer;
+}
+.nstSlider, .nstSliderSize {
+  cursor: hand;
+  cursor: pointer;
+  position: relative;
+  width: 200px;
+  height: 20px;
+}
+.nstSlider .rightGrip,
+.nstSlider .leftGrip,
+.nstSliderSize .rightGripSize,
+.nstSliderSize .leftGripSize {
+  position: absolute;
+}
+.nstSlider .bar, .nstSliderSize .barSize {
+  position: absolute;
+  background: #ffffff;
+}
+
+.s_nstSlider, .s_nstSliderSize {
+  cursor: hand;
+  cursor: pointer;
+  position: relative;
+  width: 200px;
+  height: 20px;
+}
+.s_nstSlider .rightGrip,
+.s_nstSlider .leftGrip,
+.s_nstSliderSize .rightGripSize,
+.s_nstSliderSize .leftGripSize {
+  position: absolute;
+}
+.s_nstSlider .bar, .s_nstSliderSize .barSize {
+  position: absolute;
+  background: #ffffff;
+}

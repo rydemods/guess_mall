@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+.indexbullet{margin-right:3px}
+.bold{font-weight:bold}
+
+.talbeBorder {border:1px #d1dbdc solid}
+#borderBottom{border-bottom:1px #b9c8ca solid}
+.thead01{text-align:center; background:#d7edfa; font-weight:bold}
+.thead02{text-align:center; background:#e3f0f1; font-weight:bold}
+
+.btnCenter{text-align:center}
+.red{color:#FF0000}
+.redBold{color:#ff0000; font-weight:bold}
+
+.comment{border:#f4f4f5 1px solid; background:#f9f9fb; font-size:11px; padding:10px}
+
+/*0104추가*/
+.title{background:url(../images/cashTop.gif); width:632px; height:73px;}
+.title td{color:#ffffff; font-size:24px; font-weight:bold}

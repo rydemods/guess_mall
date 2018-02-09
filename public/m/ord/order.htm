@@ -1,0 +1,585 @@
+{*** 주문하기(주문서작성) | ord/order.php ***}
+{ # header }
+
+<?php {page_title} = "주문하기";?>
+{#sub_header}
+
+<script id="delivery"></script>
+<section id="order">
+<form id="form" name="frmOrder" action="settle.php" method="post" onsubmit="return chkForm2(this)">
+{?_sess}
+<input type="hidden" name="phoneOrder[]" value="{phone[0]}" size="3" maxlength="3" required />
+<input type="hidden" name="phoneOrder[]" value="{phone[1]}" size="4" maxlength="4" required />
+<input type="hidden" name="phoneOrder[]" value="{phone[2]}" size="4" maxlength="4" required />
+<input type="hidden" name="mobileOrder[]" value="{mobile[0]}" size="3" maxlength="3" required />
+<input type="hidden" name="mobileOrder[]" value="{mobile[1]}" size="4" maxlength="4" required />
+<input type="hidden" name="mobileOrder[]" value="{mobile[2]}" size="4" maxlength="4" required />
+<input type="hidden" name="email" value="{email}" required option=regEmail />
+{/}
+<input type="hidden" name="ordno" value="{ordno}">
+
+<!--{ @ cart->item }-->
+<input type="hidden" name=item_apply_coupon[]>
+<!--{ / }-->
+
+<div id="apply_coupon"></div>
+
+<!-- 01 주문자정보 -->
+
+{?!_sess}
+<!-- 비회원구매 -->
+
+<article class="join_step01 no_member">
+<h2>비회원 구매</h2>
+	<section>
+		<h3>통합 회원 약관</h3>
+		<div  class="form">
+		<!--{ = include_file( "proc/_agreement.txt" ) }-->
+		</div>
+		<div class="RadioCheckbox">
+			<p><input name="order_private" id="order_private" type="checkbox" value="y" style="vertical-align:middle" required msgR="구매이용약관에 동의를 하셔야만 주문이 가능합니다."/> <label for="order_private">이용약관을 확인하였으며 내용에 동의합니다.</label></p>
+		</div>
+	</section>
+	<section>
+		<h3>개인정보수집 및 이용에 대한 안내</h3>
+		<div  class="form">
+		<!--{ = include_file( "proc/_private.txt" ) }-->
+		</div>
+		<div class="RadioCheckbox">
+			<p><input name="order_private" id="order_private" type="checkbox" value="y" style="vertical-align:middle" required msgR="구매이용약관에 동의를 하셔야만 주문이 가능합니다."/> <label for="order_private">이용약관을 확인하였으며 내용에 동의합니다.</label></p>
+		</div>
+	</section>
+</article>
+
+
+<article class="order_wrap" >
+<section>
+<h3>- 주문 정보 확인</h3>
+<div  class="delivery">
+	<div  class="member_info">
+	 <table>
+	  <caption class="hide">배송정보 확인 테이블</caption>
+	<colgroup>
+	<col width="20%" />
+	<col width="*" />
+	</colgroup>
+	  <tr>
+		<th scope="row">주문자</th>
+		<td><input type="text" name="nameOrder" value="{name}" {_style_member} required msgR="주문하시는분의 이름을 적어주세요"></td>
+	  </tr>
+	  <tr>
+		<th scope="row">이메일</th>
+		<td><input type="email" name="email" value="{email}" required option=regEmail msgR="이메일을 입력해 주세요."/></td>
+	  </tr>
+	  <tr>
+		<th scope="row">전화번호</th>
+		<td>
+			<input type="text" name="phoneOrder[]" value="{phone[0]}" size="3" maxlength="3" /> -
+			<input type="text" name="phoneOrder[]" value="{phone[1]}" size="4" maxlength="4" /> -
+			<input type="text" name="phoneOrder[]" value="{phone[2]}" size="4" maxlength="4" />
+		</td>
+	  </tr>
+	  <tr>
+		<th scope="row">핸드폰 번호</th>
+		<td>
+		<input type="text" name="mobileOrder[]" value="{mobile[0]}" size="3" maxlength="3" required /> -
+		<input type="text" name="mobileOrder[]" value="{mobile[1]}" size="4" maxlength="4" required /> -
+		<input type="text" name="mobileOrder[]" value="{mobile[2]}" size="4" maxlength="4" required />
+		</td>
+	  </tr>
+	</table>
+	</div>
+</div>
+</section>
+{/}
+
+<section class="cart_list">
+	<table>
+		<caption class="hide">주문상품 리스트 목록</caption>
+		<colgroup><col width="25%" /><col width="75%" /></colgroup>
+		{@cart->item}
+		<tr>
+			<td class="thumb">
+			<a href="../goods/view.php?goodsno={.goodsno}">{=goodsimgMobile(.img,100)}</a></td>
+			<td class="left" style="position:relative;">
+			<!-- {?.mobile_dc} --><p class="m_special2"><em>M</em>특가</p><!-- {/} -->
+				<span class="name">{.goodsnm}</span>
+				<span>[{=implode("/",.opt)}]</span>
+				<div class="order_price"><span class="quantity">수량 : {.ea}개</span> <span  class="price {?.mobile_dc}m_price{/}">금액 : <em>{=number_format(.price + .addprice)}</em></span></div>
+			</td>
+		</tr>
+		{/}
+	</table>
+</section>
+
+
+<article class="order_step_tap" id="orderStep1">
+	<section>
+		<ul>
+			<li><a href="#orderStep1"  class="on">결제금액 확인</a></li>
+			<li><a href="#orderStep2">배송지 정보 입력</a></li>
+			<li><a href="#orderStep3">결제방법선택</a></li>
+		</ul>
+	</section>
+</article>
+
+<section class="cart_list">
+	<ul class="goods_price">
+		<li><span class="title">상품금액합계</span> <span class="price" id="paper_goodsprice">{=number_format(cart->goodsprice)}<em>원</em></span></li>
+		<li><span class="title">회원 할인(<em class="no4">{_sess.level}단계</em> 회원)</span> <span class="price no2" id='memberdc'>{=number_format(cart->dcprice)}<em>원</em></span></li>
+		<li><span class="title">배송비합계</span> <div id="paper_delivery_msg1"><span class="price no3"><font id="paper_delivery"></font><em>원</em></span></div><div id="paper_delivery_msg2"></div></li>
+	</ul>
+
+    <div class="delivery">
+		<div class="point coupon" style="display:{?!_sess}none{:}block{/}">
+			<span class="txt">쿠폰적용 </span><a href="javascript:coupon();" class="apply_coupon"><input type="button" value="조회" class="apply_coupon"/></a> <input type="button" value="취소" onclick="javascript:couponcancle();"/>
+			<div class="inp">
+					 <p><label>할인</label><input type="text" name="coupon" id="" value="0" readonly/>&nbsp; 원</p>
+					 <p><label>적립</label><input type="text" name="coupon_emoney" id="" value="0" readonly/>&nbsp; 원</p>
+			</div>
+		</div>
+		<div id="coupon_list"></div>
+		<div class="point" style="display:{?!_sess}none{:}block{/}">
+			<span class="txt">적립금 적용 <em>( 보유적립금 : {=number_format(_member.emoney)}원 ) </em></span>
+			<div class="inp">
+				<input type="text" name="emoney"  size="7" style="text-align:right" value="0" onblur="chk_emoney(this);" onkeyup="calcu_settle();" onkeydown="if (event.keyCode == 13) {return false;}"> &nbsp; 원
+				<input type="hidden" name="emoney_max" value="{ _emoney_max }">
+			</div>
+			<p class="info">
+				<!--{ ? _member.emoney < _set.emoney.hold }-->
+				※보유적립금이 {=number_format(_set.emoney.hold)}원이상 일 경우 사용하실 수 있습니다.
+				<!--{ : }-->
+				<!--{ ? _emoney_max && _emoney_max >= _set.emoney.min}-->
+				※적립금은 {=number_format(_set.emoney.min)}원부터 <em>{=number_format(_emoney_max)}</em>원까지 사용이 가능합니다.
+				<!--{ : _emoney_max && _emoney_max < _set.emoney.min}-->
+				※적립금은 최소 {=number_format(_set.emoney.min)}원 이상 사용하여야 합니다.
+				<!--{ / }-->
+				<!--{ / }-->
+			</p>
+		</div>
+	</div>
+
+	<ul class="goods_price">
+	<li class="payment_total"><span class="title">총 결제금액(배송비:<em class="deliy_type">무료 </em>)</span> <span class="price_total" id=paper_settlement></span>원</li>
+	<!--li><span class="title">상품금액합계</span> <span class="price" id="paper_goodsprice">{=number_format(cart->goodsprice)}<em>원</em></span></li>
+	<li><span class="title">회원 할인</span> <span class="price no2" id='memberdc'>{=number_format(cart->dcprice)}<em>원</em></span></li>
+	<li><span class="title">적립금 사용</span> <span class="price no2" id='memberdc'>0000<em>원</em></span></li>
+	<li><span class="title">배송비합계</span> <div id="paper_delivery_msg1"><span class="price no3"><font id="paper_delivery"></font><em>원</em></span></div><div id="paper_delivery_msg2"></div></li>
+	<li><span class="title">총 결제하실 금액(배송비:<em class="deliy_type">무료 </em>)</span> <span class="price_total" id=paper_settlement></span><em>원</em></li-->
+   </ul>
+</section>
+
+<article class="order_step_tap" id="orderStep2">
+	<section>
+		<ul>
+			<li><a href="#orderStep1">결제금액 확인</a></li>
+			<li><a href="#orderStep2"  class="on">배송지 정보 입력</a></li>
+			<li><a href="#orderStep3">결제방법선택</a></li>
+		</ul>
+	</section>
+</article>
+
+<article class="order_wrap" >
+   <section>
+	<div  class="delivery">
+		<div  class="member_info">
+		 <table>
+		  <caption class="hide">배송정보 확인 테이블</caption>
+		<colgroup>
+		<col width="20%" />
+		<col width="*" />
+		</colgroup>
+		{?_sess}
+		  <tr>
+			<th scope="row">주문자</th>
+			<td><input type="text" name="nameOrder" value="{name}" {_style_member} required msgR="주문하시는분의 이름을 적어주세요"></td>
+		  </tr>
+		{/}
+		  <tr>
+			<th scope="row">받는 사람</th>
+			<td><input type="text" name="nameReceiver" value="{name}" required /> <span class="ad"><input type="checkbox" onclick="ctrl_field(this.checked)" {?_sess}checked{/} id="same"/> &nbsp;&nbsp;<label for="same">주문자 주소와 동일</label></span></td>
+		  </tr>
+		  <tr>
+			<th scope="row">받으실 주소</th>
+			<td>
+			<ul class="ul_zipcode">
+				<li ><input type="text" name="dong" size="9" style="float:left"/></li>
+				<!--li><input type="button" value="우편번호검색" onclick="search_zipcode();" class="btn_a"/></li-->
+				<li><a href="javascript:search_zipcode();" class="btn_a">우편지역검색</a></li>
+			</ul>
+			</td>
+		 </tr>
+		  <tr>
+			 <th scope="row"></th>
+		   	 <td>
+				<div id="zipcode_list"></div>
+				<input type="text" name="zipcode[]" size=3 readonly value="{zipcode[0]}" required label="우편번호"/> -
+				<input type="text" name="zipcode[]" size=3 readonly value="{zipcode[1]}" required label="우편번호"/>
+
+				<div class="inprow address">
+				<input type="text" name="address" readonly value="{address}" required label="받으실 주소"/>
+				<input type="text" name="address_sub" value="{address_sub}" required label="세부주소" />
+				</div>
+			 </td>
+		  </tr>
+		  </tr>
+		  <tr>
+			<th scope="row">전화번호</th>
+			<td>
+				<input type="text" name="phoneReceiver[]" value="{phone[0]}" size="3" maxlength="3" /> -
+				<input type="text" name="phoneReceiver[]" value="{phone[1]}" size="4" maxlength="4" /> -
+				<input type="text" name="phoneReceiver[]" value="{phone[2]}" size="4" maxlength="4" />
+			</td>
+		  </tr>
+		  <tr>
+			<th scope="row">핸드폰 번호</th>
+			<td>
+			<input type="text" name="mobileReceiver[]" value="{mobile[0]}" size="3" maxlength="3" required /> -
+			<input type="text" name="mobileReceiver[]" value="{mobile[1]}" size="4" maxlength="4" required /> -
+			<input type="text" name="mobileReceiver[]" value="{mobile[2]}" size="4" maxlength="4" required />
+			</td>
+		  </tr>
+		  <tr>
+			<th scope="row">요청사항</th>
+			<td><div class="inprow address"><input type="text" name="memo" id="memo" class="inp_bor" / ></td>
+		  </tr>
+		  <tr>
+			<th scope="row">배송선택</th>
+			<td>
+				<div id="paper_delivery_menu">
+					<div><input type="radio" name="deliPoli" value="0" checked onclick="getDelivery()" onblur="chk_emoney(document.frmOrder.emoney)" /> 기본배송</div>
+					<!--{ @ _r_deli}-->
+					<!--{? .value_ }-->
+					<div><input type="radio" name="deliPoli" value="{.index_ + 1}" onclick="getDelivery()" onblur="chk_emoney(document.frmOrder.emoney)" /> {.value_}</div>
+					<!--{ / }-->
+					<!--{ / }-->
+				</div>
+			</td>
+		  </tr>
+		</table>
+		</div>
+	</div>
+</section>
+
+<article class="order_step_tap" id="orderStep3">
+	<section>
+		<ul>
+			<li><a href="#orderStep1">결제금액 확인</a></li>
+			<li><a href="#orderStep2">배송지 정보 입력</a></li>
+			<li><a href="#orderStep3" class="on">결제방법선택</a></li>
+		</ul>
+	</section>
+</article>
+
+<section>
+	<div  class="delivery">
+		<div  class="member_info">
+		 <table>
+		  <caption class="hide">결제방법선택 테이블</caption>
+			<colgroup>
+			<col width="20%" />
+			<col width="*" />
+			</colgroup>
+			  <tr>
+				<th scope="row">결제방법</th>
+				<td>
+					<div  class="delivery">
+					  <div  class="member_info">
+					   <input type="hidden" name="escrow" value="N" />
+					   <ul class="payment_list">
+							<!--{ ? _set.use.a }-->
+								 <li><input type=radio name=settlekind value="a" onclick="input_escrow(this,'N')" id="pay01"/><label for="pay01">무통장입금</label></li>
+							<!--{ / }-->
+							<!--{ ? _set.use_mobile.c }-->
+								 <li><input type=radio name=settlekind value="c" onclick="input_escrow(this,'N')" id="pay02"/><label for="pay02">신용카드</label></li>
+							<!--{ / }-->
+							<!--{ ? _set.use_mobile.v }-->
+								 <li><input type=radio name=settlekind value="v" onclick="input_escrow(this,'N')" id="pay03"/><label for="pay03">가상계좌</label></li>
+							<!--{ / }-->
+							<!--{ ? _set.use_mobile.h }-->
+								 <li><input type=radio name=settlekind value="h" onclick="input_escrow(this,'N')" id="pay04"/><label for="pay04">핸드폰</label></li>
+							<!--{ / }-->
+					   </ul>
+					   </div>
+					</div>
+
+				</td>
+			  </tr>
+			  <tr>
+			  	<td colspan=2>
+					<div class="payment_info">※ 무통장 입금의 경우 결제 기한은 <em>3</em>일 이오니 이점 참고 바랍니다.</div>
+					<div class="payment_info viewIphoneOnly">※ IOS7버전 이상의 경우 <em>설정 -> Safari -> 쿠키 차단 -> 안함</em>으로 셋팅하셔야 카드/가상계좌 결제가 가능합니다.</div>
+				</td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+  </section>
+
+<div class="btn_center pb_30">
+	<ul>
+		<li>
+			<a href="javascript:submitOrder();" class="cart_order">결제하기</a>
+			<a href="javascript:history.go(-1);" class="cart_empty">취소하기</a>
+		</li>
+	</ul>
+</div>
+
+<!--section class="btn_zone">
+	<ul class="btn_02">
+		<li><input type="submit" value="결제하기" /></li>
+		<li><input type="button" value="취소하기" onclick="history.go(-1)" /></li>
+	</ul>
+</section-->
+
+
+
+
+
+
+<!--{ ? _pg_mobile.receipt=='Y' && _set.receipt.order=='Y' }-->
+<!-- 05 현금영수증발행 -->
+<div  id="cash">
+<hr class="wline" />
+
+<fieldset>
+<legend>- 현금영수증발행</legend>
+	<!--{ = include_file( "proc/_cashreceiptOrder.htm" ) }-->
+</fieldset>
+</div>
+<!--{ / }-->
+
+
+</form>
+
+</section>
+
+<div id=dynamic></div>
+<script>
+function submitOrder(){
+	$("form[name='frmOrder']").submit();
+}
+var emoney_max = {_emoney_max};
+function chkForm2(fm)
+{
+	if (typeof(fm.settlekind)=="undefined"){
+		alert("결제수단이 활성화가 안 되었습니다. 관리자에게 문의하세요.");
+		return false;
+	}
+
+	var obj = document.getElementsByName('settlekind');
+	if (obj[0].getAttribute('required') == undefined){
+		obj[0].setAttribute('required', '');
+		obj[0].setAttribute('label', '결제수단');
+	}
+
+	return chkForm(fm);
+}
+
+function input_escrow(obj,val)
+{
+	obj.form.escrow.value = val;
+	if (typeof(cash_required) == 'function') cash_required();
+}
+
+function ctrl_field(val)
+{
+	if (val) copy_field();
+	else clear_field();
+}
+function copy_field()
+{
+	var form = document.frmOrder;
+	form.nameReceiver.value = form.nameOrder.value;
+	form['zipcode[]'][0].value = "{zipcode[0]}";
+	form['zipcode[]'][1].value = "{zipcode[1]}";
+	form.address.value = "{address}";
+	form.address_sub.value = "{address_sub}";
+	form['phoneReceiver[]'][0].value = form['phoneOrder[]'][0].value;
+	form['phoneReceiver[]'][1].value = form['phoneOrder[]'][1].value;
+	form['phoneReceiver[]'][2].value = form['phoneOrder[]'][2].value;
+	form['mobileReceiver[]'][0].value = form['mobileOrder[]'][0].value;
+	form['mobileReceiver[]'][1].value = form['mobileOrder[]'][1].value;
+	form['mobileReceiver[]'][2].value = form['mobileOrder[]'][2].value;
+
+	getDelivery();
+}
+function clear_field()
+{
+	var form = document.frmOrder;
+	form.nameReceiver.value = "";
+	form['zipcode[]'][0].value = "";
+	form['zipcode[]'][1].value = "";
+	form.address.value = "";
+	form.address_sub.value = "";
+	form['phoneReceiver[]'][0].value = "";
+	form['phoneReceiver[]'][1].value = "";
+	form['phoneReceiver[]'][2].value = "";
+	form['mobileReceiver[]'][0].value = "";
+	form['mobileReceiver[]'][1].value = "";
+	form['mobileReceiver[]'][2].value = "";
+}
+function cutting(emoney)
+{
+	var chk_emoney = new String(emoney);
+	reg = /({=substr(_set.emoney.base,1)})$/g;
+	if (emoney && !chk_emoney.match(reg)){
+		emoney = Math.floor(emoney/{_set.emoney.base}) * {_set.emoney.base};
+	}
+	return emoney;
+}
+function chk_emoney(obj)
+{
+	var form = document.frmOrder;
+	var my_emoney = {emoney+0};
+	var max = '{_set.emoney.max}';
+	var min = '{_set.emoney.min}';
+	var hold = '{_set.emoney.hold}';
+
+	var delivery	= uncomma(document.getElementById('paper_delivery').innerHTML);
+	var goodsprice = uncomma(document.getElementById('paper_goodsprice').innerText);
+	<!--{? _set.emoney.emoney_use_range }-->
+	var erangeprice = goodsprice + delivery;
+	<!--{:}-->
+	var erangeprice = goodsprice;
+	<!--{/}-->
+	var max_base = erangeprice - uncomma(_ID('memberdc').innerHTML) - uncomma(document.getElementsByName('coupon')[0].value);
+	if( form.coupon ){
+		 var coupon = uncomma(form.coupon.value);
+	}
+	max = getDcprice(max_base,max,{_set.emoney.base});
+	min = parseInt(min);
+
+	if (max > max_base)  max = max_base;
+	if( _ID('print_emoney_max') && _ID('print_emoney_max').innerHTML != comma(max)  )_ID('print_emoney_max').innerHTML = comma(max);
+
+	var emoney = uncomma(obj.value);
+	if (emoney>my_emoney) emoney = my_emoney;
+
+	if(my_emoney > 0 && emoney > 0 && my_emoney < hold){
+		alert("보유적립금이 "+ comma(hold) + "원 이상 일 경우에만 사용하실 수 있습니다.");
+		emoney = 0;
+	}
+	if (min && emoney > 0 && emoney < min){
+		alert("적립금은 " + comma(min) + "원 부터 " + comma(max) + "원 까지만 사용이 가능합니다");
+		emoney = 0;
+	} else if (max && emoney > max && emoney > 0){
+		if(emoney_max < min){
+			alert("주문 상품 금액이 최소 사용 적립금 " + comma(min) + "원 보다  작습니다.");
+			emoney = 0;
+		}else{
+			alert("적립금은 " + comma(min) + "원 부터 " + comma(max) + "원 까지만 사용이 가능합니다");
+			emoney = max;
+		}
+	}
+
+	obj.value = comma(cutting(emoney));
+	calcu_settle();
+}
+function calcu_settle()
+{
+	var dc=0;
+	var coupon = settleprice = 0;
+	var goodsprice	= uncomma(document.getElementById('paper_goodsprice').innerHTML);
+	var delivery	= uncomma(document.getElementById('paper_delivery').innerHTML);
+	if(_ID('memberdc')) dc = uncomma(_ID('memberdc').innerHTML);
+	var emoney = (document.frmOrder.emoney) ? uncomma(document.frmOrder.emoney.value) : 0;
+	if (document.frmOrder.coupon){
+		coupon = uncomma(document.frmOrder.coupon.value);
+		if (goodsprice + delivery - dc - coupon - emoney < 0){
+			<!--{? _set.emoney.emoney_use_range }-->
+			emoney = goodsprice + delivery - dc - coupon;
+			<!--{:}-->
+			emoney = goodsprice - dc - coupon;
+			<!--{/}-->
+			document.frmOrder.emoney.value = comma(cutting(emoney));
+		}
+		dc += coupon + emoney;
+	}
+	var settlement = (goodsprice + delivery - dc);
+	document.getElementById('paper_settlement').innerHTML = comma(settlement);
+}
+
+function getDelivery(){
+	var form = document.frmOrder;
+	var obj = form.deliPoli;
+	var coupon = 0;
+	var emoney = 0;
+
+	var deliPoli = 0;
+	for(var i=0;i<obj.length;i++){
+		if(obj[i].checked){
+			deliPoli = i;
+		}
+	}
+	if( form.coupon ) coupon = form.coupon.value;
+	if( form.emoney ) emoney = form.emoney.value;
+	var zipcode = form['zipcode[]'][0].value + '-' + form['zipcode[]'][1].value;
+	var mode = 'order';
+
+	$.ajax({
+		url : '{_cfg.rootDir}/proc/getdelivery.php',
+		type : 'get',
+		data : "zipcode="+zipcode+"&deliPoli="+deliPoli+"&coupon="+coupon+"&emoney="+emoney+"&mode="+mode,
+		success : function(data) {
+			eval(data);
+		}
+	});
+}
+
+/*** 결제수단 첫번째 객체 자동 선택 ***/
+window.onload = function (){
+	var obj = document.getElementsByName('settlekind');
+	for (var i = 0; i < obj.length; i++){
+		if (obj[i].checked != true) continue;
+		obj[i].onclick();
+		var idx = i;
+		break;
+	}
+	if (obj[0] && idx == null){ obj[0].checked = true; obj[0].onclick(); }
+
+	getDelivery();
+}
+
+function coupon(){
+	$('#coupon_list').show();
+	$.ajax({
+		url : '../proc/coupon_list.php',
+		dataType : 'html',
+		success : function(result){
+			$('#coupon_list').html(result);
+		},
+		error: function(){
+			alert('error');
+		}
+	});
+}
+
+function couponcancle(){
+	var apply_coupon = document.getElementById('apply_coupon');
+	apply_coupon.innerHTML = '';
+
+	document.frmOrder.coupon.value = "0";
+	document.frmOrder.coupon_emoney.value = "0" ;
+
+	var coupon_checked = document.getElementsByName('coupon_[]');
+
+	for(var i = 0 ; i < coupon_checked.length ; i++){
+		document.getElementById('coupon_'+i).checked = false;
+	}
+
+	calcu_settle();
+}
+
+$(document).ready(function(){
+	var tmpUser = navigator.userAgent;
+	if (tmpUser.indexOf("iPhone") > 0 || tmpUser.indexOf("iPod") > 0){
+		$(".viewIphoneOnly").show();
+	}else{
+		$(".viewIphoneOnly").hide();
+	}
+})
+</script>
+
+
+{ # footer }

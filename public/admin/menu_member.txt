@@ -1,0 +1,15 @@
+[회원관리]
+
+<회원정보 관리>
+회원정보 관리	= member_list.php
+제휴사 관리	= company_group.php
+
+<회원등급 설정>
+회원등급 관리 = member_groupnew.php
+등급별 회원관리 = member_groupmemberview.php
+실명확인 관리 = realname_info.php
+복지할인 제한금액관리	= member_staff_limit_point.php
+
+<회원관리 부가기능>
+회원 로그인 리스트 = member_log_list.php
+통합포인트 지급 리스트 = member_point_list.php

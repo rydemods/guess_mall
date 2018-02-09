@@ -1,0 +1,41 @@
+<? 
+if (!$contents) $contents = "mini_editor"; 
+$contents = stripslashes($contents);
+?>
+
+<style>
+body,td {font:9pt 돋음}
+#contents p {margin:2px 0}
+</style>
+
+<div id=contents>
+<?=$contents;?>
+</div>
+
+<html>
+<head>
+<link rel="styleSheet" href="mini_editor.css">
+<script src="mini_editor.js"></script>
+</head>
+
+<body>
+
+<!--action="indb.php"-->
+<form method=post enctype="multipart/form-data" onsubmit="mini_editor_submit()">
+<table width=600>
+<tr>
+	<td height=400>
+	<script>mini_editor("contents","<?=rawurlencode(iconv("euc-kr","utf-8",$contents))?>")</script>
+	</td>
+</tr>
+<tr>
+	<td height=400>
+	<script>mini_editor("contents","<?=rawurlencode(iconv("euc-kr","utf-8",$contents))?>")</script>
+	</td>
+</tr>
+</table>
+<input type=submit>
+</form>
+
+</body>
+</html>

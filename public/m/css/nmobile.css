@@ -1,0 +1,156 @@
+@charset "utf-8";
+/*@import url("main.css");
+@import url("sub.css");*/
+
+/* CSS Document */
+@font-face {font-family:ngb;src:url(../font/NanumGothicBold.eot);src:local(※),url(../font/NanumGothicBold.woff) format('woff'),url(../font/NanumGothicBold.ttf) format('truetype'),url(../font/NanumGothicBold.svg#webfonturzspG4F) format('svg');}
+@font-face {font-family:ngeb;src:url(../font/NanumGothicExtraBold.eot);src:local(※),url(../font/NanumGothicExtraBold.woff) format('woff'),url(../font/NanumGothicExtraBold.ttf) format('truetype'),url(../font/NanumGothicExtraBold.svg#webfonturzspG4F) format('svg');}
+@font-face{ font-family:mg; src:url(../font/malgun.eot); src:local(※), url(../font/malgun.woff) format('woff') }
+
+/*reset */
+html,body{margin:0;padding:0;height:100%;}
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select { margin:0;padding:0;-webkit-text-size-adjust:none; }
+body,input,textarea,select,button,table{ font-family:'Helvetica','Apple SD Gothic Neo',AppleGothic,'맑은 고딕','mg','Malgun Gothic','돋움',Dotum,'굴림',Gulim,Helvetica,sans-serif;font-size:12px;line-height:1.25em;letter-spacing:-1px; }
+body { word-wrap:break-word;word-break:break-all;text-align:left;background-color:#FFF; }
+header, footer, section, article, aside, nav, hgroup, details, menu, figure, figcaption {display: block; margin:0; padding:0; }
+h1,h2,h3,h4,h5,h6{font-size:100%; padding:0; margin:0;}
+img,fieldset { border:0; }
+ul,ol { list-style:none; }
+hr, legend { display: none; }
+em,address{font-style:normal}
+caption{position:relative}
+/*a { color:#171717;text-decoration:none;cursor:pointer }*/
+/*a:link, a:visited{text-decoration:none; }
+a:hover, a:active, a:focus{text-decoration: none; }*/
+input[type=button]{cursor:pointer;border-radius:0;-webkit-border-radius:0;-webkit-appearance:none;box-shadow:none;}
+input[type=text], input[type=search]{border-radius:0;-webkit-border-radius:0;-webkit-appearance:none;box-shadow:none;}
+table { margin:0;padding:0;width:100%;border-spacing:0; border-collapse:collapse}
+select{ color:#848484; font-family:mg;-webkit-appearance:listbox}
+textarea{ border:1px solid #c8c8c8; background:#fff; width:100%; height:120px; font-size:12px;font-family:mg;line-height:18px }
+*{-webkit-text-size-adjust:none;} 
+
+/* clearfix */
+.clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden; } .clearfix { display:inline-block; clear:both; }/* Hides from IE-mac \*/ *html .clearfix {height: 1px;} .clearfix {display: block;}/* End hide from IE-mac */
+
+.font0{font:0/0; text-indent:-10000px;}
+.hide{width:0px;height:0px;font-size:0px;line-height:0;text-indent:-100px;}
+
+.w100{width:100%}
+.w99{width:99%}
+.hidden{ display:none; }
+
+/*********************** header*************************
+******************************************************/
+header{width:100%;/* background:rgb(225,219,211); */ }
+header .logo_side{overflow:hidden;position:relative;padding:10px 0;min-width:300px;overflow:hidden}
+/*header .logo_side h1{float:left;margin:5px 0 2px 5px;min-width:169px}*/
+/*header h1 a{display:block;height:50px;overflow:hidden;text-indent:-10000px;font:0;background:url('../img/nav_logo.png') no-repeat 0 0;background-size:cover; margin-top:8px;}*/
+/*header h1 a{display:block;height:38px;overflow:hidden;text-indent:-10000px;font:0;background:url('../../data/shopimages/etc/logo.gif') no-repeat 0 0;background-size:130px 38px;}*/
+header .logo_side ul{float:right;margin-top:15px}
+header .logo_side ul li{float:left;margin-right:5px;font-size:.9em}
+header .logo_side ul li a{color:#fff;margin-right:2px;}
+
+header .util_menu {float:right; margin-right:15px;} 
+header .util_menu a {display:inline-block; background:url(../img/gnb_util_bg.png) no-repeat; height:70px; margin-left:10px;}
+header .util_menu a.login {background-position:0px 0px; width:38px; margin-left:0px;}
+header .util_menu a.logout {background-position:-287px 0px; width:61px; margin-left:0px;}
+header .util_menu a.mypage {background-position:-66px 0px; width:63px;}
+header .util_menu a.cart {background-position:-154px 0px; width:60px; position:relative;}
+header .util_menu a.cart span {display:inline-block; font:1.25em ngb; line-height:28px; position:absolute; top:0px; right:0px; color:rgb(255,222,0); width:28px; text-align:center;}
+header .util_menu a.store {background-position:-223px 0px; width:50px;}
+
+header a.category{position:absolute;top:0;right:5px;display:block;background:#ffa93a url('../img/common.png')no-repeat -5px -356px;height:37px;width:37px; text-indent:-10000px;font:0; border-radius:4px;}
+header .head_01{position:relative; margin-top:0px}
+header form{margin:0 5px}
+header .sch {display:block;overflow:hidden;position:relative;padding:0 28px 0 0;margin-right:15px;}
+header .sch input[type='search'] {width:100%;height:37px;padding:10px 0 10px 10px;/* background:rgb(142,126,100); */border-radius:4px;font-size:1.1em;color:#424242; border:2px solid #ffa93a;}
+header .sch input[type='submit'] {overflow:hidden;position:absolute;top:0;right:28px;width:36px;height:36px;border:none;background:#ffa93a url('../img/common.png') no-repeat -4px -298px;text-indent:-1000px;cursor:pointer; border-radius:0px 4px 4px 0px;}
+
+/*@media screen and (max-width:640px) {
+	/*header .logo_side h1{min-width:116px}
+	header h1 a{display:block;height:34px;overflow:hidden;text-indent:-10000px;font:0;background:url('../img/nav_logo.png') no-repeat 0 0;background-size:cover;}
+	.f_contents ul li:nth-child(2n) {padding:0px 0px; }*/
+	header .head_01{margin-top:0px}
+
+	header .util_menu {float:right; margin-right:0px;} 
+	header .util_menu a {display:inline-block; background:url(../img/gnb_util_bg.png) no-repeat; height:47px; margin-left:5px;  background-size:cover;}
+	header .util_menu a.login {background-position:0px 0px; width:26px; margin-left:0px;}
+	header .util_menu a.logout {background-position:-200px 0px; width:34px; margin-left:0px;}
+	header .util_menu a.mypage {background-position:-43px 0px; width:44px;}
+	header .util_menu a.cart {background-position:-103px 0px; width:41px; position:relative;}
+	header .util_menu a.cart span {display:inline-block; font:.75em ngb; line-height:14px; position:absolute; top:3px; right:3px; color:rgb(255,222,0); width:14px; text-align:center;}
+	header .util_menu a.store {background-position:-149px 0px; width:40px;}
+	header .util_menu a.person {background-position:-255px 0px; width:45px;}
+
+}
+
+header .sec_line {background:rgb(74,82,101); padding:10px 0px; margin-top:12px; text-align:center; font:.875em ngb; color:#fff;}
+header .sec_line a {display:inline-block; background:rgb(214,38,46); padding:2px 5px; font:.75em ngb; color:#fff; text-align:center; margin-left:5px; border-radius:3px}
+
+/*********************** GNB*************************
+******************************************************/
+/* ----- main layout ----- */
+
+
+/*swipe관련*/
+.swipe-container{overflow:hidden;position:relative;}
+.swipe-view{float: left;position: relative;width: 100%;}
+#dumpImg{overflow:hidden;height:0;font-size:0;line-height:0;}
+
+
+@media screen and (min-width : 640px) {
+article {overflow:hidden;position:relative;}
+article .m_lt{float:left;width:62.5%;margin-right:-1px;border-right:1px solid #96979f;padding-bottom:8px;}
+article .m_rt{float:right;width:37.5%;margin-top:-1px;margin-right:-1px;border-left:1px solid #96979f;} }
+
+
+/*********************** footer*************************
+******************************************************/
+footer{clear:both;}
+.f_menu{height:40px;background:#fff; border-top:1px solid #76787e;}
+.f_menu ul{height:40px;}
+.f_menu li{float:left;position:relative;width:20%;height:40px;}
+.f_menu li > a{display:block;height:40px;color:#333 ;font-weight:bold;line-height:40px;text-align:center; /* text-shadow:0 1px 0 rgba(0,0,0,0.4);  */max-height:40px;overflow:hidden; 
+font-size:1.125em; border-bottom:1px solid #1b1b1b; }
+/* .f_menu li:before{content:'';position:absolute;top:0;left:0;width:1px;height:32px;background:#4c4f5a;}
+ */.f_menu ul li:first-child:before {display:none;}
+.f_menu span.top a{width:52px;height:30px; font:1em/30px ngb; background:#44474c;position:absolute;top:4px;right:3px; color:#fff; text-align:center; display:block; border-radius:3px}
+.f_menu span.top a:hover {background-color:#323335;}
+
+.f_contents{position:relative;background-color:#f7f7f7;padding:20px 5px 10px}
+.f_contents ul{}
+.f_contents ul li {display:inline-block;  width:32%; text-align:center;}
+.f_contents ul li a{padding:5px 8px; font:.875em ngb; color:#333;}
+.f_contents ul li a:hover{background:rgba(103,106,117,0.5);color:#333}
+.f_contents address{margin:15px 0 0 7px;color:#999;font-size:1em; background-color:#f7f7f7;line-height:1.4em;letter-spacing:0;}
+.f_contents address .ab{margin-right:8px;letter-spacing:-1px}
+.f_contents address .ab em{color:red}
+/******************************************* 서브공통 *******************************************/
+
+section.location{position:relative;height:37px;line-height:37px;
+background: #5a5c63;
+
+}
+section.location h1{font-size:1.38em;text-align:center;color:#fff}
+section.location .prev {position:absolute;top:5px;left:8px;text-indent:-10000px;font-size:0;display:block;width:50px;background:url('../img/btn_prev.png') no-repeat;background-size:50px 36px}
+section.subpage {border-top:2px solid #404350}
+
+article.list_wrap{background:#e7e6e6}
+article.list_wrap .page_gate{background:#fff;}
+article.list_wrap .page_gate p{height:28px;padding:10px 0 0 20px;text-transform:uppercase}
+article.list_wrap .page_gate p > em{color:red;font-family:tahoma;font-weight:bold}
+article.list_wrap .page_gate span{display:block;height:28px;line-height:28px;background: #b7b7b7;
+background: -moz-linear-gradient(top,  #b7b7b7 0%, #e7e6e6 48%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b7b7b7), color-stop(48%,#e7e6e6));
+background: -webkit-linear-gradient(top,  #b7b7b7 0%,#e7e6e6 48%);
+background: -o-linear-gradient(top,  #b7b7b7 0%,#e7e6e6 48%);
+background: linear-gradient(to bottom,  #b7b7b7 0%,#e7e6e6 48%)}
+
+.m_price{color:#3c65ba !important;}
+
+.objHidden {display:none;}
+
+.indicatorGif, .indicator{text-align:center;margin:0px auto;margin-top:-20px;}
+
+/*추가*/
+

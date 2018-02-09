@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4php:configuration xmlns:log4php="http://logging.apache.org/log4php/" threshold="all" debug="false">
+
+   <!-- ================================= -->
+   <!-- Preserve messages in a local file -->
+   <!-- ================================= -->
+
+   <!-- A time/date based rolling appender -->
+   <appender name="NICEPAY_FILE" class="LoggerAppenderDailyFile">
+      <param name="File" value="/wwwroot/ipg_adaptor_log/log/application_%s.log"/>
+      <param name="Append" value="true"/>
+      <param name="Threshold" value="DEBUG"/>
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="Ymd"/>
+
+
+      <layout class="LoggerLayoutPattern">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%d{ISO8601} [%-5p]  %C{5}.%M : %m%n"/>
+      </layout>
+   </appender>
+   <appender name="eventJournal" class="LoggerAppenderDailyFile">
+      <param name="File" value="/wwwroot/ipg_adaptor_log/log/event_%s.log"/>
+      <param name="Append" value="true"/>
+      <param name="Threshold" value="DEBUG"/>
+      <!-- Rollover at midnight each day -->
+      <param name="DatePattern" value="Ymd"/>
+
+
+      <layout class="LoggerLayoutPattern">
+         <!-- The default pattern: Date Priority [Category] Message\n -->
+         <param name="ConversionPattern" value="%m%n"/>
+      </layout>
+   </appender>
+  <logger name="EventJournal" additivity="false">
+	<level value="DEBUG"/>
+	<appender-ref ref="eventJournal"/>
+  </logger> 
+  <logger name="AppJournal" additivity="false">
+	<level value="DEBUG"/>
+	<appender-ref ref="NICEPAY_FILE"/>
+  </logger>
+   <logger name="EventJournal" additivity="false">
+	<level value="DEBUG"/>
+	<appender-ref ref="eventJournal"/>
+  </logger>
+
+</log4php:configuration>

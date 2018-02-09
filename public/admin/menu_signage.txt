@@ -1,0 +1,11 @@
+[디지털사이니즈]
+
+<디지털사이니즈 설정>
+지도환경설정 = store_setting.php
+매장정보관리 = signage_store_list.php
+이미지 관리 = signage_img_list.php
+캘린더 = signage_calendar_list.php
+상품진열 설정 = signage_best_list.php
+프로모션 = signage_promotion_list.php
+브랜드영상 = signage_brand_movie.php
+매장내상품정보 = none.php

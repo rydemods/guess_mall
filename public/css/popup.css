@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+/*===== 아자샵 팝업 기본 =====*/
+div.pop_layer_type01 h4 {height:50px; background-color:#9e1237; font-family:ng; font-size:20px; text-indent:15px; line-height:50px; color:#fff; font-weight:lighter;}
+div.pop_layer_type01 h4 img {vertical-align:middle; margin-right:5px;}
+div.pop_layer_type01 a.close {display:block; position:absolute; top:10px; right:10px; background:url(../img/button/pop_close.png) no-repeat; text-indent:-9999px; width:30px; height:30px;}
+/*===== //아자샵 팝업 기본 =====*/

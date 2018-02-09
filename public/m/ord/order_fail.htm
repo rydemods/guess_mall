@@ -1,0 +1,55 @@
+{*** 주문실패 | order/order_fail.php ***}
+{ # header }
+
+<?php {page_title} = "주문실패";?>
+{#sub_header}
+
+<section id="order_fail">
+	<!--{ ? _GET.ordno }-->
+	<table>
+	<!--{ ? settlekind=="o" }-->
+	<tr>
+		<th>결제방법</th>
+		<td>계좌이체</td>
+	</tr>
+	<tr>
+		<th>결과</th>
+		<td>주문이 실패되었습니다</td>
+	</tr>
+	<!--{ : settlekind=="c" }-->
+	<tr>
+		<th>결제방법</th>
+		<td>신용카드</td>
+	</tr>
+	<tr>
+		<th>결과</th>
+		<td>주문이 실패되었습니다</td>
+	</tr>
+	<!--{ / }-->
+	<!--{ ? step==0 && step2 > 50 && in_array(settlekind,array('c','o','v')) && pgfailreason }--><!-- 결제실패사유 -->
+	<tr>
+		<th>결제실패사유</th>
+		<td>{=pgfailreason}</td>
+	</tr>
+	<!--{ / }-->
+	<tr>
+		<th>주문번호</th>
+		<td>{ordno}</td>
+	</tr>
+	<tr>
+		<th>주문자명</th>
+		<td>{nameOrder}</td>
+	</tr>
+	<tr>
+		<th>주문일자</th>
+		<td>{orddt}</td>
+	</tr>
+	<tr>
+		<th>주문금액</th>
+		<td>{=number_format(settleprice)}원</td>
+	</tr>
+	</table>
+	<!--{ / }-->
+</section>
+
+{ # footer }

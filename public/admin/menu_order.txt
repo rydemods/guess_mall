@@ -1,0 +1,27 @@
+[주문매출]
+
+<주문조회 및 배송관리>
+전체주문조회 = order_list_all.php
+단계별주문조회 = order_list_all_tab.php
+입금대기 리스트 = order_list_misu.php
+결제완료 리스트 = order_list_deposit.php
+배송준비중 리스트 = order_list_delivery.php
+주문취소리스트 = order_list_cancel.php
+
+<장바구니 및 매출 분석>
+전체상품 매출분석 = order_allsale.php
+개별상품 매출분석 = order_eachsale.php
+카테고리 매출분석 = order_catesale.php
+#브랜드별 매출분석 = #;
+장바구니 상품분석 = order_basket.php
+
+<매출관리>
+일자별 조회 = sales_price_day.php
+월별 조회 = sales_price_mon.php
+브랜드별 조회 = sales_price_brand.php
+결제수단별 조회 = sales_price_paymethod.php
+주문건별 조회 = sales_oriprice_order.php
+주문건별 조회(ERP) = sales_price_order.php
+품목별 조회 = sales_price.php
+O2O상태별 조회 = sales_o2o_order.php
+O2O 배송현황 조회 = sales_price_o2o_deli.php

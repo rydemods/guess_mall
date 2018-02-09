@@ -1,0 +1,41 @@
+[통계분석]
+<접속통계 HOME>
+접속통계 HOME = counter_index.php
+
+<트래픽 분석>
+시간별 순 방문자 = counter_timevisit.php
+일자별 순 방문자 = counter_dayvisit.php
+시간별 페이지뷰 = counter_timepageview.php
+일자별 페이지뷰 = counter_daypageview.php
+시간별 주문시도건수 = counter_timeorder.php
+일자별 주문시도건수 = counter_dayorder.php
+일자별 회원가입수 = counter_memberday.php
+
+<고객 선호도 분석>
+분류별 선호도 = counter_prcodeprefer.php
+상품 선호도 = counter_productprefer.php
+상품 검색 선호도 = counter_prsearchprefer.php
+Site 구성요소 선호도 = counter_sitepageprefer.php
+
+<외부 접근 경로 분석>
+도메인별 접근순위 = counter_domainrank.php
+검색엔진별 접근순위 = counter_searchenginerank.php
+검색엔진 검색어 순위 = counter_searchkeywordrank.php
+
+<그래프로 보는 통계분석>
+시간별 전체 접속통계 = counter_timetotal.php
+일자별 전체 접속통계 = counter_daytotal.php
+
+#<스마트MD>
+#스마트MD 소개 = counter_biz_intro.php
+#스마트MD 신청 = counter_biz_register.php
+#스마트MD 통계 = smartmd.php
+
+#<기부현황>
+#기부 = donation.php
+
+#<발전기금>
+#발전기금 = counter_developerfund.php
+
+#<회원 가입 분석>
+#회원가입 분석 통계 = counter_referer.php

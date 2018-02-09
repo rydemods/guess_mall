@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root namespace="admin">
+
+<!-- 회원정보 -->
+<query id ="member_size"><![CDATA[
+select height,weigh from tblmember where id='?'
+]]></query>
+
+<!-- 아울렛 베스트 -->
+<query id ="outlet_bannerimg"><![CDATA[
+select * from tblmainbannerimg where banner_no='?' and banner_hidden = 1 order by banner_sort 
+]]></query>
+<!-- 아울렛 베스트별 상품 -->
+<query id ="outlet_bannerimg_relation"><![CDATA[
+select a.*, b.productname, b.sellprice, b.consumerprice, b.minimage
+ from tblmainbannerimg_product a inner join tblproduct b on a.productcode=b.productcode
+ where tblmainbannerimg_no in (select no from tblmainbannerimg where banner_no='?') 
+]]></query>
+
+
+<!-- 상품상세 -->
+<query id ="product_detail"><![CDATA[
+select *,s.season_eng_name , c.color_code as color_rgb, d.brandname
+from tblproduct a left outer join tblproductseason s on a.season =s.season
+left outer join tblproduct_color c on a.color_code=c.color_name
+left outer join tblproductbrand d on a.brand = d.bridx
+where prodcode='?' AND A.display = 'Y' 
+]]></query>
+
+<!-- 상품상세2(productcode) -->
+<!-- <query id ="product_detail2"><![CDATA[
+select *,s.season_eng_name from tblproduct a left outer join tblproductseason s on a.season =s.season
+where productcode='?'
+]]></query> -->
+<query id ="product_detail2"><![CDATA[
+select a.*,(select season_eng_name from tblproduct p left outer join tblproductseason s on p.season =s.season WHERE productcode = (select substr(join_productcode,1,18) as join_product from tblproduct where productcode=a.productcode)) as season_eng_name from tblproduct a where a.productcode='?'
+]]></query>
+
+<!--상품별 할인율 -->
+<query id ="product_discount_rate"><![CDATA[
+select ins_per from tblproductbrand_point where bridx='?' and st_per <= ? and en_per >= ?
+]]></query>
+
+<!-- 상품옵션 -->
+<query id ="product_detail_option"><![CDATA[
+select * from tblproduct_option where productcode in (select productcode from tblproduct where prodcode='?' and display='Y')
+ order by productcode, option_num, option_code
+]]></query>
+
+<!-- 상품 erp코드가져오기 -->
+<query id ="product_erp_productcode"><![CDATA[
+select prodcode from tblproduct where productcode='?'
+]]></query>
+
+<!-- 상품멀티이미지 -->
+<query id ="product_multiimages"><![CDATA[
+SELECT * FROM tblmultiimages WHERE productcode in (select productcode from tblproduct where prodcode='?' and display='Y')
+]]></query>
+
+
+<!-- 결합상품상세 -->
+<query id ="joinproduct_detail"><![CDATA[
+select productcode, productname, sellprice, consumerprice, production, prodcode, colorcode
+from tblproduct 
+where productcode in (?)
+]]></query>
+
+<!-- 결합상품통합가격 -->
+<query id ="joinproduct_sellprice"><![CDATA[
+select sum(sellprice) sellprice, sum(consumerprice) consumerprice from tblproduct where productcode in (?)
+]]></query>
+
+<!-- 결함상품정보설정 -->
+<query id ="joinproduct_info"><![CDATA[
+select  productcode, productname, color_code from tblproduct where productcode in (?)
+]]></query>
+
+<!-- 결합상품옵션 -->
+<query id ="joinproduct_detail_option"><![CDATA[
+select * from tblproduct_option where productcode in (?)
+ order by productcode, option_num, option_code
+]]></query>
+
+
+<!-- 상품상세 - MD'S CHOISE -->
+<query id ="product_md_choise"><![CDATA[
+select mdchoise from tblproductbrand where brandcd= '?'
+]]></query>
+<query id ="product_md_choise_product"><![CDATA[
+select a.*, COALESCE(c.likecnt,0) likecnt, COALESCE(c1.likeme,0) likeme
+from tblproduct a
+left outer join (select count(section) likecnt, section, hott_code from tblhott_like where section='product' group by section, hott_code) c on a.prodcode=c.hott_code
+left outer join (select count(section) likeme, section, hott_code from tblhott_like where section='product' and like_id='?' group by section, hott_code) c1 on a.prodcode=c1.hott_code
+where a.productcode in (?)
+and a.display='Y'
+]]></query>
+
+
+<!-- 연관상품없을때 조건상품으로 매칭 -->
+<query id ="product_md_choise_product_alt"><![CDATA[
+select a.productcode from tblproduct a inner join tblproductlink b on a.productcode=b.c_productcode
+where b.c_category like '?%'
+and a.display='Y'
+order by a.vcnt desc
+limit 4;
+]]></query>
+<query id ="ecatalog_view_product_alt"><![CDATA[
+select productcode from tblproduct where  brandcd='?' and display='Y' order by random() LIMIT 1;
+]]></query>
+
+
+
+<!-- 상품상세 - CATEGORY BEST -->
+<query id ="product_category_best"><![CDATA[
+select distinct(a.productcode), a.prodcode,  a.productname, a.sellprice, a.production, a.maximage, a.minimage, a.tinyimage, c.likecnt, c1.likeme
+,coalesce(d.cnt, 0, d.cnt) ordcnt 
+from tblproduct a inner join tblproductlink b on a.productcode=b.c_productcode
+left outer join (select count(section) likecnt, section, hott_code from tblhott_like where section='product' group by section, hott_code) c on a.prodcode=c.hott_code
+left outer join (select count(section) likeme, section, hott_code from tblhott_like where section='product' and like_id='?' group by section, hott_code) c1 on a.prodcode=c1.hott_code
+left outer join (select productcode, count(productcode) cnt from tblorderproduct group by productcode) d  on a.productcode=d.productcode
+where 1=1
+and b.c_category like '?%'
+and a.maximage <>''
+and a.display='Y'
+order by ordcnt desc
+limit 4
+]]></query>
+
+<!-- 장바구니 제휴업체 가격 20170828수정 -->
+<query id ="product_cooper"><![CDATA[
+select
+	?
+from tblbasket a inner join tblproduct b on a.productcode=b.productcode
+where 1=1
+and a.id='?'
+and a.basketgrpidx='?'
+order by a.date desc
+]]></query>
+
+<!-- 장바구니 조회  20170828 수정-->
+<query id ="basket_list"><![CDATA[
+select 
+	a.basketgrpidx, a.productcode, sum(a.quantity) as quantity , a.opt2_idx, a.delivery_type, a.delivery_price,a.date ,
+	b.tinyimage, b.productname, sum(b.sellprice) as sellprice, b.consumerprice,b.buyprice, b.brand, b.prodcode,b.colorcode, COALESCE(c.likecnt,0) likecnt, COALESCE(c1.likeme,0) likeme
+	, d.brandname as brandcdnm, e.name as store_name, a.reservation_date, b.reserve, e.store_code, b.staff_dc_rate ,b.cooper_dc_rate,g.group_productcode
+from tblbasket a inner join tblproduct b on a.productcode=b.productcode
+left outer join (select count(section) likecnt, section, hott_code from tblhott_like where section='product' group by section, hott_code) c on b.prodcode=c.hott_code
+left outer join (select count(section) likeme, section, hott_code from tblhott_like where section='product' and like_id='?' group by section, hott_code) c1 on b.prodcode=c1.hott_code
+left outer join tblproductbrand d on b.brand=d.bridx
+left outer join tblstore e on a.store_code = e.store_code
+left outer join tblmember f on a.id = f.id
+left outer join tblcompanygroup g on f.company_code = g.group_code
+where 1=1
+?
+and a.delivery_type='?'
+and b.display='Y'
+group by 
+a.basketgrpidx, a.productcode, a.quantity, a.opt2_idx, a.delivery_type,a.delivery_price,a.date ,
+b.tinyimage,b.productname,b.sellprice,b.consumerprice,b.buyprice,b.brand,b.prodcode,b.colorcode, c.likecnt, c1.likeme
+,d.brandname, e.name , a.reservation_date, b.reserve ,e.store_code, b.staff_dc_rate ,b.cooper_dc_rate,g.group_productcode
+order by a.date desc
+]]></query>
+
+<!-- 장바구니 상품 옵션 조회 -->
+<query id ="basket_product_option"><![CDATA[
+select productcode, option_code,option_quantity from tblproduct_option where productcode in (
+	select productcode from tblbasket 
+	where 1=1
+	and ((id!='' and id='?') or (id='' and tempkey='?'))
+	and delivery_type='?'
+	group by productcode
+) order by productcode, option_num
+]]></query>
+
+<!-- 장바구니 삭제 -->
+<query id ="basket_delete"><![CDATA[
+delete from tblbasket where basketidx in (?)
+]]></query>
+
+<!-- 장바구니 그룹번호별 장바구니코드조회 -->
+<query id ="basket_basketgrpidx_basketidx"><![CDATA[
+select basketgrpidx,basketidx 
+from tblbasket 
+where 1=1
+and ((id!='' and id='?') or (id='' and tempkey='?'))
+	and delivery_type='?'
+]]></query>
+
+<!-- 장바구니 저장전 같은품목 존재여부확인 -->
+<query id ="basket_grpidx_check"><![CDATA[
+select basketgrpidx from tblbasket 
+where 1=1
+and productcode='?' and opt2_idx='?'
+and ((id!='' and id='?') or (id='' and tempkey='?'))
+	and delivery_type='?'
+]]></query>
+
+<!-- 장바구니 그룹번호 추출 -->
+<query id ="basket_grpidx"><![CDATA[
+select max(basketgrpidx)+1 as basket_grpidx from tblbasket
+]]></query>
+
+<!-- 장바구니 저장 -->
+<query id ="basket_insert"><![CDATA[
+INSERT INTO tblbasket( 
+tempkey, productcode, quantity, date, delivery_type, 
+id, optionarr, quantityarr, opt1_idx, opt2_idx,
+basketgrpidx,store_code,
+reservation_date, post_code, address1, address2, gps_x, gps_y, delivery_price
+
+) VALUES (
+'?','?', 1, '?', '?', 
+'?', '?', '?', '?', '?',
+? ,'?',
+'?','?','?','?','?','?','?'
+)
+]]></query>
+
+<!-- 장바구니 저장백업 -->
+<query id ="basket_insert_backup"><![CDATA[
+INSERT INTO tblbasket( 
+tempkey, productcode, quantity, date, delivery_type, 
+id, optionarr, quantityarr, opt1_idx, opt2_idx,
+basketgrpidx,store_code,
+reservation_date, post_code, address1, address2, 
+gps_x, gps_y, delivery_price, store_code
+
+) VALUES (
+'?','?', 1, '?', '?', 
+'?', '?', '?', '?', '?',
+? ,'?',
+'?','?','?','?',
+'?','?','?','?'
+)
+]]></query>
+
+<!-- 장바구니 그룹번호를 이용하여 장바구니번호추출 -->
+<query id ="basket_select_basketidx"><![CDATA[
+select basketidx from tblbasket where basketgrpidx in (?)
+]]></query>
+
+<!-- 장바구니 옵션변경 -->
+<query id ="basket_option_change"><![CDATA[
+update tblbasket set opt2_idx = '?' where basketgrpidx='?'
+]]></query>
+
+<!-- 장바구니 수량변경 -->
+<query id ="basket_quantity_change"><![CDATA[
+update tblbasket set quantity = '?' where basketgrpidx='?'
+]]></query>
+
+
+<!-- 장바구니 삭제 -->
+<query id ="delete_basket"><![CDATA[
+delete from tblbasket where basketgrpidx in (?)
+]]></query>
+
+<!-- 상품리뷰 리스트-->
+<query id ="review_list"><![CDATA[
+select a.productcode, num, id, name, a.date, content, subject, a.ordercode, productorder_idx, upfile, upfile2, upfile3, upfile4, size , foot_width, color, quality, cm, kg, deli 
+,b.opt2_name 
+from tblproductreview a left outer join tblorderproduct b on a.productcode=b.productcode and a.ordercode=b.ordercode
+where a.productcode in (select productcode from tblproduct where prodcode='?')
+?
+group by a.productcode, num, id, name, b.opt2_name
+order by num desc
+]]></query>
+<query id ="review_list_cnt"><![CDATA[
+select count(*) total_cnt from tblproductreview where productcode in (select productcode from tblproduct where prodcode='?')
+]]></query>
+
+<!-- 상품문의QNA 리스트-->
+<query id ="qna_list"><![CDATA[
+select a.num as idx, a.mem_id as id, a.name, a.title as subject, to_timestamp(a.writetime) as date , a.is_secret as open_yn, a.content, 
+a.total_comment, to_timestamp(b.writetime) re_date , b.comment as re_content
+from tblboard a left outer join tblboardcomment b on a.num = b.parent
+where a.board='qna'
+and pridx in (select pridx from tblproduct where prodcode='?')
+?
+order by a.num desc
+]]></query>
+<query id ="qna_list_cnt"><![CDATA[
+select count(*) total_cnt from tblboard where board='qna' and pridx in (select pridx from tblproduct where prodcode='?')
+?
+]]></query>
+
+<!-- 상품리뷰 등록가능여부조회(하드코딩)-->
+<query id ="review_write_check"><![CDATA[
+SELECT op.ordercode, op.idx FROM tblorderproduct op
+JOIN tblorderinfo oi ON ( op.ordercode = oi.ordercode AND oi.id = '?' ) 
+WHERE op.productcode = '?' AND oi.order_conf = '1'
+order by op.idx desc
+]]></query>
+
+<!-- 이벤트리스트 조회 -->
+<query id ="event_list_cnt"><![CDATA[
+select count(*) total_cnt from tblpromo where 1=1 and event_type in (?)
+and hidden = 1 and start_date <= now() and end_date >= now()
+]]></query>
+<query id ="event_list"><![CDATA[
+select * from tblpromo where 1=1 and event_type in (?)
+and hidden = 1 and end_date >= now()
+order by display_seq asc
+]]></query>
+
+<!-- 이벤트리스트  종료된기획전 조회 -->
+<query id ="event_list_cnt_old"><![CDATA[
+select count(*) total_cnt from tblpromo where 1=1 and event_type in (?)
+and hidden = 1 and end_date < now()
+]]></query>
+<query id ="event_list_old"><![CDATA[
+select * from tblpromo where 1=1 and event_type in (?)
+and hidden = 1 and end_date < now()
+order by display_seq asc
+]]></query>
+
+<!-- 이벤트리스트 상세조회 -->
+<query id ="event_detail"><![CDATA[
+select *, coalesce(cnt,0) cnt from 
+tblpromo a left outer join (select count(section) cnt, section, hott_code from tblhott_like group by section, hott_code) hc on hc.section='event' and a.idx=hc.hott_code
+left outer join tblhott_like b on a.idx = b.hott_code and b.like_id='?' and b.section='event' 
+where idx='?'
+]]></query>
+
+<!-- 이벤트리스트 상세조회 다음글 이전글 -->
+<query id ="event_detail_before"><![CDATA[
+select idx,title,event_type from tblpromo where idx = (select max(idx) from tblpromo where idx < '?' and event_type in (?));
+]]></query>
+<query id ="event_detail_after"><![CDATA[
+select idx,title,event_type from tblpromo where idx = (select min(idx) from tblpromo where idx > '?' and event_type in (?));
+]]></query>
+
+<!-- 이벤트리스트 댓글리스트 -->
+<query id ="event_comment_list"><![CDATA[
+select num, to_timestamp(writetime) writetime, name, comment, c_mem_id from tblboardcomment_promo where board='?' and parent='?' order by num desc
+]]></query>
+<query id ="event_comment_list_cnt"><![CDATA[
+select count(*) total_cnt from tblboardcomment_promo where board='?' and parent='?'
+]]></query>
+
+<!-- 이벤트 댓글 등록 -->
+<query id ="event_comment_insert"><![CDATA[
+insert into tblboardcomment_promo 
+(board, parent, name, ip, writetime, comment, c_mem_id ) 
+values 
+('#{gubun}', #{parent}, '#{name}', '#{ip}', cast(extract(epoch from current_timestamp) as integer), '#{comment}', '#{c_mem_id}')
+]]></query>
+
+<!-- 이벤트 포토  등록 -->
+<query id ="event_photo_insert"><![CDATA[
+insert into tblboard_promo
+(board,name,title,content,vfilename, vfilename2, vfilename3, vfilename4, writetime, ip,mem_id,promo_idx)
+values
+('photo','#{name}','#{title}','#{content}', '#{user_img1}', '#{user_img2}', '#{user_img3}','#{user_img4}', cast(extract(epoch from current_timestamp) as integer), '#{ip}','#{c_mem_id}','#{parent}')
+]]></query>
+
+
+<!-- 이벤트 포토 댓글리스트 -->
+<query id ="event_photo_list"><![CDATA[
+select num, to_timestamp(writetime) writetime, name, title, content, mem_id, vfilename, vfilename2, vfilename3, vfilename4 from tblboard_promo where promo_idx='?' and board='photo' order by num desc
+]]></query>
+<query id ="event_photo_list_cnt"><![CDATA[
+select count(*) total_cnt from tblboard_promo where promo_idx='?' and board='photo'
+]]></query>
+
+<!-- 이벤트 포토 상세보기 -->
+<query id ="event_photo_view"><![CDATA[
+select num, to_timestamp(writetime) writetime, name, content, title, mem_id, vfilename, vfilename2, vfilename3, vfilename4 from tblboard_promo where num='?' and board='photo'
+]]></query>
+
+
+<!-- 이벤트 - 출석체크 - 체크여부조회 -->
+<query id ="event_stamp_check"><![CDATA[
+select * from tblpoint_act where rel_job = '#{regdt}' and rel_mem_id='#{memid}' and rel_flag='@stamp'
+]]></query>
+
+<!-- 이벤트 - 출석체크 - 이번달조회 -->
+<query id ="event_stamp_month"><![CDATA[
+select substring(rel_job,7,2) regdt from tblpoint_act where regdt like '#{regdt}%' and rel_mem_id='#{memid}' and rel_flag='@stamp'
+]]></query>
+
+
+
+<!-- 이벤트기획전 상품조회1-->
+<query id ="event_product_list1"><![CDATA[
+select '''' || replace(special_list, ',', ''',''') || '''' as pdlist from tblspecialpromo where special in ( cast((select seq from tblpromotion where promo_idx='?') as varchar(10))) 
+]]></query>
+
+<!-- 이벤트기획전 상품조회2-->
+<query id ="event_product_list2"><![CDATA[
+select b.brandname,a.* from tblproduct a inner join tblproductbrand b on a.brand = b.bridx where productcode in (?) and a.display='Y'
+]]></query>
+
+
+<!-- 이벤트기획전 기획전상세 탭그룹-->
+<query id ="event_tab_group"><![CDATA[
+select a.*, b.special_list from tblpromotion a left outer join tblspecialpromo b on a.seq = b.special::integer where a.promo_idx='?' order by display_seq 
+]]></query>
+
+<query id ="event_tab_group_product"><![CDATA[
+select productcode, pridx, productname, production , model,tinyimage, minimage, consumerprice, sellprice , prodcode, COALESCE(hc.cnt,0) cnt, b.hott_code, a.content, a.cooper_dc_rate, a.staff_dc_rate
+from tblproduct a left outer join (select count(section) cnt, section, hott_code from tblhott_like group by section, hott_code) hc on hc.section='product' and a.prodcode=hc.hott_code
+left outer join tblhott_like b on a.prodcode = b.hott_code and b.like_id='?' and b.section='product'
+where productcode in (?)
+and a.display='Y'
+?
+; 
+]]></query>
+
+<query id ="event_tab_group_product_opt"><![CDATA[
+select productcode, option_code from tblproduct_option where productcode in (?) order by option_code;
+]]></query> 
+
+
+<!-- 이벤트 룰렛 조회-->
+<query id ="event_roulette_view"><![CDATA[
+select * from tblpromo where event_type='5' and idx='?' 
+]]></query>
+
+
+
+<!-- 마이페이지 이벤트참여현황-->
+<query id ="mypage_entrylist_cnt"><![CDATA[
+select count(*) total_cnt from tblpromo where idx in (
+	select cast(promo_idx as character) from tblboard_promo where mem_id='?'
+	union all
+	select cast(parent as character) from tblboardcomment_promo where c_mem_id='?'
+)
+and start_date >= '?' and end_date <= '?' 
+]]></query>
+<query id ="mypage_entrylist"><![CDATA[
+select idx, event_type, title, start_date, end_date, winner_list_content, publication_date from tblpromo where idx in (
+	select cast(promo_idx as character) from tblboard_promo where mem_id='?'
+	union all
+	select cast(parent as character) from tblboardcomment_promo where c_mem_id='?'
+)  
+and start_date >= '?' and end_date <= '?' 
+order by idx desc
+]]></query>
+
+
+<!-- 좋아요 싫어요 -->
+<query id ="like_cnt"><![CDATA[
+select count(*) total_cnt from tblhott_like where section='product' and hott_code='?' 
+]]></query>
+<query id ="like_check"><![CDATA[
+select count(*) total_cnt from tblhott_like where section='product' and like_id='?' and hott_code='?' 
+]]></query>
+<query id ="like_delete"><![CDATA[
+delete from tblhott_like where like_id='?' and section='?' and hott_code='?'
+]]></query>
+<query id ="like_insert"><![CDATA[
+insert into tblhott_like (like_id, section, hott_code, regdt) values ('?','?','?',to_char(current_timestamp, 'yyyymmddHH24MISS'));
+]]></query>
+
+<!-- 마이페이지 좋아요 -->
+<query id ="mypage_likelist_cnt"><![CDATA[
+select count(*) total_cnt 
+from tblhott_like a inner join (select count(section) cnt, section, hott_code from tblhott_like group by section, hott_code) a1 on a.section=a1.section and a.hott_code=a1.hott_code
+left outer join tblproduct b on a.hott_code = b.prodcode and a.section = 'product' and b.minimage <>'' and b.display='Y'
+left outer join tbllookbook c on a.hott_code = c.no::varchar and a.section='lookbook' and c.img_file <>''
+left outer join tblinstagram d on a.hott_code = d.idx::varchar and a.section='instagram'
+left outer join tblmagazine e on a.hott_code = e.no::varchar and a.section='magazine'
+left outer join tblecatalog f on a.hott_code = f.no::varchar and a.section='ecatalog'
+left outer join tblyoutube g on a.hott_code = g.idx::varchar and a.section='movie'
+and a.section not in ('event')
+where a.like_id='?'
+?
+]]></query>
+<query id ="mypage_likelist"><![CDATA[
+select 
+a.hno, a.section, a.hott_code , a1.cnt,  b.model ,b.productcode
+,b.productname as title_product
+,c.title as title_lookbook
+,d.title as title_instagram
+,e.title as title_magazine
+
+,b.minimage as imgs_product
+,c.img_file as imgs_lookbook
+,d.img_file as imgs_instagram
+,e.img_file as imgs_magazine
+,f.img_file as imgs_ecatalog
+,g.youtube_id
+from tblhott_like a inner join (select count(section) cnt, section, hott_code from tblhott_like group by section, hott_code) a1 on a.section=a1.section and a.hott_code=a1.hott_code
+left outer join tblproduct b on a.hott_code = b.prodcode and a.section = 'product' and b.minimage <>'' and b.display='Y'
+left outer join tbllookbook c on a.hott_code = c.no::varchar and a.section='lookbook' and c.img_file <>''
+left outer join tblinstagram d on a.hott_code = d.idx::varchar and a.section='instagram'
+left outer join tblmagazine e on a.hott_code = e.no::varchar and a.section='magazine'
+left outer join tblecatalog f on a.hott_code = f.no::varchar and a.section='ecatalog'
+left outer join tblyoutube g on a.hott_code = g.idx::varchar and a.section='movie'
+where a.like_id='?'
+and a.section not in ('event')
+?
+order by a.regdt desc
+]]></query>
+
+
+<!-- 이카탈로그ecatalog 브랜드리스트 -->
+<query id ="ecatalog_brand_list"><![CDATA[
+select brandcd,brandname from tblproductbrand 
+where brandcd in (select brandcd from tblecatalog)
+order by bridx
+]]></query>
+
+<!-- 이카탈로그ecatalog 시즌리스트 -->
+<query id ="ecatalog_season_list"><![CDATA[
+select * from tblproductseason 
+where season in (select season from tblecatalog where brandcd='?')
+order by season_eng_name desc
+]]></query>
+
+<!-- 이카탈로그ecatalog -->
+<query id ="ecatalog_list_cnt"><![CDATA[
+select count(*) total_cnt from tblecatalog a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'ecatalog' group by section, hott_code) b on a.no::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'ecatalog' and like_id = '?' group by section, hott_code) b1 on a.no::varchar = b1.hott_code
+where a.display='Y'
+?
+?
+]]></query>
+<query id ="ecatalog_list"><![CDATA[
+select a.*, COALESCE(b.cnt,0) cnt , e.brandname,  COALESCE(b1.cnt,0) mycnt from tblecatalog a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'ecatalog' group by section, hott_code) b on a.no::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'ecatalog' and like_id = '?' group by section, hott_code) b1 on a.no::varchar = b1.hott_code
+LEFT OUTER JOIN tblproductbrand e on e.brandcd= a.brandcd
+where a.display='Y'
+?
+?
+order by regdate desc
+]]></query>
+
+<!-- 이카탈로그ecatalog 상세 -->
+<query id ="ecatalog_view"><![CDATA[
+SELECT l.*, li.hott_cnt my_like, b.brandname, b.brandcd, 
+			COALESCE((select COUNT( tl.hott_code )AS hott_cnt from tblhott_like tl WHERE tl.section = 'ecatalog' AND l.no::varchar = tl.hott_code),0) AS hott_cnt
+			FROM tblecatalog l
+LEFT JOIN ( SELECT hott_code, section ,COUNT( hott_code )AS hott_cnt FROM tblhott_like WHERE section = 'ecatalog' AND like_id = '?' GROUP BY hott_code, section ) li on l.no::varchar = li.hott_code
+LEFT OUTER JOIN tblproductbrand b on b.brandcd= l.brandcd
+WHERE l.no = ?
+and l.display='Y'
+]]></query>
+
+
+
+<!-- 이카탈로그ecatalog 상세 다음글 이전글 -->
+<query id ="ecatalog_view_next"><![CDATA[
+select 
+(select no from tblecatalog where no = (select max(no) from tblecatalog where no < '?')) as before,
+(select no from tblecatalog where no = (select min(no) from tblecatalog where no > '?')) as after
+]]></query>
+
+<!-- 이카탈로그ecatalog 릴레이션상품 -->
+<query id ="ecatalog_relation_product"><![CDATA[
+select productcode, productname, minimage, tinyimage from tblproduct where productcode in (?) and display='Y'
+]]></query>
+
+
+
+<!-- 룩북 브랜드리스트 -->
+<query id ="lookbook_brand_list"><![CDATA[
+select brandcd,brandname from tblproductbrand 
+where brandcd in (select brandcd from tbllookbook)
+order by bridx
+]]></query>
+
+<!-- 룩북 시즌리스트 -->
+<query id ="lookbook_season_list"><![CDATA[
+select * from tblproductseason 
+where season in (select season from tbllookbook where brandcd='?')
+order by season_eng_name desc
+]]></query>
+
+<!-- 룩북 브랜드체크 -->
+<query id ="lookbook_brandcheck"><![CDATA[
+select brandcd from tblproductbrand where bridx='?'
+]]></query>
+
+<!-- 룩북lookbook -->
+<query id ="lookbook_list_cnt"><![CDATA[
+select count(*) total_cnt from tbllookbook a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'lookbook' group by section, hott_code) b on a.no::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'lookbook' and like_id = '?' group by section, hott_code) b1 on a.no::varchar = b1.hott_code
+where a.display='Y'
+?
+?
+]]></query>
+<query id ="lookbook_list"><![CDATA[
+select a.*, COALESCE(b.cnt,0) cnt , c.brandname,  COALESCE(b1.cnt,0) mycnt from tbllookbook a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'lookbook' group by section, hott_code) b on a.no::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'lookbook' and like_id = '?' group by section, hott_code) b1 on a.no::varchar = b1.hott_code
+LEFT OUTER JOIN tblproductbrand c on c.brandcd= a.brandcd
+where a.display='Y'
+?
+?
+order by no desc
+]]></query>
+
+<!-- 룩북lookbook 상세 -->
+<query id ="lookbook_view"><![CDATA[
+SELECT l.*, li.hott_cnt my_like, c.brandname, c.brandcd, 
+			COALESCE((select COUNT( tl.hott_code )AS hott_cnt from tblhott_like tl WHERE tl.section = 'lookbook' AND l.no::varchar = tl.hott_code),0) AS hott_cnt
+			FROM tbllookbook l
+LEFT JOIN ( SELECT hott_code, section ,COUNT( hott_code )AS hott_cnt FROM tblhott_like WHERE section = 'lookbook' AND like_id = '?' GROUP BY hott_code, section ) li on l.no::varchar = li.hott_code
+LEFT OUTER JOIN tblproductbrand c on c.brandcd= l.brandcd 
+WHERE l.no = ?
+and l.display='Y'
+]]></query>
+
+<!-- 룩북lookbook 상세 다음글 이전글 -->
+<query id ="lookbook_view_next"><![CDATA[
+select 
+(select no from tbllookbook where no = (select max(no) from tbllookbook where no < '?')) as before,
+(select no from tbllookbook where no = (select min(no) from tbllookbook where no > '?')) as after
+]]></query>
+
+<!-- 20170829 추가 -->
+<!-- 룩북lookbook 브랜드 경우 상세 다음글 이전글 -->
+<query id ="lookbook_Bview_next"><![CDATA[
+select 
+(select no from tbllookbook where no = (select max(no) from tbllookbook where no < '?' and brandcd='?' and display='Y')) as after,
+(select no from tbllookbook where no = (select min(no) from tbllookbook where no > '?' and brandcd='?' and display='Y')) as before
+]]></query>
+
+<!-- 룩북lookbook 릴레이션상품 -->
+<query id ="lookbook_relation_product"><![CDATA[
+select productcode, productname, minimage, tinyimage from tblproduct where productcode in (?) and display='Y'
+]]></query>
+
+
+
+<!-- 매거진magazine -->
+<query id ="magazine_list_cnt"><![CDATA[
+select count(*) total_cnt from tblmagazine a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'magazine' group by section, hott_code) b on a.no::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'magazine' and like_id = '?' group by section, hott_code) b1 on a.no::varchar = b1.hott_code
+where a.display='Y'
+]]></query>
+<query id ="magazine_list"><![CDATA[
+select a.*, COALESCE(b.cnt,0) cnt , COALESCE(b1.cnt,0) mycnt from tblmagazine a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'magazine' group by section, hott_code) b on a.no::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'magazine' and like_id = '?' group by section, hott_code) b1 on a.no::varchar = b1.hott_code
+where a.display='Y'
+order by ? desc
+]]></query>
+
+<!-- 매거진magazine 상세 -->
+<query id ="magazine_view"><![CDATA[
+SELECT l.*, li.hott_cnt my_like,
+			COALESCE((select COUNT( tl.hott_code )AS hott_cnt from tblhott_like tl WHERE tl.section = 'magazine' AND l.no::varchar = tl.hott_code),0) AS hott_cnt
+			FROM tblmagazine l
+LEFT JOIN ( SELECT hott_code, section ,COUNT( hott_code )AS hott_cnt FROM tblhott_like WHERE section = 'magazine' AND like_id = '?' GROUP BY hott_code, section ) li on l.no::varchar = li.hott_code 
+WHERE l.no = ?
+and l.display='Y'
+]]></query>
+
+<!-- 매거진magazine 상세 다음글 이전글 -->
+<query id ="magazine_view_before"><![CDATA[
+select no,title from tblmagazine where no = (select max(no) from tblmagazine where no < '?');
+]]></query>
+<query id ="magazine_view_after"><![CDATA[
+select no,title from tblmagazine where no = (select min(no) from tblmagazine where no > '?');
+]]></query>
+
+
+<!-- 인스타그램카테고리 -->
+<query id ="instagram_category"><![CDATA[
+select a.hash_tags, b.bridx from tblinstagram a inner join tblproductbrand b on a.hash_tags = b.brandname
+ group by hash_tags, b.bridx
+ order by b.bridx
+]]></query>
+
+
+
+<!-- 인스타그램instagram -->
+<query id ="instagram_list_cnt"><![CDATA[
+select count(*) total_cnt from tblinstagram a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'instagram' group by section, hott_code) b on a.idx::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'instagram' and like_id = '?' group by section, hott_code) b1 on a.idx::varchar = b1.hott_code
+where a.display='Y'
+?
+]]></query>
+<query id ="instagram_list"><![CDATA[
+select a.idx, a.title, a.link_url, a.link_m_url, a.img_file, a.img_m_file, a.regdt, a.hash_tags, COALESCE(b.cnt,0) cnt , COALESCE(b1.cnt,0) mycnt from tblinstagram a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'instagram' group by section, hott_code) b on a.idx::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'instagram' and like_id = '?' group by section, hott_code) b1 on a.idx::varchar = b1.hott_code
+where a.display='Y'
+?
+order by regdt desc
+]]></query>
+
+<!-- movie 유튜브 -->
+<query id ="movie_list_cnt"><![CDATA[
+select count(*) total_cnt from tblyoutube a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'movie' group by section, hott_code) b on a.idx::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'movie' and like_id = '?' group by section, hott_code) b1 on a.idx::varchar = b1.hott_code
+where 1=1
+?
+?
+?
+]]></query>
+<query id ="movie_list"><![CDATA[
+select a.idx, a.title, a.youtube_id, a.regdate, a.display, a.brandcd, a.season, COALESCE(b.cnt,0) cnt , COALESCE(b1.cnt,0) mycnt from tblyoutube a 
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'movie' group by section, hott_code) b on a.idx::varchar = b.hott_code
+left outer join (select count(section) cnt, section, hott_code  from tblhott_like where section = 'movie' and like_id = '?' group by section, hott_code) b1 on a.idx::varchar = b1.hott_code
+where 1=1
+?
+?
+?
+order by ? desc
+]]></query>
+
+<!-- movie 유튜브 브랜드리스트 -->
+<query id ="movie_brand_list"><![CDATA[
+select brandcd,brandname from tblproductbrand 
+where brandcd in (select brandcd from tblyoutube)
+order by bridx
+]]></query>
+
+<!-- movie 유튜브 시즌리스트 -->
+<query id ="movie_season_list"><![CDATA[
+select * from tblproductseason 
+where season in (select season from tblyoutube where brandcd='?')
+order by season_eng_name desc
+]]></query>
+
+
+<!-- movie 유튜브 저장-->
+<query id ="movie_insert"><![CDATA[
+insert into tblyoutube (title, youtube_id, display, brandcd, season, regdate) values ('?','?','?','?','?','?');
+]]></query>
+
+<!-- movie 유튜브 수정-->
+<query id ="movie_update"><![CDATA[
+update tblyoutube set title ='?', youtube_id ='?', display='?', brandcd='?', season='?', regdate='?' where idx='?'
+]]></query>
+
+<!-- movie 유튜브 삭제-->
+<query id ="movie_del"><![CDATA[
+delete from tblyoutube where idx='?'
+]]></query>
+
+<!-- movie 유튜브 상세 -->
+<query id ="movie_view"><![CDATA[
+SELECT l.*, li.hott_cnt my_like,
+			COALESCE((select COUNT( tl.hott_code )AS hott_cnt from tblhott_like tl WHERE tl.section = 'movie' AND l.idx::varchar = tl.hott_code),0) AS hott_cnt
+			FROM tblyoutube l
+LEFT JOIN ( SELECT hott_code, section ,COUNT( hott_code )AS hott_cnt FROM tblhott_like WHERE section = 'movie' AND like_id = '?' GROUP BY hott_code, section ) li on l.idx::varchar = li.hott_code 
+WHERE l.idx = ?
+and l.display='Y'
+
+]]></query>
+
+<!-- movie 유튜브 상세 다음글 이전글 -->
+<query id ="movie_view_before"><![CDATA[
+select idx,title from tblyoutube where idx = (select max(idx) from tblyoutube where idx < '?');
+]]></query>
+<query id ="movie_view_after"><![CDATA[
+select idx,title from tblyoutube where idx = (select min(idx) from tblyoutube where idx > '?');
+]]></query>
+
+
+
+<!-- 관리자 - 상품조회 -->
+<query id ="admin_timesale_update"><![CDATA[
+update tblproduct_timesale set
+title ='?',  price_rate ='?',  rate_type ='?',  sdate ='?',  edate ='?',  order_time ='?',  week ='?',  newday ='?'
+where timesale_sno = '?'
+]]></query>
+
+<!-- 관리자 - 상품조회 -->
+<query id ="admin_product_list"><![CDATA[
+select productcode,productname,sellprice,production,tinyimage  
+from tblproduct 
+where productcode in (select c_productcode from tblproductlink where c_category like '?%')
+and display='Y'
+order by productcode
+]]></query>
+
+<!-- 관리자 - 코드조회 -->
+<query id ="admin_product_code"><![CDATA[
+select code_a, code_b, code_c, code_d, code_name from tblproductcode order by code_a, code_b, code_c, code_d
+]]></query>
+
+
+<!-- 관리자 - 카테고리별 상품코드조회 -->
+<query id ="admin_category_product_list"><![CDATA[
+select c_productcode from tblproductlink where c_category = '?' 
+]]></query>
+
+<!-- 관리자 - 카테고리일괄변경 -->
+<query id ="admin_category_move1"><![CDATA[
+update tblproductlink set c_category = '?' where c_productcode in (?) and c_category = '?'
+and c_productcode not in (select c_productcode from tblproductlink where c_category='?' and c_productcode in (?) )
+]]></query>
+
+<query id ="admin_category_move2"><![CDATA[
+insert into tblproductlink
+(c_productcode, c_category, c_maincate, c_date, c_date_1, c_date_2, c_date_3, c_date_4 )
+select c_productcode, '?', c_maincate, c_date, c_date_1, c_date_2, c_date_3, c_date_4 
+from tblproductlink where c_category='?' and c_productcode in (?)
+and c_productcode not in (select c_productcode from tblproductlink where c_category='?' and c_productcode in (?) )
+]]></query>
+
+<query id ="admin_category_move2_backup"><![CDATA[
+insert into tblproductlink (c_productcode, c_category, c_maincate, c_date, c_date_1, c_date_2, c_date_3, c_date_4) values ('?','?','?','?','?','?','?','?')
+]]></query>
+
+
+<!-- 관리자 - 카테고리매칭 -등록여부조회 -->
+<query id ="admin_category_groupmatch_select"><![CDATA[
+select gubun from tblproductcode_match where gubun='1' and standard_code = '?' and matching_code = '?' 
+]]></query>
+
+<!-- 관리자 - 카테고리매칭 -그룹매칭조회 -->
+<query id ="admin_category_groupmatch_list"><![CDATA[
+select standard_code
+,(select code_name from tblproductcode where concat(substring(standard_code,1,3),'000000000') = concat(code_a,code_b,code_c,code_d)) standard_name1
+,(select code_name from tblproductcode where concat(substring(standard_code,1,6),'000000') = concat(code_a,code_b,code_c,code_d)) standard_name2
+,(select code_name from tblproductcode where concat(substring(standard_code,1,9),'000') = concat(code_a,code_b,code_c,code_d)) standard_name3
+,(select code_name from tblproductcode where concat(substring(standard_code,1,12),'') = concat(code_a,code_b,code_c,code_d)) standard_name4
+, matching_code 
+,(select code_name from tblproductcode where concat(substring(matching_code,1,3),'000000000') = concat(code_a,code_b,code_c,code_d)) matching_name1
+,(select code_name from tblproductcode where concat(substring(matching_code,1,6),'000000') = concat(code_a,code_b,code_c,code_d)) matching_name2
+,(select code_name from tblproductcode where concat(substring(matching_code,1,9),'000') = concat(code_a,code_b,code_c,code_d)) matching_name3
+,(select code_name from tblproductcode where concat(substring(matching_code,1,12),'') = concat(code_a,code_b,code_c,code_d)) matching_name4
+from tblproductcode_match where gubun='1' 
+]]></query>
+
+<!-- 관리자 - 카테고리매칭 -그룹매칭삭제 -->
+<query id ="admin_category_groupmatch_delete"><![CDATA[
+delete from tblproductcode_match where gubun='1' and standard_code = '?' and matching_code = '?' 
+]]></query>
+
+<!-- 관리자 - 카테고리매칭 -그룹등록 -->
+<query id ="admin_category_groupmatch_insert"><![CDATA[
+insert into tblproductcode_match (gubun, standard_code, matching_code) values ('1', '?','?');
+]]></query>
+
+<!-- 관리자 - 기간할인그룹등록 -->
+<query id ="admin_timesale_insert"><![CDATA[
+insert into tblproduct_timesale
+(timesale_type, title, price_rate, rate_type, sdate, edate, order_time, week, newday)
+values 
+('?','?','?','?','?','?','?','?','?')
+]]></query>
+
+<!-- 관리자 - 기간할인그룹조회 -->
+<query id ="admin_timesale_list"><![CDATA[
+select *  from tblproduct_timesale order by timesale_sno desc
+]]></query>
+
+<!-- 관리자 - 기간할인그룹삭제 -->
+<query id ="admin_timesale_del"><![CDATA[
+delete from tblproduct_timesale where timesale_sno = '?'
+]]></query>
+
+<!-- 관리자 - 기간할인그룹수정 -->
+<query id ="admin_timesale_update"><![CDATA[
+update tblproduct_timesale set
+title ='?',  price_rate ='?',  rate_type ='?',  sdate ='?',  edate ='?',  order_time ='?',  week ='?',  newday ='?'
+where timesale_sno = '?'
+]]></query>
+
+<!-- 관리자 - 기간할인 상품조회 -->
+<query id ="admin_timesale_product_list"><![CDATA[
+select productcode,productname,sellprice,production,tinyimage,prodcode  ,model, display,season_year, season, sellprice_dc_rate, regdate, soldout 
+from tblproduct where timesale_code = '?' 
+order by ? desc
+]]></query>
+
+
+<!-- 관리자 - 기간할인 상품등록 -->
+<query id ="admin_timesale_product_insert"><![CDATA[
+update tblproduct set timesale_code = '?' where productcode in (?)
+]]></query>
+
+<!-- 관리자 - 기간할인 상품삭제 -->
+<query id ="admin_timesale_product_delete"><![CDATA[
+update tblproduct set timesale_code = null where productcode in (?)
+]]></query>
+
+<!-- 관리자 - 기간할인 카테고리상품조회 -->
+<query id ="admin_timesale_category_product_list"><![CDATA[
+select productcode,productname,sellprice,production,tinyimage,prodcode  ,model, display,season_year, season, sellprice_dc_rate, regdate, soldout 
+,c.brandname
+from tblproduct a
+left outer join tblproductbrand c on a.brand=c.bridx
+where 1=1
+and (timesale_code is null or timesale_code <> ?)
+and productcode in (select c_productcode from tblproductlink where c_category like '?%')
+? 
+?
+?
+?
+?
+?
+?
+order by prodcode desc
+]]></query>
+<!-- #? ? ? ? ? ?-->
+
+<!-- 관리자 - 판매가일괄변경 - 조회 -->
+<!--a.sellprice_dc_rate, 제외-->
+<query id ="admin_price_change_brand_list"><![CDATA[
+select a.season, a.production as brandname,  a.staff_dc_rate, a.cooper_dc_rate, a.season_year ,b.season_kor_name, a.brandcd , b.season_year as year
+from tblproduct a inner join tblproductseason b on a.season = b.season
+where ? ?
+and a.dc_rate_check = 'Y'
+group by  a.season, a.production, a.staff_dc_rate, a.cooper_dc_rate, a.season_year ,b.season_kor_name, a.brandcd , b.season_year
+order by b.season_kor_name desc ,a.production
+]]></query>
+
+<!-- 관리자 - 판매가일괄변경 - 시즌검색 -->
+<query id ="admin_price_change_season_list"><![CDATA[
+select a.season_year, a.season, b.season_kor_name, b.season_eng_name from tblproduct a inner join tblproductseason b on a.season_year=b.season_year and a.season=b.season
+group by a.season_year, a.season, b.season_kor_name, b.season_eng_name
+order by season_year desc
+]]></query>
+
+<!-- 관리자 - 판매가일괄변경 - 브랜드별할인율 업데이트 -->
+<query id ="admin_price_change_brand_update"><![CDATA[
+update tblproduct set sellprice_dc_rate = '?', sellprice = (consumerprice*(1-0.?)) where production='?' and season='?' and ? and dc_rate_check = 'Y'
+]]></query>
+
+<!-- 관리자 - 판매가일괄변경(임직원) - 임직원가할인율 업데이트--> 
+<query id ="admin_price_change_brand_update_staff"><![CDATA[
+update tblproduct set staff_dc_rate = '?' where production='?' and season='?' and ? and dc_rate_check = 'Y'
+]]></query>
+
+<!-- 관리자 -판매가일괄변경(협력업체) - 협력업체할인율 업데이트--> 
+<query id ="admin_price_change_brand_update_cooper"><![CDATA[
+update tblproduct set cooper_dc_rate = '?' where production='?' and season='?' and ? and dc_rate_check = 'Y'
+]]></query>
+
+<!-- 관리자 -판매가 관리테이블-->
+<query id ="admin_price_setting_delete"><![CDATA[
+delete from tblproductdiscount where season='?' and brandcd='?' and item_gubun='?' and season_year='?';
+]]></query>
+<query id ="admin_price_setting_insert"><![CDATA[
+insert into tblproductdiscount (season, brandcd, item_gubun, discount,season_year) values ('?','?','?','?','?');
+]]></query>
+
+
+<!-- 관리자 브랜드 조회--> 
+<query id ="admin_brand_list"><![CDATA[
+select * from tblproductbrand order by bridx
+]]></query>
+
+<!-- 관리자 시즌 조회--> 
+<query id ="admin_season_list"><![CDATA[
+select * from tblproductseason order by season_eng_name desc
+]]></query>
+
+
+
+	
+
+</root>

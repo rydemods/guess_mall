@@ -1,0 +1,21 @@
+[상품관리]
+
+<카테고리/상품관리>
+카테고리 관리 = product_code.php
+상품 등록 = product_register.set.php
+상품관리 리스트 = product_code_product.php
+MD's CHOICE 관리 = product_mdchoise.php
+기간할인설정 = admin.php?page=product_timesale
+카테고리 매칭 = admin.php?page=product_category_match
+
+<상품 일괄관리>
+#카테고리 일괄 변경 = admin.php?page=product_category_move
+판매가 일괄 변경 = product_price_change.php
+세트상품 일괄 등록 = product_set_csv_upload.php
+상품 일괄 간편수정 = product_allupdate.php
+제휴사 상품 일괄 간편수정 = product_allupdate_company.php
+아이콘 일괄수정 = product_iconallupdate.php
+
+
+<기타관리>
+상품 키워드 검색 = product_keywordsearch.php

@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+
+.brand_wrap {overflow:hidden;}
+.open_icon {float:left;width:95%;height:auto;padding-top:70px;margin:0px 2.5%;margin-bottom:10px;}
+.open_icon ul {position:relative;float:left;width:100%; }
+.open_icon ul li {float:left; width:100%;margin-bottom:40px;}
+
+.o_icon1 {height:60px; background:url("../images/openguide/open_01.png")no-repeat left top;background-size:60px 60px;}
+.o_icon2 {height:60px; background:url("../images/openguide/open_02.png")no-repeat left top;background-size:60px 60px; }
+.o_icon3 {height:60px; background:url("../images/openguide/open_03.png")no-repeat left top;background-size:60px 60px; }
+.o_icon4 {height:60px; background:url("../images/openguide/open_04.png")no-repeat left top;background-size:60px 60px; }
+.o_icon5 {height:60px; background:url("../images/openguide/open_05.png")no-repeat left top;background-size:60px 60px; }
+.o_icon6 {height:60px; background:url("../images/openguide/open_06.png")no-repeat left top;background-size:60px 60px; }
+.o_icon7 {height:60px; background:url("../images/openguide/open_07.png")no-repeat left top;background-size:60px 60px; }
+.o_icon8 {height:60px; background:url("../images/openguide/open_08.png")no-repeat left top;background-size:60px 60px; }
+
+.o_text {float:left; padding-top:7px;margin-left:75px;}
+.o_text span.o_tit {font-size:20px; font-weight:bold; line-height:20px;}
+.o_text span.o_txt {clear:both;display:block; font-size:13px; color:#616161; margin-top:10px;line-height:20px;}
+.o_text span.o_txt_t_m{margin-top:20px;}
+
+.goQna{font-size:11px;padding:4px 7px;color:#fff !important;background-color:#595959;margin-left:10px;}

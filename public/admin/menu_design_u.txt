@@ -1,0 +1,106 @@
+[개별디자인]
+
+<개별디자인-페이지 본문>
+하단 폴로메뉴 화면 꾸미기 = design_eachbottomtools.php
+태그 화면 꾸미기 = design_eachtag.php
+상품섹션 화면 꾸미기 = design_eachsection.php
+ 
+상품검색 결과화면 꾸미기 = design_eachsearch.php
+ 
+장바구니 화면 꾸미기 = design_eachbasket.php
+ 
+상품이미지 확대창 꾸미기 = design_eachprimageview.php
+ 
+공지사항 팝업창 꾸미기 = design_eachpopupnotice.php
+ 
+정보 팝업창 꾸미기 = design_eachpopupinfo.php
+ 
+메일 화면 꾸미기 = design_eachsendmail.php
+ 
+폼메일 화면 꾸미기 = design_eachformmail.php
+ 
+게시판 상단 화면 꾸미기 = design_eachboardtop.php
+ 
+이용안내 화면 꾸미기 = design_eachuseinfo.php
+ 
+이용약관 화면 꾸미기 = design_eachagreement.php
+ 
+회원가입 약관화면 꾸미기 = design_eachjoinagree.php
+ 
+회원가입 입력폼 꾸미기 = design_eachmemberjoin.php
+ 
+회원수정화면 꾸미기 = design_eachusermodify.php
+ 
+회원ID체크 화면 꾸미기 = design_eachiddup.php
+ 
+패스워드 분실 화면 꾸미기 = design_eachfindpwd.php
+ 
+로그인 화면 꾸미기 = design_eachlogin.php
+ 
+회원탈퇴 화면 꾸미기 = design_eachmemberout.php
+ 
+MYPAGE 화면 꾸미기 = design_eachmypage.php
+ 
+주문리스트 화면 꾸미기 = design_eachorderlist.php
+ 
+WishList 화면 꾸미기 = design_eachwishlist.php
+ 
+쿠폰 화면 꾸미기 = design_eachmycoupon.php
+ 
+적립금 화면 꾸미기 = design_eachmyreserve.php
+ 
+1:1고객문의 화면 꾸미기 = design_eachmypersonal.php
+ 
+투표리스트 화면 꾸미기 = design_eachsurveylist.php
+ 
+투표결과 화면 꾸미기 = design_eachsurveyview.php
+ 
+상품리뷰 보기창 꾸미기 = design_eachreviewpopup.php
+ 
+리뷰모음 화면 꾸미기 = design_eachreviewall.php
+ 
+RSS 화면 꾸미기 = design_eachrssinfo.php
+ 
+상품브랜드 화면 꾸미기 = design_eachblist.php
+ 
+브랜드맵 화면 꾸미기 = design_eachbmap.php
+
+<상품>
+상품섹션 = 
+상품 검색결과 = 
+장바구니 = 
+상품이미지 확대 = 
+상품리뷰보기함v
+상품브랜드 = 
+브랜드맵 = 
+
+<회원>
+회원가입 약관화면 = 
+회원가입 입력폼 = 
+회원ID체크 화면 = 
+패스워드분실 = 
+로그인 = 
+
+<마이페이지>
+회원수정화면 = 
+회원탈퇴 = 
+mypage = 
+주문리스트 = 
+위시리스트 = 
+쿠폰 = 
+적립금 = 
+1:1고객문의 = 
+
+<게시판>
+공지사항 팝업 = 
+게시판상단 화면 = 
+투표리스트 = 
+투표결과 = 
+리뷰모음 = 
+
+<기타>
+하단폴로메뉴 = 
+태그화면 = 
+메일 = 
+폼메일 = 
+

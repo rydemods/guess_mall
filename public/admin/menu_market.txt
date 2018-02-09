@@ -1,0 +1,15 @@
+[마케팅지원]
+<프로모션 관리>
+기획전 관리 = market_promotion_new.php
+이벤트 관리 = market_promotion_new_sw.php
+룰렛이벤트 관리 = market_promotion_roulette.php
+팝업 관리 = market_eventpopup.php
+
+<쿠폰발행 서비스 설정>
+자동발송 쿠폰 등록 = market_couponauto_v3.php
+자동발송 쿠폰 관리 = market_couponautolist_v3.php
+일반 쿠폰 등록 = market_couponnew_v3.php
+일반 쿠폰 관리 = market_couponnewlist_v3.php
+
+<푸쉬발송>
+앱 수동 푸쉬발송 = market_app_push.php

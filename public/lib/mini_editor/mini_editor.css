@@ -1,0 +1,33 @@
+.mini_oHTML,.mini_oTEXT {
+width:100%;
+height:100%;
+word-wrap:break-word;
+word-break:break-all;
+background:#ffffff;
+overflow:auto;
+}
+
+.mini_oHTML {
+}
+
+.mini_oTEXT {
+font:9pt 굴림;
+padding:5;
+display:none;
+}
+
+.mini_highlight {background-color:#000000;color:#ffffff}
+.mini_select {font:8pt tahoma}
+.mini_toolbutton {cursor:pointer; border:buttonface 1px solid}
+
+.hand {cursor:pointer}
+
+.scroll	{
+scrollbar-face-color: #FFFFFF; 
+scrollbar-shadow-color: #AFAFAF; 
+scrollbar-highlight-color: #AFAFAF; 
+scrollbar-3dlight-color: #FFFFFF; 
+scrollbar-darkshadow-color: #FFFFFF; 
+scrollbar-track-color: #F7F7F7;
+scrollbar-arrow-color: #838383;
+}

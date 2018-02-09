@@ -1,0 +1,182 @@
+/*
+    - deco_m_ui.js 내용 중 플로팅메뉴(별메뉴), top버튼, 퀵메뉴(하단 고정메뉴) 부분에 대한 소스입니다.
+    
+    - 스크립트 변수 명
+    플로팅메뉴 $widget
+    top버튼 $top
+    퀵메뉴 $$toolber
+    푸터 $$footer
+    가상의 바디 $$page
+    
+    - 가상의 바디는 body를 기본으로 사용하면 스크롤 좌표 및 모션 움직임에 끊김 등의 문제가 있어 div로 body역할을 하는 요소를 만들어 사용했습니다.
+    단순히 페이지 내용을 스크롤 하는 기능만 있습니다.
+    
+    - 요청하신 플로팅 메뉴와 top버튼이 사라지는 부분에 대한 수정은 아래 스크립트에 주석으로 설명을 달았습니다.
+    isApp 으로 내용 검색해서 표시되는 부분 위주로 보시면 됩니다.
+    
+    - deco_m_ui.js 파일을 앱과 모바일 웹에서 같이 사용한다면,
+    app에서 실행되는 것을 알 수 있도록 isApp = true; 와 같이 앱 체크 변수를 넣어 처리하면 좋을 것 같습니다.
+    
+    - 그 외 수정에 부분적인 수정에 용이하도록 주요기능에 대한 설명을 달아놨습니다.
+    
+    - 추가로 퀵메뉴를 app에서 별도로 구현할 때에 대한 고려사항 정리했습니다.
+    퀵메뉴는 일반적인 페이지에서는 메뉴기능만 있지만
+    상품 상세페이지에서는 스크롤을 하면 퀵메뉴가 상품 옵션으로 변경이 되는 기능이 있습니다.
+    이 부분의 노출에 따라 높이가 달라 푸터의 하단 공백(padding-bottom), 폰트사이즈 버튼의 위치, 별메뉴, top버튼의 위치에 영향이 있습니다.
+    
+    - top버튼과 폰트버튼의 위치를 바꿔도 된다면 스크립트의 스크롤 이벤트를 제거하고,
+    플로팅메뉴, top버튼, 폰트버튼의 위치를 스크롤에 상관없이 css로 고정으로하여 적용할 수 있습니다.
+    하단 퀵메뉴, 상품옵션 노출에 따른 스크립트 호출을 제거하여 속도개선 효과 및 하단 영역 수정에 용이하게 됩니다.
+*/
+
+    
+    /*..... 이전 스크립트 생략 .....*/
+    
+    // 앱에서 실행되는 것을 체크하는 변수를 추가합니다.
+    // 앱과 모바일 웹에서 js 파일을 별도 사용할 경우 없어도 됩니다.
+    var isApp = true;
+    
+    // 페이지/위젯/탑/상세툴바
+    $$page.each(function() {
+        
+        var $ui = $(this);
+        var $widget = $(".js-widget");
+        var $top = $(".js-btn-top");
+        var $toolMenu = $$toolbar.find(".menu");// 메뉴툴바
+        var $toolBuy = $$toolbar.find(".js-tool-buy");// 상세툴바
+        
+        var scrollTotal;
+        var scrollTop;
+        
+        $$toolbar.data("isShow", true);
+        if (!isApp) TweenMax.set($top, { autoAlpha:0 });
+        // 스크롤 시 opacity로 부드럽게 나타나고 사라지도록 초기 세팅하는 부분입니다.
+        // if (!isApp) 을 추가하여 앱에서는 작동하지 않도록 합니다.
+        // 앱과 모바일 웹에서 js 파일을 별도 사용할 경우 주석처리합니다.
+        
+        $$page.on("scroll", page_scroll);
+        page_scroll(null);
+        
+        function page_scroll(_e) {
+            
+            if (_e) {
+                scrollTotal = this.scrollHeight - this.clientHeight;
+                scrollTop = this.scrollTop;
+            }
+            
+            // top버튼 위치
+            var toolbarH = $$toolbar.outerHeight();
+            if (scrollTop > 100) $top.addClass("on");// 스크롤 위치가 100px이 넘어가면 top버튼을 노출합니다.
+            else $top.removeClass("on");// 100px 이하일 때는 top버튼을 숨깁니다.
+            
+            var tempBottom = (scrollTop > scrollTotal - 35) ? toolbarH + (scrollTop - (scrollTotal - 35)) : toolbarH;
+            $top.css({ bottom:tempBottom });// top버튼의 위치는 css가 아닌 스크립트로 적용됩니다.
+            
+            // 위젯버튼 위치
+            $widget.css({ bottom:$$toolbar.outerHeight() + 6 });// 플로팅메뉴의 위치는 css가 아닌 스크립트로 적용됩니다.
+            
+            // 스크롤 할 때 퀵메뉴, 플로팅메뉴, top버튼을 숨기고 노출하는 부분입니다.
+            // if (!isApp) 을 추가하여 앱에서는 작동하지 않도록 합니다.
+            // 앱과 모바일 웹에서 js 파일을 별도 사용할 경우 주석처리합니다.
+            if (!isApp) {
+                // 숨기기/보이기
+                TweenMax.killDelayedCallsTo(page_scroll_end);
+                TweenMax.delayedCall(1, page_scroll_end);
+                
+                if (_e && $$toolbar.data("isShow")) {
+                    $$toolbar.data("isShow", false);
+                    TweenMax.to($$toolbar, 0.3, { autoAlpha:0, height:0, ease:Cubic.easeOut, onUpdate:page_scroll_update });
+                    TweenMax.to($widget, 0.3, { autoAlpha:0, ease:Cubic.easeOut });
+                    TweenMax.to($top, 0.3, { autoAlpha:0, ease:Cubic.easeOut });
+                }
+                
+                // 상세 툴바
+                if ($toolBuy[0]) {
+                    var $detailBuy = $(".goods-detail-buy");
+                    var limitY = $detailBuy.position().top + $detailBuy.outerHeight();
+                    if (scrollTop > limitY) {// 상세페이지에서 스크롤 위치가 limitY보다 크면 퀵메뉴를 숨기고 상품옵션을 보이도록 합니다.
+                        $toolBuy.show();
+                        $toolMenu.hide();
+                    } else {
+                        $toolBuy.hide().trigger("close");;
+                        $toolMenu.show();
+                    }
+                    var childH = $$toolbar.children().filter(":visible").outerHeight();
+                    $$footer.css({ paddingBottom:childH });
+                    $(".js-font").css({ bottom:childH + 10 });
+                    // 상품옵션의 보이고, 안보이고에 따라 푸터의 패딩과 폰트버튼의 위치가 바뀝니다.
+                    // 일반 페이지에서는 css에 적용된 내용으로 보이고 상품옵션이 있을 때만 스크립트로 처리됩니다.
+                }
+            }
+            
+        }
+        
+        // 스크롤이 끝나고 안보이게 처리한 퀵메뉴, 플로팅메뉴, top버튼을 노출하는 기능을 합니다.
+        // 상세페이지에서는 상품 옵션의 노출에 따른 퀵메뉴 높이 변경도 함께 합니다.
+        function page_scroll_end() {
+            
+            if (!$$toolbar.data("isShow")) {
+                $$toolbar.data("isShow", true);
+                var childH = $$toolbar.children().filter(":visible").outerHeight();
+                TweenMax.to($$toolbar, 0.4, { autoAlpha:1, height:childH, ease:Sine.easeInOut, onUpdate:page_scroll_update });
+                TweenMax.to($widget, 0.4, { autoAlpha:1, ease:Sine.easeOut });
+                TweenMax.to($top, 0.4, { autoAlpha:1, ease:Sine.easeOut });
+            }
+            
+        }
+        
+        // 상세페이지에서 상품 옵션 노출에 따른 퀵메뉴 높이 변경으로 레이아웃을 리사이징 합니다.
+        // 퀵메뉴의 높이가 변경되지 않으면 호출하지 않아도 됩니다.
+        function page_scroll_update() {
+            
+            page_scroll();
+            window_resize();
+            
+        }
+        
+        
+        // 위젯 메뉴
+        // 터치 시 메뉴 노출하는 기능으로 수정할 부분이 없습니다.
+        /*..... 위젯 메뉴 스크립트 생략 .....*/
+        
+        // 툴바 메뉴 (상세)
+        // 상세페이지에서 퀵메뉴가 상품옵션으로 바뀌었을 때 펼쳐보기/접어놓기 기능으로 수정할 부분이 없습니다.
+        $toolBuy.each(function() {
+            
+            var $ui = $(this);
+            var $open = $toolBuy.find(".offbox .btn-shoppingbag, .offbox .btn-buy");
+            var $close = $ui.find(".js-btn-close");
+            var $content = $ui.find(".js-onbox");
+            
+            $open.on("click", function(_e) {
+                
+                _e.preventDefault();
+                $$toolbar.addClass("on");
+                $content.show();
+                TweenMax.to($content, 0.5, { bottom:0, ease:Cubic.easeInOut });
+                
+            });
+            
+            $close.on("click", function(_e) {
+                
+                TweenMax.to($content, 0.5, { bottom:"-100%", ease:Sine.easeOut,
+                    onComplete:function() {
+                        $content.hide();
+                        $$toolbar.removeClass("on");
+                    }
+                });
+                
+            });
+            
+            $ui.on({
+                "close":function() {
+                    $close.trigger("click");
+                    // 상세페이지에서 스크롤 중 퀵메뉴로 바뀔 때 클릭 없이 닫아주기 위해 트리거 이벤트를 생성했습니다.
+                }
+            });
+            
+        });
+        
+    });
+    
+    /*..... 이후 스크립트 생략 .....*/

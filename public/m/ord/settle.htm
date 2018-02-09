@@ -1,0 +1,228 @@
+{*** 결제하기(무통장) | ord/settle.php ***}
+{ # header }
+
+<section id="settle">
+
+<form name="frmSettle" method=post action="indb.php" target="ifrmHidden">
+<!--{ @ _POST }-->
+<!--{ ? is_array(.value_) }-->
+	<!--{ @ .value_ }-->
+	<input type=hidden name="{.key_}[]" value="{..value_}">
+	<!--{ / }-->
+<!--{ : }-->
+	<input type=hidden name="{.key_}" value="{.value_}">
+<!--{ / }-->
+<!--{ / }-->
+
+<!-- 무통장입금 -->
+<!--{ ? settlekind=="a" }-->
+
+<?php {page_title} = "결제하기";?>
+{#sub_header}
+
+<section class="cart_list">
+	<table>
+		<caption class="hide">주문상품 리스트 목록</caption>
+		<colgroup><col width="25%" /><col width="75%" /></colgroup>
+		{@cart->item}
+		<tr>
+			<td class="thumb"><a href="../goods/view.php?goodsno={.goodsno}">{=goodsimgMobile(.img,100)}</a></td>
+			<td class="left">
+				<span class="name">{.goodsnm}</span>		
+				<span>[{=implode("/",.opt)}]</span>
+				<div class="order_price"><span class="quantity">수량 : {.ea}개</span> <span  class="price">금액 : <em>{=number_format(.price + .addprice)}</em></span></div>
+			</td>
+		</tr>
+		{/}
+	</table>
+</section>
+
+<article class="order_wrap" >
+	<h3>배송정보</h3>
+
+<section class="cart_list">
+	<ul class="goods_price">
+		<li><span class="title">상품금액합계</span> <span class="price" id="paper_goodsprice">{=number_format(cart->goodsprice)}<em>원</em></span></li>
+		<li><span class="title">회원 할인(<em class="no4">{_sess.level}단계</em> 회원)</span> <span class="price no2" id='memberdc'>{=number_format(cart->dcprice)}<em>원</em></span></li>
+	</ul>
+    <div class="delivery">
+		<div class="point coupon" style="display:{?!_sess}none{:}block{/}">
+			<span class="txt">쿠폰 적용 </span>
+			<div class="inp">
+					 <p><label>할인</label>{_POST['coupon']}&nbsp; 원</p>
+					 <p><label>적립</label>{_POST['coupon_emoney']}&nbsp; 원</p>
+			</div>
+		</div>
+		<div id="coupon_list"></div>
+		<div class="point" style="display:{?!_sess}none{:}block{/}">
+			<span class="txt">적립금 적용 <em>( 보유적립금 : {=number_format(_member.emoney)}원 ) </em></span>
+			<div class="inp">
+				{_POST['emoney']} &nbsp; 원
+			</div>
+			<p class="info"></p>
+		</div>
+	</div>
+	<ul class="goods_price">
+	<li class="payment_total"><span class="title">총 결제금액(배송비:<em class="deliy_type">무료 </em>)</span> <span class="price_total" id=paper_settlement>{=number_format(settleprice)}</span>원</li>
+	</ul>
+</section>
+</article>
+
+<article class="order_wrap" >
+	<h3>배송정보</h3>
+	<div  class="delivery">
+		<div  class="member_info">
+		 <table>
+		  <caption class="hide">배송정보 확인 테이블</caption>
+		<colgroup>
+		<col width="20%" />
+		<col width="*" />
+		</colgroup>
+		{?_sess}
+		  <tr>
+			<th scope="row">주문자</th>
+			<td>{_POST['nameOrder']}</td>
+		  </tr>
+		{/}
+		  <tr>
+			<th scope="row">받는 사람</th>
+			<td>{_POST['nameReceiver']}</td>
+		  </tr>
+		  <tr>
+			<th scope="row">받으실 주소</th>
+		   	 <td>
+				{_POST['zipcode'][0]} - {_POST['zipcode'][1]} {_POST['address']} {_POST['address_sub']}
+			 </td>
+		  </tr>
+		  </tr>
+		  <tr>
+			<th scope="row">전화번호</th>
+			<td>
+				{_POST['phoneReceiver'][0]} - {_POST['phoneReceiver'][1]} - {_POST['phoneReceiver'][2]}
+			</td>
+		  </tr>
+		  <tr>
+			<th scope="row">핸드폰 번호</th>
+			<td>
+				{_POST['mobileReceiver'][0]} - {_POST['mobileReceiver'][1]} - {_POST['mobileReceiver'][2]}
+			</td>
+		  </tr>
+		  <tr>
+			<th scope="row">요청사항</th>
+			<td>{?_POST['memo']}{_POST['memo']}{:}-{/}</td>
+		  </tr>
+		  <tr>
+			<th scope="row">배송선택</th>
+			<td>
+				{?_POST['deliPoli']==0}기본배송{/}
+			</td>
+		  </tr>
+		</table>
+		</div>
+	</div>
+</article>
+
+<article class="order_wrap">
+	<h3>무통장입금</h3>
+
+<div  class="delivery">
+	<div  class="member_info">
+	<table>
+	  <caption class="hide">무통장입금 결제 테이블</caption>
+		<colgroup><col width="100" /><col width="*" />	</colgroup>
+		<tr>
+			<th scope="row">입금계좌선택</th>
+			<td>
+				<select name="bankAccount" required label="입금계좌">
+					<option value="">== 입금계좌를 선택해주세요 ==
+					<!--{ @ _bank }-->
+					<option value="{.sno}">{.bank} {.account} {.name}
+					<!--{ / }-->
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">입금자명</th>
+			<td><input type=text name="bankSender" value="{nameOrder}" required  label="입금자명"></td>
+		</tr>
+		<tr>
+			<th scope="row">입금금액</th>
+			<td>{=number_format(settleprice)}원</td>
+		</tr>
+	</table>
+
+	</div>
+</div>
+
+<div class="btn_center">
+	<a href="javascript:submitSettleForm()" class="btn_gray_p1">결제하기</a> <a href="/m/ord/order.php" class="btn_gray">취소하기</a>
+</div>
+
+</article>
+
+
+<!-- 기존 코드 -->
+<!--<fieldset id="orderbox">
+<legend>입금계좌선택</legend>
+	<dl>
+		<dt>입금계좌선택</dt>
+		<dd>
+			<select name="bankAccount" required label="입금계좌">
+				<option value="">== 입금계좌를 선택해주세요 ==-->
+				<!--{ @ _bank }-->
+<!--				<option value="{.sno}">{.bank} {.account} {.name}
+-->				<!--{ / }-->
+<!--			</select>
+		</dd>
+		<dt>입금자명</dt>
+		<dd><input type=text name="bankSender" value="{nameOrder}" required  label="입금자명"></dd>
+		<dt>입금금액</dt>
+		<dd>{=number_format(settleprice)}원</dd>
+	</dl>
+</fieldset>
+
+<div id="avoidDblPay" class="btn center">
+	<ul>
+		<li><button type="button" class="submit" onclick="submitSettleForm()"><span class="hidden">결제하기</span></button></li>
+		<li><button class="cancel" onclick="history.back();"><span class="hidden">취소하기</span></button></li>
+	</ul>
+</div>-->
+
+<!--{ / }-->
+</form>
+</section>
+
+<!--{ ? settlekind!="a" }-->
+{card_gate}
+
+<script>
+	$(document).ready(function(){
+		var fm = document.frmSettle; fm.submit();
+	});
+</script>
+<!--{ / }-->
+
+<script>
+function swapSettleButton(){
+	if (document.getElementById('avoidDblPay')) document.getElementById('avoidDblPay').innerHTML = '<ul>\
+		<li><button type="button" class="submit" onclick="submitSettleForm()"><span class="hidden">결제하기</span></button></li>\
+		<li><button class="cancel" onclick="history.back();"><span class="hidden">취소하기</span></button></li>\
+	</ul>';
+}
+function submitSettleForm()
+{
+	var fm = document.frmSettle;
+
+	if (!chkForm(fm)) return;
+
+	/*** 주문필수정보 체크 ***/
+	if (!fm.nameOrder.value) return;
+	if (!fm.ordno.value) return;
+
+	if (document.getElementById('avoidDblPay')) document.getElementById('avoidDblPay').innerHTML = "--- 현재 결제처리중입니다. 잠시만 기다려주세요. ---<br><a href='javascript:swapSettleButton();'><img src='../common/img/btn_cancel.gif'></a>";
+
+	fm.submit();
+}
+</script>
+
+{ # footer }

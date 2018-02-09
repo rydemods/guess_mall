@@ -1,0 +1,17 @@
+data/shopimages
+data/backup
+data/cache
+SE2/upload
+linkhub
+api/log
+batch/log
+data/
+shopimages/
+data/backup/
+data/cache/
+SE2/upload/
+linkhub/
+api/log/
+batch/log/
+data/log/
+paygate/A/payplus/log/

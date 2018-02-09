@@ -1,0 +1,622 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+	<meta name="description" content="뉴욕감성 핸드백 브랜드 ORYANY NEW YORK" />
+	<meta name="keywords" content="" />
+
+	<title>ORYANY  NewYork</title>
+
+	<link rel="stylesheet" href="../css/oryany.css" />
+	<script type="text/javascript" src="../css/jquery-1.10.1.js" ></script>
+	<script type="text/javascript" src="../css/jquery.placeholder.js" ></script>
+	<script src="../css/jquery.slides.min.js"></script>
+
+</head>
+<script type="text/javascript">
+$(function(){
+	$('.gnb_middle a.btn_category').click(function(){
+	$('.layer_category_open').show();
+	});
+	$('div.layer_category_open a.btn_category_close').click(function(){
+	$('.layer_category_open').hide();
+	});
+	$('.new_goods4ea ul.list li').mouseenter(function(){
+	$(this).find('.layer_goods_icon').show();
+	});
+	$('.layer_goods_icon').mouseleave(function(){
+	$('.layer_goods_icon').hide();
+	});
+	$('.quick_aside_close .btn_open').click(function(){
+	$('.quick_aside_close').hide();
+	$('.quick_aside_open').show();
+	});
+	$('.quick_aside_open .btn_close').click(function(){
+	$('.quick_aside_open').hide();
+	$('.quick_aside_close').show();
+	});
+	$('.layer_bags').mouseenter(function(){
+	$('.layer_depth_wrap').show();
+	$('a.layer_bags').addClass('on');
+	});
+	$('.layer_depth_wrap').mouseleave(function(){
+	$('.layer_depth_wrap').hide();
+	$('a.layer_bags').removeClass('on');
+	});
+});
+$(function() { 
+	$('input, textarea').placeholder();
+});
+$(function() {
+$('#main_slide').slidesjs({
+	width: 1100,
+	height: 480,
+	play: {
+	  active: true,
+	  effect: "slide",
+	  interval: 5000,
+	  auto: true,
+	  swap: true,
+	  pauseOnHover: true,
+	  restartDelay: 3000
+	}
+  });
+});
+</script>
+
+<body>
+
+<!-- GNB 전체 카테고리 레이어 -->
+<div class="layer_category_open">
+	<div class="layer_category">
+		<a href="#" class="btn_category_close" title="전체 카테고리 닫기"></a>
+		<ul class="cate_type">
+			<li>
+				<p class="title"><a href="#">BAGS</a></p>
+				<dl>
+					<dt><a href="#">여성가방</a></dt>
+					<dd><a href="#">숄더백</a></dd>
+					<dd><a href="#">토트백</a></dd>
+					<dd><a href="#">크로스백</a></dd>
+					<dd><a href="#">백팩</a></dd>
+					<dd><a href="#">클러치백</a></dd>
+					<dd><a href="#">미니백</a></dd>
+				</dl>
+				<dl>
+					<dt><a href="#">남성가방</a></dt>
+					<dd><a href="#">크로스백</a></dd>
+					<dd><a href="#">서류가방</a></dd>
+					<dd><a href="#">백팩</a></dd>
+					<dd><a href="#">캐주얼 토트백</a></dd>
+				</dl>
+			</li>
+			<li>
+				<p class="title"><a href="#">WALLET</a></p>
+				<dl>
+					<dt><a href="#">지갑</a></dt>
+					<dd><a href="#">장지갑</a></dd>
+					<dd><a href="#">중지갑</a></dd>
+					<dd><a href="#">반지갑</a></dd>
+					<dd><a href="#">카드케이스</a></dd>
+				</dl>
+			</li>
+			<li>
+				<p class="title"><a href="#">UNISEX BAGS</a></p>
+				<dl>
+					<dt><a href="#">리스트1</a></dt>
+					<dt><a href="#">리스트2</a></dt>
+					<dt><a href="#">리스트3</a></dt>
+					<dt><a href="#">리스트4</a></dt>
+					<dt><a href="#">리스트5</a></dt>
+				</dl>
+			</li>
+			<li>
+				<p class="title"><a href="#">ACCESSORY</a></p>
+				<dl>
+					<dt><a href="#">액세서리</a></dt>
+					<dd><a href="#">의류</a></dd>
+					<dd><a href="#">장갑</a></dd>
+					<dd><a href="#">키링</a></dd>
+					<dd><a href="#">기타</a></dd>
+				</dl>
+				<dl>
+					<dt><a href="#">시즌잡화</a></dt>
+					<dd><a href="#">의류</a></dd>
+					<dd><a href="#">장갑</a></dd>
+					<dd><a href="#">키링</a></dd>
+					<dd><a href="#">기타</a></dd>
+				</dl>
+			</li>
+			<li>
+				<p class="title"><a href="#">OUTLET</a></p>
+				<dl class="last">
+					<dt><a href="#">BAGS</a></dt>
+					<dt><a href="#">WALLET</a></dt>
+					<dt><a href="#">UNISEX BAGS</a></dt>
+					<dt><a href="#">ACCSSORY</a></dt>
+				</dl>
+			</li>
+		</ul>
+	</div>
+</div><!-- //GNB 전체 카테고리 레이어 -->
+
+<div id="aside">
+	<div class="quick_aside_close">
+		<a href="#" class="btn_open" title="펼치기"></a>
+		<ul class="icon_list">
+			<li><a href="#" class="point" title="포인트"></a></li>
+			<li><a href="#" class="coupon" title="쿠폰"><span>4</span></a></li>
+			<li><a href="#" class="store" title="매장찾기"></a></li>
+			<li><a href="#" class="cart" title="장바구니"><span>2</span></a></li>
+			<li><a href="#" class="today" title="최근본상품"><span>12</span></a></li>
+		</ul>
+		<a href="#" class="btn_top" ><img src="../img/btn/btn_top_s.gif" alt="상단으로 이동" /></a>
+	</div><!-- 오픈전 -->
+
+	<div class="quick_aside_open">
+		<a href="#" class="btn_close" title="닫기"></a>
+		<ul class="icon_list">
+			<li>
+				<a href="#" class="point" title="포인트">
+					<p class="txt point">
+						포인트<br /><strong>800,000</strong>원
+					</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="coupon" title="쿠폰">
+					<p class="txt">쿠폰(<strong>5</strong>)</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="store" title="매장찾기">
+					<p class="txt">매장검색</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="cart" title="장바구니">
+					<p class="txt">장바구니</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="today" title="최근본상품">
+					<p class="txt">최근본상품</p>
+				</a>
+			</li>
+		</ul>
+		<ul class="today_view">
+			<li><a href="#"><img src="../img/test/test_goods188.jpg" width="80" height="80" alt="" /></a></li>
+			<li><a href="#"><img src="../img/test/test_goods130.jpg" width="80" height="80" alt="" /></a></li>
+			<li><a href="#"><img src="../img/test/test_goods280.jpg" width="80" height="80" alt="" /></a></li>
+			<li><a href="#"><img src="../img/test/test_goods130.jpg" width="80" height="80" alt="" /></a></li>
+			<li><a href="#"><img src="../img/test/test_goods188.jpg" width="80" height="80" alt="" /></a></li>
+		</ul>
+		<a href="#" class="btn_top" ><img src="../img/btn/btn_top_b.gif" alt="상단으로 이동" /></a>
+	</div><!-- 오픈후 -->
+</div><!-- //#aside -->
+		
+<a name="top"></a>
+<div id="gnb">
+
+	<div class="gnb_wrap">
+		
+		<div class="util_wrap">
+			<div class="container">
+				<a href="#" class="btn_favorite"><img src="../img/btn/btn_favorite.gif" alt="즐겨찾기 추가" /></a>
+				<ul class="nav_util">
+					<li><a href="#">LOGIN</a></li>
+					<!-- <li><a href="#">LOGOUT</a></li> -->
+					<li><a href="#">JOIN US</a></li>
+					<li><a href="#">CART</a></li>
+					<li><a href="#">MYPAGE</a></li>
+					<li><a href="#">ORDER</a></li>
+					<li><a href="#">CUSTOMER CENTER</a></li>
+				</ul>
+			</div>
+		</div><!-- //div.util_wrap -->
+
+		<div class="gnb_middle">
+			<h1><a href="#"><img src="../img/common/h1_logo.png" alt="ORYANY 로고" /></a></h1>
+			<a href="#" class="btn_category" title="전체 카테고리 열기"></a>
+			<div class="right_banner"><a href="#"><img src="../img/test/test_gnb_bn_r.jpg" alt="" /></a></div>
+		</div><!-- //div.gnb_middle -->
+
+		<div class="nav_menu_wrap">
+			<div class="container">
+				<ul class="nav_menu">
+					<li><a href="#" class="layer_bags">BAGS</a></li>
+					<li><a href="#">WALLET</a></li>
+					<li><a href="#">UNISEX BAGS</a></li>
+					<li><a href="#">ACCESSORY</a></li>
+					<li><a href="#">OUTLET</a></li>
+					<li><a href="#">EVENT</a></li>
+				</ul>
+				<div class="gnb_search">
+					<input type="text" name="" id="" placeholder="검색어를 입력해주세요." />
+					<a href="#" title="검색"></a>
+				</div>
+			</div>
+
+			<!-- 카테고리별 오버시 레이어창 -->
+			<div class="layer_depth_wrap">
+				<div class="layer_depth">
+					<div class="depth3">
+						<dl>
+							<dt>여성가방</dt>
+							<dd>
+								<ul class="cate">
+									<li><a href="#">숄더백</a></li>
+									<li><a href="#">토트백</a></li>
+									<li><a href="#">크로스백</a></li>
+									<li><a href="#">백팩</a></li>
+									<li><a href="#">클러치백</a></li>
+									<li><a href="#">미니백</a></li>
+								</ul>
+							</dd>
+						</dl>
+						<dl>
+							<dt>여성가방</dt>
+							<dd>
+								<ul class="cate">
+									<li><a href="#">크로스백</a></li>
+									<li><a href="#">서류가방</a></li>
+									<li><a href="#">백팩</a></li>
+									<li><a href="#">캐주얼 토트백</a></li>
+								</ul>
+							</dd>
+						</dl>
+					</div>
+					<div class="banner"><a href="#"><img src="../img/test/test_main_bn04.jpg" alt="" /></a></div>
+					<div class="hot_item">
+						<p class="title">HOT ITEM</p>
+						<p class="dott"><a href="#" class="on"></a><a href="#"></a><a href="#"></a></p>
+						<ul class="list">
+							<li><a href="#"><img src="../img/test/test_goods188.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="../img/test/test_goods188.jpg" alt="" /></a></li>
+							<li><a href="#"><img src="../img/test/test_goods188.jpg" alt="" /></a></li>
+						</ul>
+					</div>
+				</div>
+			</div><!-- //div.layer_depth_wrap -->
+			
+		</div>
+
+	</div>
+
+</div><!-- //#gnb_wrap -->
+
+<div id="body_contents">
+	
+	<!-- 임시 메인 롤링 -->
+	<div class="index_rolling_wrap">
+		<div class="index_rolling" id="main_slide">
+			<img src="../img/test/main_visual_rolling01.jpg" alt="" />
+			<img src="../img/test/main_visual_rolling02.jpg" alt="" />
+			<img src="../img/test/main_visual_rolling03.jpg" alt="" />
+		</div>
+	</div><!-- //임시 메인 롤링 -->
+
+	<div class="containerBody">
+
+		<!-- 중간 소배너 4개 -->
+		<ul class="main_middle_banner">
+			<li><a href="#"><img src="../img/test/test_main_bn01.jpg" alt="" /></a></li>
+			<li><a href="#"><img src="../img/test/test_main_bn02.jpg" alt="" /></a></li>
+			<li><a href="#"><img src="../img/test/test_main_bn03.jpg" alt="" /></a></li>
+			<li><a href="#"><img src="../img/test/test_main_bn04.jpg" alt="" /></a></li>
+		</ul><!-- //중간 소배너 4개 -->
+
+		<div class="new_arrival_slide">
+			<h3 class="title">NEW ARRIVALS</h3>
+			<div class="new_goods4ea">
+				<a href="#" class="arrow left" title="왼쪽 이동"></a>
+				<a href="#" class="arrow right" title="오른쪽 이동"></a>
+				<ul class="list">
+					<li>
+						<div class="goods_A">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+						<div class="layer_goods_icon">
+							<p class="icon">
+								<a href="#" class="view" title="상세보기"></a>
+								<a href="#" class="cart" title="장바구니"></a>
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="goods_A">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+						<div class="layer_goods_icon">
+							<p class="icon">
+								<a href="#" class="view" title="상세보기"></a>
+								<a href="#" class="cart" title="장바구니"></a>
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="goods_A">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+						<div class="layer_goods_icon">
+							<p class="icon">
+								<a href="#" class="view" title="상세보기"></a>
+								<a href="#" class="cart" title="장바구니"></a>
+							</p>
+						</div>
+					</li>
+					<li>
+						<div class="goods_A">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+						<div class="layer_goods_icon">
+							<p class="icon">
+								<a href="#" class="view" title="상세보기"></a>
+								<a href="#" class="cart" title="장바구니"></a>
+							</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div><!-- //div.new_arrival_slide -->
+
+		<div class="mds_pick_section">
+			<h3 class="title">MD'S PICK</h3>
+			<div class="pick_type">
+				<a href="#">LOVE UP!!</a>
+				<a href="#">시즌 컬러 트렌드</a>
+				<a href="#" class="on">글레이서 그레이 컬러</a>
+			</div>
+			<div class="mds_pick">
+				<ul class="pick_article a1">
+					<li>
+						<div class="goods_A w190">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods188.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+					<li>
+						<div class="goods_A w190">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods188.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+				</ul>
+				<ul class="pick_article a2">
+					<li><img src="../img/test/test_mdpick.jpg" alt="" /></li>
+					<li>
+						<div class="goods_A w280">
+							<a href="#">						
+								<p class="img280"><img src="../img/test/test_goods280.jpg" width="280" height="280" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+				</ul>
+				<ul class="pick_article a3">
+					<li>
+						<div class="goods_A w130">
+							<a href="#">						
+								<p class="img130"><img src="../img/test/test_goods130.jpg" width="130" height="130" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+					<li>
+						<div class="goods_A w130">
+							<a href="#">						
+								<p class="img130"><img src="../img/test/test_goods130.jpg" width="130" height="130" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+				</ul>
+				<ul class="pick_article a4">
+					<li>
+						<div class="goods_A w190">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+					<li>
+						<div class="goods_A w190">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div><!-- //div.mds_pick_section -->
+
+		<div class="best_item_section">
+			<h3 class="title">BEST ITEM</h3>
+			<div class="category">
+				<ul class="list">
+					<li><a href="#">BAGS</a></li>
+					<li><a href="#">WALLET</a></li>
+					<li><a href="#">UNISEX BAGS</a></li>
+					<li><a href="#">ACCESSORY</a></li>
+				</ul>
+				<p class="banner"><a href="#"><img src="../img/test/test_main_bn05.jpg" alt="" /></a></p>
+			</div>
+			<div class="best_item">
+				<ul class="goods">
+					<li>
+						<div class="goods_A">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+					<li>
+						<div class="goods_A">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+					<li>
+						<div class="goods_A">
+							<a href="#">						
+								<p class="img190"><img src="../img/test/test_goods280.jpg" width="190" height="190" alt="" /></p>
+								<span class="subject">Sydney Large O4FBSD010_CM</span>
+								<span class="price">428,000원</span>
+							</a>	
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div><!-- //div.best_item_section -->
+
+		<div class="bottom_visual">
+			<ul class="banner">
+				<li><a href="#"><img src="../img/common/main_link_bn01.jpg" alt="STAR SHOP" /></a></li>
+				<li><a href="#"><img src="../img/common/main_link_bn02.jpg" alt="OUTLET" /></a></li>
+				<li><a href="#"><img src="../img/common/main_link_bn03.jpg" alt="OFFLINE SHOP" /></a></li>
+			</ul>
+		</div><!-- //div.bottom_visual -->
+
+		<div class="bottom_cs_section">
+			<div class="wrap a1">
+				<h5>CUSTOMER SERVICE</h5>
+				<p class="tel">070&bull;8290&bull;3187</p>
+				<ul class="address">
+					<li>평일. 09:00 ~ 18:00 (토/일/공휴일 휴무)</li>
+					<li>점심. 12:00 ~ 13:00</li>
+					<li>* 토/일/공휴일에는 1:1문의를 이용해 주세요</li>
+				</ul>
+				<p class="btn"><a href="#"><img src="../img/btn/btn_qna_bbs.gif" alt="일대일문의 게시판" /></a></p>
+			</div>
+			<div class="wrap">
+				<ul class="icon">
+					<li>
+						<a href="#">
+							<p class="faq"></p>
+							<span>FAQ</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<p class="qna"></p>
+							<span>Q&amp;A</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<p class="review"></p>
+							<span>REVIEW</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="wrap a3">
+				<h5>NEWS & NOTICE</h5>
+				<ul class="notice">
+					<li><a href="#">구매로 인한 A/S 문의관련 안내입니다.</a></li>
+					<li><a href="#">온라인샵 배송일정 및 스토어 영업시간 안내문입니다.</a></li>
+					<li><a href="#">화이트데이 이벤트 최대 30% 할인</a></li>
+					<li><a href="#">(온/오프라인 동시) 봄기운이 물씬 느껴지는</a></li>
+					<li><a href="#">구매로 인한 A/S 문의관련</a></li>
+				</ul>
+			</div>
+		</div><!-- //div.bottom_cs_section -->
+
+	</div><!-- //div.containerBody -->
+
+</div><!-- //#body_contents -->
+
+<div id="footer">
+	
+	<div class="footer_wrap">
+
+		<div class="footer_util">
+			<div class="container">
+				<ul class="util_list">
+					<li><a href="#">회사소개</a></li>
+					<li><a href="#">이용약관</a></li>
+					<li><a href="#">개인정보보호정책</a></li>
+					<li><a href="#">문의하기</a></li>
+					<li><a href="#">매장안내</a></li>
+				</ul>
+				<div class="follow">
+					<ul class="icon_list">
+						<li>FOLLOW ORYANY</li>
+						<li><a href="#" class="facebook" title="페이스북"></a></li>
+						<li><a href="#" class="insta" title="인스타그램"></a></li>
+						<li><a href="#" class="kas" title="카카오스토리"></a></li>
+						<li><a href="#" class="kakao" title="카카오톡"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div><!-- //div.footer_util -->
+
+		<div class="foot_info">
+			<ul class="address">
+				<li>
+					(주)내자인<span></span>
+					주소. 서울시 광진구 군자동 91-11<span></span>
+					사업자번호. 206-86-28779 <a href="#" target="_blank"><img src="../img/btn/btn_licensee_check.gif" alt="사업자정보확인" /></a><span></span>
+					통신판매신고번호. 서울 00000호<span></span>
+				</li>
+				<li>
+					대표자.오상돈<span></span>
+					전화. 070-8668-1937<span></span>
+					개인정보관리책임자. 홍길동(<a href="mailto:oooo@naver.com" class="email">oooo@naver.com</a>)
+				</li>
+				<li>
+					COPYRIGHT &copy; by (주)내자인. ALL RIGHTS RESERVED.
+				</li>
+			</ul>
+			<div class="right_logo">
+				<a class="kcp" title="KCP"></a>
+				<a class="escrow" title="구매안전 에스크로 서비스"></a>
+				<a  class="gong" title="공정거래위원회"></a>
+			</div>
+		</div>
+
+
+	</div>
+
+</div><!-- //#footer -->
+
+
+</body>
+
+</html>

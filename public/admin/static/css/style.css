@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+/*
+css name : style
+use : all page css
+*/
+
+
+/* ==================================================
+	component
+================================================== */
+/* 버튼 */
+.btn-basic,
+.btn-point {display:inline-block;padding:0 20px;border-radius:2px;color:#fff !important;font-family:'맑은고딕','malgun gothic';font-size:14px;line-height:36px;font-weight:bold;vertical-align:middle;}
+.btn-basic {border:1px solid #a0a0a0;background-color:#a0a0a0;}
+.btn-point {border:1px solid #e83428;background-color:#e83428;}
+.btn-point.blk {border-color:#2d2d2d;background-color:#2d2d2d;}
+
+.btn-function {display:inline-block;padding:0 5px;border:1px solid #aaa;background-color:#fff;color:#444 !important;font-family:'맑은고딕','malgun gothic';font-size:11px;line-height:19px;font-weight:normal;vertical-align:middle;text-decoration:none;}
+a[class^="btn-"] {vertical-align:top}
+a[class^="btn-"]:hover {text-decoration:none;}
+
+/* 버튼 - 높이지정 */
+.h-large {line-height:43px;font-size:16px;}
+.h-small {padding:0 10px;line-height:23px;font-size:13px;}
+
+/* 공통 탭 */
+[data-content="content"] {display:none;}
+[data-content="content"].active {display:block;}
+
+.tab_style1 .tab-menu {border-bottom:1px solid #666;font-size:0;}
+.tab_style1 .tab-menu a {display:inline-block;min-width:290px;margin-bottom:-1px;border:1px solid #ccc;border-bottom:1px solid #666;background-color:#f8f8f8;color:#444;font-family:'맑은고딕','malgun gothic';font-size:13px;line-height:34px;text-align:center;text-decoration:none;cursor:pointer;}
+.tab_style1 .tab-menu a.active {border:1px solid #666;border-bottom:1px solid transparent;background-color:#fff;color:#000;font-weight:bold;}
+.tab_style1 .tab-content {margin-top:20px;}
+
+/* 아이콘 */
+.icon-order-top,
+.icon-order-up,
+.icon-order-down,
+.icon-order-bottom {display:inline-block;width:22px;height:22px;border-radius:2px;background-color:#666;text-indent:-9999px;}
+.icon-order-top {background:#666 url(../img/icon/icon_order_top.png) no-repeat center;}
+.icon-order-up {background:#666 url(../img/icon/icon_order_up.png) no-repeat center;}
+.icon-order-down {background:#666 url(../img/icon/icon_order_down.png) no-repeat center;}
+.icon-order-bottom {background:#666 url(../img/icon/icon_order_bottom.png) no-repeat center;}
+.icon-order-top:hover,
+.icon-order-up:hover,
+.icon-order-down:hover,
+.icon-order-bottom:hover {background-color:#e83428;}
+
+
+/* ==================================================
+	content
+================================================== */
+/* 도움말(메뉴얼) */
+.sub_manual_wrap .help_list {margin:10px 10px 20px 20px;}
+.sub_manual_wrap .help_list > li {margin-top:10px;padding-left:10px;background:url('../../img/icon/icon_manual_arrow.gif') no-repeat 0px 5px;color:#000;font-size:12px;}
+.sub_manual_wrap .help_list > li dl {margin:0;}
+.sub_manual_wrap .help_list > li dt {padding:0;background:none;font-weight:normal;}
+.sub_manual_wrap .help_list > li dd {margin:3px 0 0;color:#4b4b4b;font-weight:normal;line-height:17px;}
